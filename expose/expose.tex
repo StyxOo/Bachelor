@@ -48,11 +48,11 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
 %%%
 
 %%% ngerman: language set to new-german
-\usepackage{ngerman}
+%\usepackage{ngerman}
 
 %%% babel: language set (can cause some conflicts with package ngerman)
 %%%        use it only for multi-language documents or non-german ones
-%\usepackage[ngerman]{babel}
+\usepackage[english]{babel}
 
 %%% inputenc: coding of german special characters
 \usepackage[utf8]{inputenc}
@@ -154,6 +154,14 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
   pdfcreator={Accomplished with LaTeX2e and pdfLaTeX with hyperref-package.}, %% 
   pdfproducer={}, %%
   pdfkeywords={} %%
+}
+
+
+%%% rename table of contants
+%%% replace    english  with the language you use
+\addto\captionsenglish{
+  \renewcommand{\contentsname}
+    {Table of contents} % Title goes in here
 }
 
 
@@ -283,16 +291,16 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
 %%%
 \newpage
 
-\section{Einleitung}
+\section{Introduction}
 The postmodern word produces huge amouts of data every second. Analysing this data leads can lead to better informed decision making in every sector. Yet the wast amounts of data created are often hard to comprehend with the human mind. Infographics is about finding ways to represent this data in visually appealing, yet easily understandable visual representations. Doing this quickly and always up to date can be crucial. There are many tools awailable to to help with the creationg of infographics. In this thesis we will do a deep dive into the possibilities of one of these tools. The 'd3.js'(D3) library for JavaScript. To show its capabilities we will create graphics from data of various aspects of the Ukraine conflict.
 
-\section{Grundlagen}
+\section{Basics}
 
 \paragraph{Infographics}
 What is it?
 
 \paragraph{Technologies}
-d3.js, JavaScript, html
+d3.js, JavaScript, html, git
 
 \paragraph{Data}
 What kind? From where? Reliability?
