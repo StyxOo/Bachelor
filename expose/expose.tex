@@ -1,0 +1,396 @@
+
+%%% File-Information {{{
+%%% Filename: template_bericht.tex
+%%% Purpose: lab report, technical report, project report
+%%% Time-stamp: <2004-06-30 18:19:32 mp>
+%%% Authors: The LaTeX@TUG-Team [http://latex.tugraz.at/]:
+%%%          Karl Voit (vk), Michael Prokop (mp), Stefan Sollerer (ss)
+%%% History:
+%%%   20050914 (ss) correction of "backref=true" to "backref" due to hyperref documentation
+%%%   20040630 (mp) added comments to foldmethod at end of file
+%%%   20040625 (vk,ss) initial version
+%%%
+%%% Notes:
+%%%
+%%%
+%%%
+%%% }}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% main document {{{
+
+\documentclass[
+a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper, ...
+% landscape,   %% sets the orientation to landscape
+% twoside,     %% changes to a two-page-layout (alternatively: oneside)
+% twocolumn,   %% changes to a two-column-layout
+% headsepline, %% add a horizontal line below the column title
+% footsepline, %% add a horizontal line above the page footer
+% titlepage,   %% only the titlepage (using titlepage-environment) appears on the first page (alternatively: notitlepage)
+% parskip,     %% insert an empty line between two paragraphs (alternatively: halfparskip, ...)
+% leqno,       %% equation numbers left (instead of right)
+% fleqn,       %% equation left-justified (instead of centered)
+% tablecaptionabove, %% captions of tables are above the tables (alternatively: tablecaptionbelow)
+% draft,       %% produce only a draft version (mark lines that need manual edition and don't show graphics)
+% 10pt         %% set default font size to 10 point
+% 11pt         %% set default font size to 11 point
+12pt         %% set default font size to 12 point
+]{scrartcl}  %% article, see KOMA documentation (scrguide.dvi)
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% packages
+%%%
+
+%%%
+%%% encoding and language set
+%%%
+
+%%% ngerman: language set to new-german
+\usepackage{ngerman}
+
+%%% babel: language set (can cause some conflicts with package ngerman)
+%%%        use it only for multi-language documents or non-german ones
+%\usepackage[ngerman]{babel}
+
+%%% inputenc: coding of german special characters
+\usepackage[utf8]{inputenc}
+
+%%% fontenc, ae, aecompl: coding of characters in PDF documents
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}
+
+%%%
+%%% technical packages
+%%%
+
+%%% amsmath, amssymb, amstext: support for mathematics
+%\usepackage{amsmath,amssymb,amstext}
+
+%%% psfrag: replace PostScript fonts
+\usepackage{psfrag}
+
+%%% listings: include programming code
+%\usepackage{listings}
+
+%%% units: technical units
+%\usepackage{units}
+
+%%%
+%%% layout
+%%%
+
+%%% scrpage2: KOMA heading and footer
+%%% Note: if you don't use this package, please remove 
+%%%       \pagestyle{scrheadings} and corresponding settings
+%%%       below too.
+%%% \usepackage[automark]{scrpage2}
+
+
+%%%
+%%% PDF
+%%%
+
+\usepackage{ifpdf}
+
+%%% Should be LAST usepackage-call!
+%%% For docu on that, see reference on package ``hyperref''
+\ifpdf%   (definitions for using pdflatex instead of latex)
+
+  %%% graphicx: support for graphics
+  \usepackage[pdftex]{graphicx}
+
+  \pdfcompresslevel=9
+
+  %%% hyperref (hyperlinks in PDF): for more options or more detailed
+  %%%          explanations, see the documentation of the hyperref-package
+  \usepackage[%
+    %%% general options
+    pdftex=true,      %% sets up hyperref for use with the pdftex program
+    %plainpages=false, %% set it to false, if pdflatex complains: ``destination with same identifier already exists''
+    %
+    %%% extension options
+    backref,      %% adds a backlink text to the end of each item in the bibliography
+    pagebackref=false, %% if true, creates backward references as a list of page numbers in the bibliography
+    colorlinks=false,   %% turn on colored links (true is better for on-screen reading, false is better for printout versions)
+    %
+    %%% PDF-specific display options
+    bookmarks=true,          %% if true, generate PDF bookmarks (requires two passes of pdflatex)
+    bookmarksopen=false,     %% if true, show all PDF bookmarks expanded
+    bookmarksnumbered=false, %% if true, add the section numbers to the bookmarks
+    %pdfstartpage={1},        %% determines, on which page the PDF file is opened
+    pdfpagemode=None         %% None, UseOutlines (=show bookmarks), UseThumbs (show thumbnails), FullScreen
+  ]{hyperref}
+
+
+  %%% provide all graphics (also) in this format, so you don't have
+  %%% to add the file extensions to the \includegraphics-command
+  %%% and/or you don't have to distinguish between generating
+  %%% dvi/ps (through latex) and pdf (through pdflatex)
+  \DeclareGraphicsExtensions{.pdf}
+
+\else %else   (definitions for using latex instead of pdflatex)
+
+  \usepackage[dvips]{graphicx}
+
+  \DeclareGraphicsExtensions{.eps}
+
+  \usepackage[%
+    dvips,           %% sets up hyperref for use with the dvips driver
+    colorlinks=false %% better for printout version; almost every hyperref-extension is eliminated by using dvips
+  ]{hyperref}
+
+\fi
+
+
+%%% sets the PDF-Information options
+%%% (see fields in Acrobat Reader: ``File -> Document properties -> Summary'')
+%%% Note: this method is better than as options of the hyperref-package (options are expanded correctly)
+\hypersetup{
+  pdftitle={}, %%
+  pdfauthor={}, %%
+  pdfsubject={}, %%
+  pdfcreator={Accomplished with LaTeX2e and pdfLaTeX with hyperref-package.}, %% 
+  pdfproducer={}, %%
+  pdfkeywords={} %%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% user defined commands
+%%%
+
+%%% \mygraphics{}{}{}
+%% usage:   \mygraphics{width}{filename_without_extension}{caption}
+%% example: \mygraphics{0.7\textwidth}{rolling_grandma}{This is my grandmother on inlinescates}
+%% requires: package graphicx
+%% provides: including centered pictures/graphics with a boldfaced caption below
+%% 
+\newcommand{\mygraphics}[3]{
+  \begin{center}
+    \includegraphics[width=#1, keepaspectratio=true]{#2} \\
+    \textbf{#3}
+  \end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% define the titlepage
+%%%
+
+% \subject{}   %% subject which appears above titlehead
+% \titlehead{} %% special heading for the titlepage
+
+%%% title
+\title{Performancevergleich einiger Speicherstrukturen und Mesh-Generations-Algorithmen von Voxel Terrains mit blockartigem Erscheinungsbild}
+
+%%% author(s)
+\author{Luis Rothenh\"ausler (20202459)}
+
+%%% date
+\date{Brandenburg, der \today{}}
+
+% \publishers{}
+
+% \thanks{} %% use it instead of footnotes (only on titlepage)
+
+% \dedication{} %% generates a dedication-page after titlepage
+
+
+%%% uncomment following lines, if you want to:
+%%% reuse the maketitle-entries for hyperref-setup
+%\newcommand\org@maketitle{}
+%\let\org@maketitle\maketitle
+%\def\maketitle{%
+%  \hypersetup{
+%    pdftitle={\@title},
+%    pdfauthor={\@author}
+%    pdfsubject={\@subject}
+%  }%
+%  \org@maketitle
+%}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% set heading and footer
+%%%
+
+%%% scrheadings default: 
+%%%      footer - middle: page number
+%%% \pagestyle{scrheadings}
+
+%%% user specific
+%%% usage:
+%%% \position[heading/footer for the titlepage]{heading/footer for the rest of the document}
+
+%%% heading - left
+% \ihead[]{}
+
+%%% heading - center
+% \chead[]{}
+
+%%% heading - right
+% \ohead[]{}
+
+%%% footer - left
+% \ifoot[]{}
+
+%%% footer - center
+% \cfoot[]{}
+
+%%% footer - right
+% \ofoot[]{}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% begin document
+%%%
+
+\begin{document}
+
+% \pagenumbering{roman} %% small roman page numbers
+
+%%% include the title
+% \thispagestyle{empty}  %% no header/footer (only) on this page
+ \maketitle
+
+%%% start a new page and display the table of contents
+% \newpage
+\tableofcontents
+
+%%% start a new page and display the list of figures
+% \newpage
+% \listoffigures
+
+%%% start a new page and display the list of tables
+% \newpage
+% \listoftables
+
+%%% display the main document on a new page 
+% \newpage
+
+% \pagenumbering{arabic} %% normal page numbers (include it, if roman was used above)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% begin main document
+%%% structure: \section \subsection \subsubsection \paragraph \subparagraph
+%%%
+\newpage
+
+\section{Einleitung}
+Voxelbasierte Welten, die in Blöcken repräsentiert werden, sind in Videospielen heutzutage keine Seltenheit mehr. Hierfür wird für jeden Block in der Welt eine ID gespeichert. Die sich daraus ergebenden Daten werden dann in ein Mesh überführt, welches angezeigt wird. Doch welche Speicherstrukturen eignen sich für die Darstellung solcher Welten, und wie performant sind diese? Welche Möglichkeiten zur Generierung von Meshes ergeben sich daraus? Wie lassen sich diese miteinander vergleichen? 
+
+Das Ziel dieser Arbeit ist es, diese Fragen zu beantworten. Hierfür werden zunächst gewisse Rahmenbedingungen gesetzt. Es wird von einer endlichen Welt ausgegangen. Weiterhin erfolgt die Einfärbung des Meshs über Vertex-Farben, nicht mittels Texturen. Zum Performancevergleich werden einige Variablen gesammelt, unter anderem der benötigte Speicherplatz, Zugriffszeiten, die Dauer der Mesh-Generierung sowie Anzahl der Vertices und Dreiecke im resultierenden Mesh.
+
+\section{Grundlagen}
+Es wird die Unity-Engine genutzt, um diese Tests durchzuführen. Daher wird die Implementation der Speicherstrukturen und Meshgenerierungsalgorithmen in C\# erfolgen. Weiterhin wird Rücksicht darauf genommen, das Unity Job-System sowie den Burst-Kompilierer zu nutzen. Beide diese Technologien sind Teil von Unitys Data-Oriented-Technology-Stack (DOTS). Die Unity Engine orientiert sich aktuell intern um. Hierbei ist das Ziel, alle bestehenden Features in DOTS neu umzusetzen. Das Job System ist hierbei für Multithreading zuständig. Es soll ermöglichen, Multithreaded Code zu schreiben, ohne sich um Race Conditions sorgen zu müssen. Der Burst-Kompiler soll C\# in performanteren Maschinencode zu übersetzen.
+
+Da es nicht möglich ist, eine ganze voxelbasierte Spielwelt in einem Stück zu speichern, wird diese üblicherweise in Chunks aufgeteilt. Die Speicherstrukturen und die Mesh-Generation erfolgt jeweils pro Chunk. Wie groß die Chunks sind ist durch eine Konstante, die Kantenlänge des Chunks, gegeben. Chunks könnten hierbei jede Form annehmen. In dieser Arbeit wird davon ausgegangen, dass die Chunks Würfel mit fester Kantenlänge sind und die Kantenlänge eine gerade Zahl ist. Weiterhin wird in den Chunks für jeden Voxel nur eine ID gespeichert. Diese ist eine ganzahlige Zahl. Mit einem Höchstwert von 65535 ist unsigned Short hierfür ausreichend und spart im Vergleich zu Integer die Hälfte an Bits.
+
+\section{Speicherstrukturen}
+Im Folgenden werden die einzelnen Speicherstrukturen beschrieben. Weiterhin wird auf die Kriterien eingegangen, welche zur Bewertung herangezogen werden.
+
+\subsection{Strukturen}
+Die Speicherstrukturen müssen es ermöglichen, die Voxel-ID an bestimmten Koordinaten zu finden und zu setzen. Weiterhin müssen sie als Structs implementiert sein, um im Job-System als Parameter genutzt werden zu können. 
+
+\paragraph{3D-Array}
+Diese Repräsentation ist der tatsächlichen Anordnung der Voxel am Nächsten. Im dreidimensionalen Array entsprechen die drei Indices des Zugriffes jeweils den x-, y- und z-Koordinaten des entsprechenden Voxels. Da für jeden Voxel immer eine ID gespeichert wird, ist der Speicherbedarf des 3D-Arrays immer gleich.
+
+\paragraph{1D-Array}
+In dem eindimensionalem Array wird eine dreidimensionale Repräsentation in ein einzelnes, langes Array überführt. Hierzu werden die Koordinaten mit einer Formel in einen Index übersetzt und andersherum. Der Vorteil gegenüber der dreidimensionalen Repräsentation ist der schnellere Speicherzugriff. Jedoch kommt hier die Umrechnung von Koordinaten hinzu. Vielleicht kann an manchen Stellen hier noch mit cleveren Indexoperationen gearbeitet werden. Wie auch bei dem 3D-Array ist der Speicherbedarf des 1D-Arrays immer gleich.
+
+\paragraph{Octree}
+Ein Octree ist eine dynamischere Repräsentation der Daten im Raum. Wie bei einem Baum üblich, gibt es hier einen einzelnen Ursprungsknotenpunkt. Jeder Knotenpunkt beinhaltet entweder eine Voxel-ID (Blattknoten) oder acht weitere Knoten (Astknoten). Die acht weiteren Knoten repräsentieren jeweils ein Achtel des Raumes des Elternknotens. In diesem Beispiel wird davon ausgegangen, dass der Octree den Raum gleichmäßig teilt. Weiterhin enthält jeder Knoten Informationen über seine Stufe im Baum. Damit können Rückschlüsse auf die Größe des Knotens gezogen werden.
+
+Der Octree ist in seinem Speicherbedarf abhängig von der Komplexität des darzustellenden Chunks. Für Leseoperationen muss der Baum durchschritten werden bis der entsprechende Blattknoten gefunden wird. Bei Schreiboperationen müssen gegebenenfalls Teile des Baumes umgeschrieben werden. Dafür ist der Speicherbedarf potentiell geringer als bei den Arrays. Außerdem ist es im Schnitt wahrscheinlich einfacher Meshes mit weniger Vertices und Dreiecken zu erstellen, da ein Blatt in vielen Fällen größer als nur ein Voxel ist.
+
+\subsection{PerformanceiKriterien}
+Es gibt einige Kriterien, die für die Performance der Speicherstrukturen genutzt werden. Die Lese- und Schreibzeit ist in vielen Fällen wahrscheinlich wichtiger als der Speicherbedarf. In Bereichen, in denen es selten zu Lese- und Schreiboperationen kommt, wird der Speicherbedarf relevanter.
+
+\paragraph{Speicherbedarf}
+Wie viel Speicherplatz verwendet die entsprechende Speicherstruktur?
+
+\paragraph{Lesezeit}
+Wie lange dauert es die ID eines Voxels an spezifischen Koordinaten zu lesen?
+
+\paragraph{Schreibzeit}
+Wie lange dauert es die ID eines Voxels an spezifischen Koordinaten zu schreiben?
+
+\section{Mesh-Generierung}
+Das Generieren eines Meshes beschreibt, in dieser Arbeit, das Überführen der Speicherstruktur in ein Modell aus Vertices und Dreiecken, welches in der Welt angezeigt werden kann. Hierbei sollte versucht werden die Zahl der Vertices und Dreiecke möglichst gering zu halten, um die Grafikkarte zu entlasten. Um dies zu erreichen werden die verschiedensten Techniken angewandt. Diese können sich je nach Speicherstruktur in der Implementation unterscheiden. Generell wird jedoch versucht, nur Voxelseiten darzustellen welche nicht von anderen verdeckt sind. Außerdem werden Vertices an der selben Position oft zusammengefasst. Da wir jedoch mit Vertex-Coloring und Flat-Shading arbeiten, muss hierbei beachtet werden, dass nur, weil zwei Vertices an der selben Stelle liegen, diese nicht unbedingt zusammengefasst werden können. Hierbei können potentiell weitere Vertices zusammengefasst werden, wenn der Flat-Shading Effekt durch einen Shader erreicht werden kann.
+
+\subsection{Algorithmen}
+Algorithmen, welche die Chunks Voxel für Voxel durchschreiten, können für alle Speicherstrukturen verwendet werden. Der Octree kann hierbei potentiell Arbeit einsparen, da nur für jeden Blattknoten ein Mesh erstellt werden muss.
+
+Generell kann auch überlegt werden für jeden Chunk sechs Meshes zu generieren,  eins für jede Seite. So kann der Chunk von der Kamera abgewandte Seiten deaktivieren und somit für die Grafikkarte weitere Vertices und Dreiecke einsparen.
+
+\paragraph{Der einfachste Ansatz}
+Es wird der Chunk Voxel für Voxel durchlaufen. Soll ein Voxel dargestellt werden, wird für jede seiner Seiten zunächst geprüft ob diese verdeckt ist. Dafür wird geprüft, ob es einen benachbarten Voxel gibt, welcher diese Seite verdeckt. Ist das nicht der Fall, werden die vier Eckpunkte der Seite festgehalten und die entsprechenden Dreiecke aufgespannt.
+
+\paragraph{Seitenweise Vertices zusammenfassen}
+Anders als bei dem ersten Algorithmus werden hier Vertices mit gleicher Position, Farbe und Normalenvektor Zusammengefasst.
+
+\paragraph{Blattweise}
+Dieser Algorithmus funktioniert nur bei Octrees. Hierbei wird jeder Blattknoten des Octrees betrachtet. Bei der Überprüfung der Nachbarn kann hier auf die Stufe des Blattknotens im eigenen Baum, sowie die Höhe des Nachbarblatts Bezug genommen werden. Sollte das Nachbarblatt auf der selben Stufe oder höher im Baum sein, so muss beispielsweise nur ein einziger Check gemacht werden um zu wissen, ob die Seite des Blattes angezeigt werden muss oder nicht. Weiterhin werden für eine Seite eines Blattes immer vier Vertices benötigt, egal wie groß der Bereich ist, welcher von dem Blatt abgedeckt wird.
+
+\subsection{Performance-Kriterien}
+Welche Kriterien hier wie wichtig sind, kommt darauf an, wie das Leistungsverhältnis zwischen CPU und GPU ist. Es muss beispielsweise nicht viel Zeit verwendet werden ein effektives Mesh zu generieren, wenn die Grafikkarte auch mit einem komplexeren Mesh nicht ausgelastet ist.
+
+\paragraph{Generationszeit}
+Wie lange braucht der ensprechende Algorithmus ein Mesh zu erstellen?
+
+\paragraph{Anzahl der Vertices}
+Wie viele Vertices hat das resultierende Mesh?
+
+\paragraph{Anzahl der Dreiecke}
+Wie viele Dreiecke besitzt das resultierende Mesh?
+
+\section{Test-Setup}
+Um die Speicherstrukturen und Algorithmen miteinander vergleichen zu können, werden zufällig generierte Welten genutzt. Diese Welten basieren auf jeweils einem Seed, welcher bei gleichem Input die gleiche Welt erzeugt. Damit sind die einzelnen Kriterien miteinander vergleichbar. Die zeitbasierten Kriterien werden anhand der Systemzeit ermittelt. Auch sollte darauf geachtet werden immer die selbe Performance zur Verfügung zu stellen.
+
+\section{Erwartungen}
+Ich erwarte, dass das 1D-Array sich, aufgrund seiner schnellen Lese- und Schreibzugriffe, als besonders nützlich erweist in Bereichen, welche sich oft verändern. Der Octree ist hingegen für Chunks geeignet, welche lange unverändert bleiben und nicht zu komplex sind. Sollte es bei der Mesh-Generierung große Unterschiede in der benötigten Zeit geben, bietet es sich hier wahrscheinlich an nach einer Voxeländerung zunächst so schnell wie möglich ein Mesh zu errechnen. Nachdem sich der entsprechende Chunk einige Zeit nicht geändert hat, kann hier im Hintergrund ein effektiveres Mesh errechnet werden.
+Weiterhin erwarte ich, dass sich im Laufe der Entwicklungszeit noch mehr Möglichkeiten für Meshgenerierungsalgorithmen ergeben werden.
+
+
+%%%
+%%% end main document
+%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \appendix  %% include it, if something (bibliography, index, ...) follows below
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%
+%%% bibliography
+%%%
+%%% available styles: abbrv, acm, alpha, apalike, ieeetr, plain, siam, unsrt
+%%%
+% \bibliographystyle{plain}
+
+%%% name of the bibliography file without .bib
+%%% e.g.: literatur.bib -> \bibliography{literatur}
+% \bibliography{FIXXME}
+
+\end{document}
+%%% }}}
+%%% END OF FILE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Notice!
+%%% This file uses the outline-mode of emacs and the foldmethod of Vim.
+%%% Press 'zi' to unfold the file in Vim.
+%%% See ':help folding' for more information.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Local Variables:
+%% mode: outline-minor
+%% OPToutline-regexp: "%% .*"
+%% OPTeval: (hide-body)
+%% emerge-set-combine-versions-template: "%a\n%b\n"
+%% End:
+%% vim:foldmethod=marker
