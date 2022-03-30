@@ -1,5 +1,4 @@
-## what?
-we want to show stuff
+# Infographics
+Infographics are graphic visual representations of information, data, or knowledge intended to present information quickly and clearly. ([souce](https://en.wikipedia.org/wiki/Infographic))
 
-### how?
-apparently [[d3.js]], because it seems quite cool.
+Infographics relies heavily on [[diagrams]] for representation.

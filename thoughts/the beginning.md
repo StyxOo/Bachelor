@@ -1,7 +1,6 @@
 # So, it' a bachelor thesis
 
-### there are many points to consider, like:
-- #### [[Infographics]]
-- #### [[Data]]
-- #### [[The What?]]
-- #### [[Fallbeispiel Ukraine]]
+### there are a few points to consider:
+- ### What are [[Infographics]]?
+- ### What is the [[Goal]] of the thesis?
+- ### What is the [[Context]] of the thesis?
