@@ -1,2 +1,8 @@
 # Obsidian files 
 .obsidian/
+
+# Pycharm files
+.idea/
+
+# Data files
+**/data/**/*.csv

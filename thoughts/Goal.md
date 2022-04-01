@@ -9,7 +9,7 @@ We will several vastly different kinds of [[diagrams]] to display the range of p
 - [ ] First we will have a look at types of [[diagrams]].
 - [ ] Then select a range of [[diagrams]] with different use-cases (i.e. **not** a line and a bar diagram).
 - [ ] For the selection of [[diagrams]] we decide how they can be applied in the [[Context]] of the Ukrain conflict
-- [ ] We need to find the required data to create the [[diagrams]]
+- [ ] We need to find the required [[Data]] to create the [[diagrams]]
 - [ ] The [[diagrams]] will be implemented individually
 - [ ] And if possible, the [[diagrams]] will all come together in a nice visually pleasing showcase
 
