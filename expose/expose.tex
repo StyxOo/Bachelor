@@ -292,7 +292,7 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
 \newpage
 
 \section{Introduction}
-The postmodern word produces huge amounts of data every second. Analyzing this data leads to better informed decision making in every sector. Yet the wast amounts of data created are often hard to comprehend with the human mind. Infographics is about finding ways to represent this data in visually appealing, yet easily understandable visual representations. Doing this quickly and always up to date can be crucial. There are many tools available to to help with the creating of infographics. In this thesis we will do a deep dive into the possibilities of one of these tools. The 'd3.js'(D3) library for JavaScript. To show its capabilities we will create graphics giving an overview of the Ukraine as a sovereign nation and the current events unfolding.
+The postmodern word produces huge amounts of data every second. Analyzing this data leads to better informed decision making in every sector. Yet the wast amounts of data created are often hard to comprehend with the human mind. Infographics is about finding ways to represent this data in visually appealing, yet easily understandable visual representations. Doing this quickly and always up to date can be crucial. There are many tools available to to help with the creating of infographics. In this thesis we will do a deep dive into the possibilities of one of these tools. The 'd3.js'(D3) library for JavaScript. To show its capabilities we will create graphics giving an overview of the Ukraine as a sovereign nation and the current events unfolding, from publicly available data.
 
 \section{Basics}
 This chapter gives an overview of the different aspects and concepts necessary to understand and follow the thesis.
@@ -313,13 +313,14 @@ d3.js, JavaScript, html, git, python
 
 \paragraph{Diagrams}
 Diagrams or charts are visual representations of data. They help understand and comprehend big amounts of data.
-There are three main use-cases for diagrams. The first is to represent how parts of a whole are in relation to each other. A typical example are pie-charts. The second is to compare the same data over an amount of time or between different data origins. Like bar-charts or line graphs. The third use-case is to show relations between different aspects of a general topic. Like a mind-map. Many diagrams combine different use-cases in their approach.
+There are three main use-cases for diagrams. The first is to represent how parts of a whole are in relation to each other. A typical example are pie-charts. The second is to compare the same data over an amount of time or between different data origins. Like bar-charts or line graphs. The third use-case is to show relations between different aspects of a general topic. Like a mind-map.
+Many, more complex, diagrams combine different use-cases in their approach. For example a world map with country lines shows the make-up of a whole. The world and its parts, the countries. At the same time countries can be color coded, according to i.e. the population density, making it possible to compare countries against each other.
 
 What are they? Why are they useful?
 Which types, and for what purposes do they exist?
 
 \paragraph{Data}
-Data is produced everywhere. Most of it is created in a commercial setting. But there is publicly available data as well. Some is even open source or available through an api. Yet most of the available data on current events is highly individual and not machine readable. For this thesis we will use data which is publicly available and machine readable. As this thesis focuses on the technical implementation and to show the possibilities of d3js, we do neither need nor claim the data to be correct or unbiased.
+Data is produced everywhere. Most of it is created in a commercial setting. But there many public data sources available as well. Some is even open source or available through api requests. Yet most of the available data on current events is highly individual and not machine readable. For this thesis we will only use data which is publicly available and machine readable. As this thesis focuses on the technical implementation and to show the possibilities of D3, we do neither need nor claim the data to be correct or unbiased. Even so, where possible, data from sources generally perceived as reliable, like UNICEF, is preferred.
 
 What kind? From where? Reliability?
 
