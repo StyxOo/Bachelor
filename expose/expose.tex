@@ -192,7 +192,7 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
 % \titlehead{} %% special heading for the titlepage
 
 %%% title
-\title{Showcase of d3.js and it's possibilities in infographics using the Ukraine conflict as an example}
+\title{Showcase of d3.js and it's possibilities in infographics using the Ukraine conflict as an example (WiP)}
 
 %%% author(s)
 \author{Luis Rothenh\"ausler (20202459)}
@@ -292,9 +292,10 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
 \newpage
 
 \section{Introduction}
-The postmodern word produces huge amouts of data every second. Analysing this data leads can lead to better informed decision making in every sector. Yet the wast amounts of data created are often hard to comprehend with the human mind. Infographics is about finding ways to represent this data in visually appealing, yet easily understandable visual representations. Doing this quickly and always up to date can be crucial. There are many tools awailable to to help with the creationg of infographics. In this thesis we will do a deep dive into the possibilities of one of these tools. The 'd3.js'(D3) library for JavaScript. To show its capabilities we will create graphics giving an overview of the Ukrain as a soverign nation.
+The postmodern word produces huge amounts of data every second. Analyzing this data leads to better informed decision making in every sector. Yet the wast amounts of data created are often hard to comprehend with the human mind. Infographics is about finding ways to represent this data in visually appealing, yet easily understandable visual representations. Doing this quickly and always up to date can be crucial. There are many tools available to to help with the creating of infographics. In this thesis we will do a deep dive into the possibilities of one of these tools. The 'd3.js'(D3) library for JavaScript. To show its capabilities we will create graphics giving an overview of the Ukraine as a sovereign nation and the current events unfolding.
 
 \section{Basics}
+This chapter gives an overview of the different aspects and concepts necessary to understand and follow the thesis.
 
 \paragraph{Infographics}
 "Infographics (a clipped compound of "information" and "graphics") are graphic visual representations of information, data, or knowledge intended to present information quickly and clearly. They can improve cognition by utilizing graphics to enhance the human visual system's ability to see patterns and trends." \footnote{https://en.wikipedia.org/wiki/Infographic - 31.03.2022}
@@ -302,31 +303,41 @@ The postmodern word produces huge amouts of data every second. Analysing this da
 What is it?
 
 \paragraph{Technologies}
-the project will be built using mainly JavaScript and html, with a bit of CSS. This allows to easily adapt the results into all kinds of web based applications, without compatability issues which could arise by using a framework. Additionally we use the D3.js library. It "is a JavaScript library for manipulating documents based on data. D3 helps you bring data to life using HTML, SVG, and CSS." \footnote{https://d3js.org/ - 31.03.2022}
-Versioning control is done using a git repository. For easy access, the repository is hosted on github. Offline data is not provided in git directly, as the files are too big. Sources are provided.
+the project will be built using mainly JavaScript and html, with a bit of CSS. This allows to easily adapt the results into all kinds of web based applications, without compatibility issues which could arise by using a framework. Additionally we use the D3.js library. It "is a JavaScript library for manipulating documents based on data. D3 helps you bring data to life using HTML, SVG, and CSS." \footnote{https://d3js.org/ - 31.03.2022}
+
+Versioning control is done using a git repository. For easy access, the repository is hosted on github. Offline data is not provided in git directly, as the files are too big. Their sources are provided though.
+
+To faster comprehend the huge amounts of available raw data, Python is used. It helps quickly parsing the data and identifying interesting aspects.
 
 d3.js, JavaScript, html, git, python
 
 \paragraph{Diagrams}
 Diagrams or charts are visual representations of data. They help understand and comprehend big amounts of data.
-There are three main use-cases for diagrams. The first is to represent how parts of a whole are in relation to each other. A typical example are pie-charts. The second is to compare the same data over an amount of time or between differnt data origins. Like bar-charts or line graphs. The third use-case is to show relations between different aspects of a general topic. Like a mind-map. Many diagrams combine different use-cases in their approach.
+There are three main use-cases for diagrams. The first is to represent how parts of a whole are in relation to each other. A typical example are pie-charts. The second is to compare the same data over an amount of time or between different data origins. Like bar-charts or line graphs. The third use-case is to show relations between different aspects of a general topic. Like a mind-map. Many diagrams combine different use-cases in their approach.
 
 What are they? Why are they useful?
 Which types, and for what purposes do they exist?
 
 \paragraph{Data}
-Data is produced everywhere. Most of it is created in a comercial setting. But there is publicly available data as well. Some is even open source or available through an api. Yet most of the available data on current events is highy individual and not mashine readable. For this thesis we will use data which is publicly available and mashine readable. As this thesis focuses on the technical implementation and to show the possibilities of d3js, we do neither need nor claim the data to be correct or unbiased.
+Data is produced everywhere. Most of it is created in a commercial setting. But there is publicly available data as well. Some is even open source or available through an api. Yet most of the available data on current events is highly individual and not machine readable. For this thesis we will use data which is publicly available and machine readable. As this thesis focuses on the technical implementation and to show the possibilities of d3js, we do neither need nor claim the data to be correct or unbiased.
 
 What kind? From where? Reliability?
 
 \section{Selection process}
+Selecting the data and diagrams to show is not an easy task. The first step will be to find data interesting enough to want to represent. The selected data should create a good general overview of the Ukraine. Therefore the selected data should come from a wide variety of fields. In some cases other countries data might be beneficial for context and comparison. The possible representations for the data, also play a roll in the selection process. As the goal is to create a showcase, we want to specifically find diagrams of different styles and use-cases. If there are certain diagram styles we want to include in the showcase, appropriate data might be selected to make this possible. It's important to note, that the combination of data and representation should always feel natural and not forced through necessity. But as this thesis focusses on the technical possibilities of D3, the selected diagrams are not necessarily the best didactic choices for presenting their data.
+
 Selecting the diagrams we show goes hand in hand with the available data we can find. 
-Using the available data: Which types of diagrams are useful? How can we show off as many differnt diagrams as possible?
+Using the available data: Which types of diagrams are useful? How can we show off as many different diagrams as possible?
 
 \section{Creating a showcase}
+To bring all the different diagrams together, we will create a showcase. This showcase will serve any interested person, trying to get an overview of the country. Therefore it could be used by Ukrainian government websites or news providers trying to provide context for the current conflict. The showcase is centered around the country of Ukraine. On the country view there will be several markers. Some might be chosen for their geographic location, some to provide an equal distribution of markers. Each marker can be interacted with. In doing so, it will show one aspect and therefore diagram of the Ukraine.
+
 How do we pull it all together? In which context are the graphics to be shown?
 
 \section{Expectations}
+Choosing interesting and representative data for the showcase will be a challenge. Every person has different interests and could find different aspects interesting. Furthermore it is very difficult finding machine readable data about the ongoing conflict. Yet the amount of data available on the country is enormous. Looking through all the available data is a huge time investment. Therefore it is important not to get carried away in wanting to present more and more.
+I think the possibilities of creating the showcase are quite unlimited. It will be an interesting journey going though and refining the different aspects. But I do think the benefits of having such a showcase can be quite strong. A lot, if not most, people, including myself, only have a vague idea about the country. By creating this showcase I hope to generate the feeling of "Hey, this is like in my place". A feeling of companionship. A feeling which might motivate people to increase or start their active involvement against the war.
+
 What will issues be? How do I think the possibilities are? How complex can we be in not too much time?
 
 
@@ -346,7 +357,7 @@ What will issues be? How do I think the possibilities are? How complex can we be
 % \bibliographystyle{plain}
 
 %%% name of the bibliography file without .bib
-%%% e.g.: literatur.bib -> \bibliography{literatur}
+%%% e.g.: literature.bib -> \bibliography{literature}
 % \bibliography{FIXXME}
 
 \end{document}
