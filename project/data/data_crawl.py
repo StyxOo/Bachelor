@@ -1,7 +1,7 @@
 import csv
 
 
-data_path = "./fusion_GLOBAL_DATAFLOW_UNICEF_1.0_all.csv"
+data_path = "./unicef/fusion_GLOBAL_DATAFLOW_UNICEF_1.0_all.csv"
 
 
 def print_countries(data):
