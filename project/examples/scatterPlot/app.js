@@ -18,20 +18,24 @@ const render = data => {
 
     const xScale = d3.scaleLinear()
         .domain([0, d3.max(data, xValue)])  // Original range of values
-        .range([0, innerWidth]);            // Range to map to
+        .range([0, innerWidth])             // Range to map to
+        .nice();
 
-    const yScale = d3.scaleBand()
+    const yScale = d3.scalePoint()
         .domain(data.map(yValue))
         .range([0, innerHeight])
-        .padding(0.2);
+        .padding(0.3);
 
     const g = svg.append('g')                                           // Adds a (g)roup element to the svg
         .attr('transform', `translate(${margin.left},${margin.top})`);  // and adds a transform attribute
 
+    const yAxis = d3.axisLeft(yScale)
+        .tickSize(-innerWidth);
+
     g.append('g')
-        .call(d3.axisLeft(yScale))          // Call axisLeft as function on the g element
-        .selectAll('.domain, .tick line')   // and select all lines in tick class tags
-            .remove();                      // and remove them
+        .call(yAxis)
+        .selectAll('.domain')
+            .remove();
 
     const xAxisTickFormat = number =>   // For an input number
         d3.format('.3s')(number)        // format the number to have three significant digits
@@ -55,15 +59,11 @@ const render = data => {
         .attr('y', 40)
         .text('Population')
 
-    g.selectAll('rect').data(data)                          // select all rects and link to data
-        .enter().append('rect')                             // when new data points enter, add a rect
-            // .attr('width', d => xScale(xValue(d)))          // with width depending on the x-value
-            .attr('width', 0)                               // or 0 to start, when we want to animate.
-            .attr('height', yScale.bandwidth())             // Set appropriate height.
-            .attr('y', d => yScale(yValue(d)))              // and y offset, so rects don't overlap.
-            .transition()                                   // Adds a transition/animation
-                .duration(2000)                             // which takes 2 seconds
-                .attr('width', d => xScale(xValue(d)));     // changing the width value to whatever is appropriate for that data point
+    g.selectAll('circle').data(data)
+        .enter().append('circle')
+            .attr('cx', d => xScale(xValue(d)))
+            .attr('cy', d => yScale(yValue(d)))
+            .attr('r', 10)
 
     g.append('text')
         .text('Country Population')

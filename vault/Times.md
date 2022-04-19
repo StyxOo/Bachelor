@@ -8,5 +8,6 @@
 | 05.04.22 | 12:00 | 16:00 | Playing around with d3 and setting up laptop as workspace. |
 | 10.04.22 | 20:00 | 22:00 | Collecting questions to discuss in meeting with professor |
 | 12.04.22 | 17:00 | 20:00 | Learning |
-| 13.04.22 | 15:00 | 18:30 | Learning D3 |
+| 13.04.22 | 15:00 | 19:30 | Learning D3 |
+| 19.04.22 | 10:30 | 14:30 | Learning D3 |
 
