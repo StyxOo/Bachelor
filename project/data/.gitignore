@@ -1,0 +1,4 @@
+# Ignored dataset, aka raw data
+/ukraine_sdg/*.csv
+/unicef/*.csv
+/unhcr/*.json

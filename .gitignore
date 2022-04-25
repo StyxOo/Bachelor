@@ -4,6 +4,5 @@
 # Pycharm files
 .idea/
 
-# Data files
-**/data/**/*.csv
-**/data/**/*.json
+# Xournay++ autosave files
+*.autosave.xopp
