@@ -24,7 +24,7 @@ We will several vastly different kinds of [[Diagrams]] to display the range of p
 > We take the refugee data from UNHCR
 
 - [ ] The [[Diagrams]] will be implemented individually
-
+- [ ] A [[Wiki]] is created
 - [ ] And if possible, the [[Diagrams]] will all come together in a nice visually pleasing showcase
 
 ### Side-Objectives

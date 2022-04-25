@@ -14,7 +14,8 @@
 | 24.04.22 | 22:45 | 23:15 | Comment exposé with pen |
 | 25.04.22 | 13:45 | 14:15 | Plan out diagrams I want to show |
 | 25.04.22 | 14:15 | 15:15 | Exposé v2 |
-| 25.04.22 | 15:15 | hh:mm | Python data minimize |
+| 25.04.22 | 15:15 | 15:30 | Python data minimize |
+| 25.04.22 | 18:45 | 20:00 | First diagram ready for use |
 
 
 

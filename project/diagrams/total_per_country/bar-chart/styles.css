@@ -1,0 +1,28 @@
+body {
+    margin: 0px;
+}
+
+rect {
+    fill: steelblue;
+}
+
+text {
+    font-size: 1.2em;
+    font-family: sans-serif;
+}
+
+.tick text {
+    font-size: 1em;
+    fill : #635F5D;
+    /*transform: rotate(20deg);*/
+}
+
+.tick line {
+    stroke: #C0C0BB;
+    stroke-width: 0.2em;
+}
+
+#axis-label {
+    font-size: 1.2em;
+    fill : black;
+}

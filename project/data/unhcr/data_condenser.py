@@ -4,12 +4,12 @@ import json
 def write_csv(data, file_name):
     with open(file_name, mode='w') as out_file:
         for row in data:
-            out_file.write(f'{row[0]}, {row[1]}\n')
+            out_file.write(f'{row[0]},{row[1]}\n')
 
 
 def condense_daily_refugees():
     file_path = 'total_refugees_daily.json'
-    condensed_data = [["Date", "Total Refugees"]]
+    condensed_data = [["date", "refugees"]]
     with open(file_path, mode='r') as json_file:
         raw_data = json.load(json_file)
         for timestamp in raw_data['data']['timeseries']:
@@ -22,7 +22,7 @@ def condense_daily_refugees():
 
 def condense_per_country_totals():
     file_path = 'total_refugees_per_country.json'
-    condensed_data = [["Country", "Total Refugees"]]
+    condensed_data = [["country", "refugees"]]
     with open(file_path, mode='r') as json_file:
         raw_data = json.load(json_file)
         for entry in raw_data['data']:
