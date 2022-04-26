@@ -1,8 +1,6 @@
-const svg = d3.select('#mainFrame');
-
-const height = parseFloat(svg.attr('height'));  // Converts string of number to float
-const width = +svg.attr('width');               // Shorthand for parseFloat
-
+const svg = d3.select('#mainFrame')
+    .attr('height', innerHeight)
+    .attr('width', innerWidth);
 
 const render = data => {
     const xValue = d => d.refugees;
@@ -13,8 +11,8 @@ const render = data => {
         bottom: 20,
         left: 118
     }
-    const innerWidth = width - margin.left - margin.right
-    const innerHeight = height - margin.top - margin.bottom
+    const innerWidth = this.innerWidth - margin.left - margin.right
+    const innerHeight = this.innerHeight - margin.top - margin.bottom
 
     const xScale = d3.scaleLinear()
         .domain([0, d3.max(data, xValue)])  // Original range of values

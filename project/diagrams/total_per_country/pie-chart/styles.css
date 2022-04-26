@@ -7,10 +7,6 @@ rect {
     fill: steelblue;
 }
 
-rect:hover {
-    fill: lightskyblue;
-}
-
 text {
     font-size: 1.2em;
     font-family: sans-serif;
