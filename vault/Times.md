@@ -16,6 +16,7 @@
 | 25.04.22 | 14:15 | 15:15 | Exposé v2 |
 | 25.04.22 | 15:15 | 15:30 | Python data minimize |
 | 25.04.22 | 18:45 | 20:00 | First diagram ready for use |
-
-
-
+| 26.04.22 | 14:45 | 15:45 | Project work |
+| 26.04.22 | 19:45 | 21:15 | Project work |
+| 27.04.22 | 15:30 | 16:30 | Successfully stole pie-chart example |
+Here| 27.04.22 | 18:45 | 21:00 | Self feedback for diagrams. [[diagram-self-feedback.pdf]]|

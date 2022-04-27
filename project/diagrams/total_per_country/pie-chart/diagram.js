@@ -1,45 +1,23 @@
+import {PieChart} from "./pieChart.js";
+
 const svg = d3.select('#mainFrame')
     .attr('height', innerHeight)
     .attr('width', innerWidth);
 
+
 const render = data => {
-    const xValue = d => d.refugees;
-    const yValue = d => d.country;
-    const margin = {
-        top: 20,
-        right: 20,
-        bottom: 20,
-        left: 118
-    }
-    const innerWidth = this.innerWidth - margin.left - margin.right
-    const innerHeight = this.innerHeight - margin.top - margin.bottom
+    const chart = PieChart(data, {
+        name: d => d.country,
+        value: d => d.refugees,
+        width : innerWidth,
+        height: innerHeight,
+        innerRadius: 10
+    });
 
-    const radiusScale = d3.scaleLinear()
-        .domain([0, d3.max(data, xValue)])  // Original range of values
-        .range([0, 360])             // Range to map to
-        .nice();
+    console.log(chart);
 
-    console.log(data.map(yValue))
-    const yScale = d3.scaleOrdinal()
-        .domain(data.map(yValue))
-        .range(['gold', "blue", "green", "yellow", "black", "grey", "darkgreen", "pink", "brown", "slateblue", "grey1", "orange"]);
-
-
-    const g = svg.append('g')                                           // Adds a (g)roup element to the svg
-        .attr('transform', `translate(${margin.left},${margin.top})`);  // and adds a transform attribute
-
-
-    g.selectAll('path').data(data)                          // select all rects and link to data
-        .enter().append('path')                             // when new data points enter, add a rect
-        .attr('d', d3.arc()({
-            innerRadius : 100,
-            outerRadius: 200,
-            startAngle: 0,
-            endAngle: 90
-        }))
-        .transition()                                   // Adds a transition/animation
-        .duration(2000)                             // which takes 2 seconds
-        ;     // changing the width value to whatever is appropriate for that data point
+    svg.append('g');
+    svg.append(() => { return chart; });
 };
 
 const dataPath = '../total_refugees_per_country_condensed.csv';
