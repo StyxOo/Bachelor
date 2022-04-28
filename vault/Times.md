@@ -19,4 +19,5 @@
 | 26.04.22 | 14:45 | 15:45 | Project work |
 | 26.04.22 | 19:45 | 21:15 | Project work |
 | 27.04.22 | 15:30 | 16:30 | Successfully stole pie-chart example |
-Here| 27.04.22 | 18:45 | 21:00 | Self feedback for diagrams. [[diagram-self-feedback.pdf]]|
+| 27.04.22 | 18:45 | 21:00 | Self feedback for diagrams. [[diagram-self-feedback.pdf]]|
+| 28.04.22 | 13:30 | 14:30 | Setting up LaTEX thesis framework |

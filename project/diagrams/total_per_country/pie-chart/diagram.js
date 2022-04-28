@@ -11,7 +11,7 @@ const render = data => {
         value: d => d.refugees,
         width : innerWidth,
         height: innerHeight,
-        innerRadius: 10
+        innerRadius: 100
     });
 
     console.log(chart);
