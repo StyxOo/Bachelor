@@ -1,8 +1,6 @@
 # Obsidian files 
 .obsidian/
-
-# Pycharm files
-.idea/
+.trash/
 
 # Xournay++ autosave files
 *.autosave.xopp
