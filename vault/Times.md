@@ -21,5 +21,5 @@
 | 27.04.22 | 15:30 | 16:30 | Successfully stole pie-chart example |
 | 27.04.22 | 18:45 | 21:00 | Self feedback for diagrams. [[diagram-self-feedback.pdf]]|
 | 28.04.22 | 13:30 | 14:30 | Setting up LaTEX thesis framework |
-| 02.05.22 | 13:30 | hh:mm | More LaTEX stuff |
+| 02.05.22 | 13:30 | 14:45 | More LaTEX stuff |
 
