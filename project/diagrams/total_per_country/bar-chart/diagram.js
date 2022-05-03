@@ -50,17 +50,33 @@ const render = data => {
         .select('.domain')
             .remove();
 
-    const rectEnterGroup = g.selectAll('rect').data(data)                          // select all rects and link to data
-        .enter().append('rect')                             // when new data points enter, add a rect
-            // .attr('width', d => xScale(xValue(d)))          // with width depending on the x-value
-            .attr('width', 0)                               // or 0 to start, when we want to animate.
-            .attr('height', yScale.bandwidth())             // Set appropriate height.
-            .attr('y', d => yScale(yValue(d)))              // and y offset, so rects don't overlap.
-            .attr('fill', d => colors(d))
+    const barsEnterGroup = g.selectAll('rect').data(data)
+        .enter().append('g')
+            .attr('class', 'barGroup')
 
-    rectEnterGroup.transition()                                   // Adds a transition/animation
-        .duration(2000)                             // which takes 2 seconds
-        .attr('width', d => xScale(xValue(d)));     // changing the width value to whatever is appropriate for that data point
+
+    const rectsEnterGroup = barsEnterGroup.append('rect')
+        .attr('width', 0)                               // or 0 to start, when we want to animate.
+        .attr('height', yScale.bandwidth())             // Set appropriate height.
+        .attr('y', d => yScale(yValue(d)))              // and y offset, so rects don't overlap.
+        .attr('fill', d => colors(d))
+        .transition()                                   // Adds a transition/animation
+            .duration(2000)                             // which takes 2 seconds
+            .attr('width', d => xScale(xValue(d)));     // changing the width value to whatever is appropriate for that data point
+
+    barsEnterGroup.append('text').text(d => d.refugees)
+        .attr('class', 'barText')
+        .attr('text-anchor', 'end')
+        .attr('dy', '0.32em')
+        .attr('y', d => yScale(yValue(d)) + yScale.bandwidth()/2)
+        .attr('x', 0)
+        .transition(2000)
+            .duration(2000)
+            .attr('x', d=>{
+                const scaleValue = xScale(xValue(d));
+                const value = (scaleValue - 10 > 0) ? scaleValue - 10: 50;
+                return value;
+            })
 };
 
 const dataPath = '../total_refugees_per_country_condensed.csv';

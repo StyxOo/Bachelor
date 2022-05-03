@@ -13,9 +13,10 @@ text {
     font-family: sans-serif;
 }
 
-rect text {
-    font-size: 1em;
+.barText {
+    font-size: 0.8em;
     fill : #635F5D;
+    pointer-events: none;
 }
 
 .tick text {
