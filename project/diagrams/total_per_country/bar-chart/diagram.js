@@ -24,6 +24,9 @@ const render = data => {
         .range([0, innerHeight])
         .padding(0.2);
 
+    const colors = d3.scaleOrdinal(d3.schemeDark2);
+    // console.log(colors)
+
     const g = svg.append('g')                                           // Adds a (g)roup element to the svg
         .attr('transform', `translate(${margin.left},${margin.top})`);  // and adds a transform attribute
 
@@ -47,21 +50,17 @@ const render = data => {
         .select('.domain')
             .remove();
 
-    xAxisGroup.append('text')
-        .attr('id', 'axis-label')
-        .attr('fill', 'black')
-        .attr('x', innerWidth / 2)
-        .attr('y', 40)
-
-    g.selectAll('rect').data(data)                          // select all rects and link to data
+    const rectEnterGroup = g.selectAll('rect').data(data)                          // select all rects and link to data
         .enter().append('rect')                             // when new data points enter, add a rect
             // .attr('width', d => xScale(xValue(d)))          // with width depending on the x-value
             .attr('width', 0)                               // or 0 to start, when we want to animate.
             .attr('height', yScale.bandwidth())             // Set appropriate height.
             .attr('y', d => yScale(yValue(d)))              // and y offset, so rects don't overlap.
-            .transition()                                   // Adds a transition/animation
-                .duration(2000)                             // which takes 2 seconds
-                .attr('width', d => xScale(xValue(d)));     // changing the width value to whatever is appropriate for that data point
+            .attr('fill', d => colors(d))
+
+    rectEnterGroup.transition()                                   // Adds a transition/animation
+        .duration(2000)                             // which takes 2 seconds
+        .attr('width', d => xScale(xValue(d)));     // changing the width value to whatever is appropriate for that data point
 };
 
 const dataPath = '../total_refugees_per_country_condensed.csv';

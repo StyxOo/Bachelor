@@ -22,4 +22,5 @@
 | 27.04.22 | 18:45 | 21:00 | Self feedback for diagrams. [[diagram-self-feedback.pdf]]|
 | 28.04.22 | 13:30 | 14:30 | Setting up LaTEX thesis framework |
 | 02.05.22 | 13:30 | 14:45 | More LaTEX stuff |
+| 03.05.22 | 12:00 | hh:mm | Project work |
 

@@ -27,12 +27,15 @@ export function PieChart(data, {
     if (names === undefined) names = N;
     names = new d3.InternSet(names);
 
+
     // Chose a default color scheme based on cardinality.
     if (colors === undefined) colors = d3.schemeSpectral[names.size];
     if (colors === undefined) colors = d3.quantize(t => d3.interpolateSpectral(t * 0.8 + 0.1), names.size);
 
+
     // Construct scales.
-    const color = d3.scaleOrdinal(names, colors);
+    // const color = d3.scaleOrdinal(names, colors);
+    const color = d3.scaleOrdinal(d3.schemeDark2);
 
     // Compute titles.
     if (title === undefined) {
@@ -62,7 +65,7 @@ export function PieChart(data, {
         .selectAll("path")
         .data(arcs)
         .join("path")
-        .attr("fill", d => color(N[d.data]))
+        .attr("fill", d => color(d))
         .attr("d", arc)
         .append("title")
         .text(d => title(d.data));

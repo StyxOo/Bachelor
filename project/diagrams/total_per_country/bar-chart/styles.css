@@ -3,9 +3,6 @@ body {
     overflow: hidden;
 }
 
-rect {
-    fill: steelblue;
-}
 
 rect:hover {
     fill: lightskyblue;
@@ -14,6 +11,11 @@ rect:hover {
 text {
     font-size: 1.2em;
     font-family: sans-serif;
+}
+
+rect text {
+    font-size: 1em;
+    fill : #635F5D;
 }
 
 .tick text {

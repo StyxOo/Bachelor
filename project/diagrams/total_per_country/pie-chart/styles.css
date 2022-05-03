@@ -3,8 +3,8 @@ body {
     overflow: hidden;
 }
 
-rect {
-    fill: steelblue;
+path:hover {
+    fill: lightskyblue;
 }
 
 text {
