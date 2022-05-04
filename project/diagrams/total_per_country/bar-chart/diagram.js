@@ -2,7 +2,10 @@ const svg = d3.select('#mainFrame')
     .attr('height', innerHeight)
     .attr('width', innerWidth);
 
+
 const render = data => {
+    console.log('Rendering bar chart')
+
     const xValue = d => d.refugees;
     const yValue = d => d.country;
     const margin = {
@@ -54,7 +57,6 @@ const render = data => {
         .enter().append('g')
             .attr('class', 'barGroup')
 
-
     const rectsEnterGroup = barsEnterGroup.append('rect')
         .attr('width', 0)                               // or 0 to start, when we want to animate.
         .attr('height', yScale.bandwidth())             // Set appropriate height.
@@ -79,6 +81,8 @@ const render = data => {
             })
 };
 
+parent.registerDiagramRenderCallback(render)
+
 const dataPath = '../total_refugees_per_country_condensed.csv';
 
 // .csv creates a promise, when it resolves .then do something else
@@ -87,6 +91,5 @@ d3.csv(dataPath).then(data => {
         d.refugees = +d.refugees;           // Cast value to float and take times 1000
         d.country = `${d.country}`;             // Kind of unnecessary, but fixed webstorm complaining
     });
-    console.log(data);
     render(data);
 })
