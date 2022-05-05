@@ -52,6 +52,8 @@ const removeRow = (event) => {
  * It creates a new data object, mimicking the original data read from the csv.
  * It also invokes the render function, updating the diagrams.
  */
+let latestData = undefined;
+
 const updateData = () => {
     console.log("Update data aka create new data element")
     const data = []
@@ -67,7 +69,8 @@ const updateData = () => {
     console.log('Newly updated data set:')
     console.log(data)
 
-    render(data)
+    latestData = data;
+    render()
 }
 
 /**
@@ -80,11 +83,20 @@ const diagramRenderCallbacks = []
 window.registerDiagramRenderCallback = (callback) =>
 {
     diagramRenderCallbacks.push(callback)
+
+    /**
+     * This will only happen, if the data was already loaded before the callback is getting registered.
+     * If the callback is registered before the data is loaded, it will be called through the render call in the data loading.
+     */
+    if (latestData !== undefined) {
+        callback(latestData)
+    }
 }
 
-const render = data => {
+const render = () => {
+    console.log('Render diagrams through registered callbacks')
     for (const diagramRenderCallback of diagramRenderCallbacks) {
-        diagramRenderCallback(data)
+        diagramRenderCallback(latestData)
     }
 }
 
@@ -101,5 +113,7 @@ d3.csv(dataPath).then(data => {
     console.log('Loaded data:')
     console.log(data);
     fillTable(data);
-    render(data);
+
+    latestData = data;
+    render();
 })
