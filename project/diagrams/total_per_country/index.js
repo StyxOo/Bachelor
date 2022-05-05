@@ -98,6 +98,15 @@ const render = () => {
     for (const diagramRenderCallback of diagramRenderCallbacks) {
         diagramRenderCallback(latestData)
     }
+
+    setTimeout(()=>{
+
+    latestData.pop()
+
+    for (const diagramRenderCallback of diagramRenderCallbacks) {
+        diagramRenderCallback(latestData)
+    }
+    }, 2000)
 }
 
 /**
