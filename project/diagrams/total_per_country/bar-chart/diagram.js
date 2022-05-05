@@ -23,8 +23,12 @@ const yAxisParentGroup = diagramGroup.append('g')
 const contentParentGroup = diagramGroup.append('g')
     .attr('id', 'content')
 
+
 const render = data => {
     console.log('Rendering bar chart')
+
+    const t = svg.transition()
+        .duration(1500);
 
     const xValue = d => d.refugees;
     const yValue = d => d.country;
@@ -67,48 +71,49 @@ const render = data => {
     /**
      * This is where the actual content of the diagram is drawn.
      */
-    const selection = contentParentGroup.selectAll('g .bar')
-    const dataJoin = selection.data(data)
+    contentParentGroup.selectAll('g .bar').data(data)
+        .join(
+            enter => {
+                const bar = enter.append('g')
+                    .attr('class', 'bar')
 
-    const enterGroup = dataJoin
-        .enter().append('g')
-            .attr('class', 'bar')
+                bar.append('rect')
+                    .attr('width', 0)
+                    .attr('height', yScale.bandwidth())
+                    .attr('y', d => yScale(yValue(d)))
+                    .attr('fill', d => colors(d))
+                    .call(enter => enter.transition(t)
+                        .attr('width', d => xScale(xValue(d))))
 
-    const rectsEnterGroup = enterGroup.append('rect')
-        .attr('width', 0)                               // or 0 to start, when we want to animate.
-        .attr('height', yScale.bandwidth())             // Set appropriate height.
-        .attr('y', d => yScale(yValue(d)))              // and y offset, so rects don't overlap.
-        .attr('fill', d => colors(d))
-        .transition()                                   // Adds a transition/animation
-            .duration(2000)                             // which takes 2 seconds
-            .attr('width', d => xScale(xValue(d)))     // changing the width value to whatever is appropriate for that data point
-
-    console.log(rectsEnterGroup)
-    console.log(dataJoin._groups)
-
-    const rectsUpdateGroup = dataJoin.select('rect')
-    rectsUpdateGroup.merge(rectsEnterGroup).transition()                                   // Adds a transition/animation
-    // rectsEnterGroup.merge(rectsUpdateGroup).transition()
-        .duration(1000)
-        .attr('width', d => xScale(xValue(d)))     // changing the width value to whatever is appropriate for that data point
-        .attr('height', yScale.bandwidth())             // Set appropriate height.
-        .attr('y', d => yScale(yValue(d)))
-
-    // enterGroup.append('text').text(d => d.refugees)
-    //     .attr('class', 'barText')
-    //     .attr('text-anchor', 'end')
-    //     .attr('dy', '0.32em')
-    //     .attr('y', d => yScale(yValue(d)) + yScale.bandwidth()/2)
-    //     .attr('x', 0)
-    //     .transition(2000)
-    //         .duration(2000)
-    //         .attr('x', d=>{
-    //             const scaleValue = xScale(xValue(d));
-    //             const value = (scaleValue - 10 > 0) ? scaleValue - 10: 50;
-    //             return value;
-    //         })
-
-    dataJoin.exit().remove()
+                bar.append('text')
+                    .text(d => xValue(d))
+                    .attr('class', 'barText')
+                    .attr('text-anchor', 'end')
+                    .attr('dy', '0.32em')
+                    .attr('y', d => yScale(yValue(d)) + yScale.bandwidth()/2)
+                    .attr('x', 0)
+                    .call(enter => enter.transition(t)
+                        .attr('x', d=>{
+                            const scaleValue = xScale(xValue(d));
+                            return (scaleValue - 60 > 0) ? scaleValue - 10 : 60;
+                        }))
+            },
+            update => {
+                update.select('rect')
+                    .call(update => update.transition(t)
+                        .attr('width', d => xScale(xValue(d)))
+                        .attr('height', yScale.bandwidth())
+                        .attr('y', d => yScale(yValue(d))))
+                update.select('text')
+                    .call(update => update.transition(t)
+                    .attr('y', d => yScale(yValue(d)) + yScale.bandwidth()/2)
+                    .attr('x', d => {
+                        const scaleValue = xScale(xValue(d));
+                        return (scaleValue - 60 > 0) ? scaleValue - 10 : 60;
+                    }))
+            },
+            exit => exit.remove()
+        )
 };
 
 /**
