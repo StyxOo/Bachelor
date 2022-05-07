@@ -105,6 +105,7 @@ const render = data => {
                         .attr('height', yScale.bandwidth())
                         .attr('y', d => yScale(yValue(d))))
                 update.select('text')
+                    .text(d => xValue(d))
                     .call(update => update.transition(t)
                     .attr('y', d => yScale(yValue(d)) + yScale.bandwidth()/2)
                     .attr('x', d => {
@@ -119,7 +120,7 @@ const render = data => {
 /**
  * This section is only relevant for the implementation of the diagram within the iframe.
  * It tries to subscribe to the parent window for data.
- * If there is no data providing parent, it'll load it's own data.
+ * If there is no data providing parent, it'll load its own data.
  */
 try {
     parent.registerDiagramRenderCallback(render)

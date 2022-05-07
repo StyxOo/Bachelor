@@ -24,4 +24,5 @@
 | 02.05.22 | 13:30 | 14:45 | More LaTEX stuff |
 | 03.05.22 | 12:00 | 14:45 | Project work |
 | 04.05.22 | 11:30 | 17:30 | Data table added - probably about 2 hours not actually working as well. |
-| 05.05.22 | 12:45 | hh:mm | Project work |
+| 05.05.22 | 12:45 | 18:00 | Project work, maybe 45 mins break |
+| 06.05.22 | 11:30 | 15:00 | Project work, pie chart |
