@@ -8,22 +8,16 @@ path:hover {
 }
 
 text {
-    font-size: 1.2em;
+    font-size: 0.9em;
+    fill : #635F5D;
     font-family: sans-serif;
 }
 
-.tick text {
-    font-size: 1em;
-    fill : #635F5D;
-    /*transform: rotate(20deg);*/
+#legendHeadline {
+    font-size: 1.5em;
+    text-decoration: underline;
 }
 
-.tick line {
-    stroke: #C0C0BB;
-    stroke-width: 0.15em;
-}
-
-#axis-label {
-    font-size: 1.2em;
-    fill : black;
+#contentLabel {
+    text-anchor: middle;
 }

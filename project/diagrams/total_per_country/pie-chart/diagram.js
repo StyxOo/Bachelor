@@ -1,5 +1,3 @@
-// import {PieChart} from "./pieChart.js";
-
 const svg = d3.select('#mainFrame')
     .attr('height', innerHeight)
     .attr('width', innerWidth);
@@ -21,6 +19,20 @@ const contentParentGroup = diagramGroup.append('g')
     .attr('id', 'content')
     .attr('transform', `translate(${radius + 20},${ourHeight/2})`)
 
+const contentLabel = contentParentGroup.append('text')
+    .text('Some text here')
+    .attr('id', 'contentLabel')
+
+const legendParentGroup = diagramGroup.append('g')
+    .attr('id', 'legend')
+    .attr('transform', `translate(${2 * radius + 60}, ${ourHeight/2 + 20})`)
+
+const legendHeader = legendParentGroup.append('text')
+    .text('Legend')
+    .attr('id', 'legendHeadline')
+    .attr('x', 10)
+    .attr('y', -27)
+
 
 const render = data => {
     console.log('Rendering pie chart')
@@ -33,11 +45,17 @@ const render = data => {
 
     const colors = d3.scaleOrdinal(d3.schemeDark2);
 
+    const legendScale = d3.scaleBand()
+        .domain(data.map(d => d.country))
+        .range([0, ourHeight/2])
+        .padding(0.2);
+
 
     // Generate the pie
-    const pie = d3.pie().padAngle(0.015);
-
-    console.log(pie(data.map(xValue)))
+    const pie = d3.pie()
+        .value(d => d.refugees)
+        .padAngle(0.015)
+        (data)
 
     // Generate the arcs
     const arc = d3.arc()
@@ -46,71 +64,85 @@ const render = data => {
 
 
     //Generate groups
-    contentParentGroup.selectAll("g .arc")
-        .data(pie(data.map(xValue)))
+    contentParentGroup.selectAll('g .arc')
+        .data(pie, d => {return d.data.country})
         .join(
             enter => {
                 enter.append('g')
                     .attr('class', 'arc')
                     .append('path')
                     .attr('fill', d => colors(d))
-                    .attr('d', '')
-                    // .attr('startAngle', d => d.startAngle)
-                    // .attr('endAngle', d => d.endAngle)
                     .call(enter => enter.transition(t)
                         .attrTween('d', d => {
                                 const i = d3.interpolate(0, d.startAngle);
                                 const j = d3.interpolate(0, d.endAngle);
-
-                                d.previousStartAngle = d.startAngle;
-                                d.previousEndAngle = d.endAngle;
 
                                 return time => {
                                     d.startAngle = i(time);
                                     d.endAngle = j(time);
                                     return arc(d);
                                 }}))
+                    .each(d => {
+                        d.previousStartAngle = d.startAngle;
+                        d.previousEndAngle = d.endAngle;
+                    })
+                    .on('mouseover', d => {
+                        console.log(d)
+                        contentLabel.text(d.refugees)
+                    })
             },
             update => {
-                const selection = update.selectAll('path')
-                console.log(selection)
-                console.log(selection.data())
-                    selection
+                update.select('path')
                     .call(update => update.transition(t)
                         .attrTween('d', d => {
-                            console.log(d)
-                            const i = d3.interpolate(d.previousStartAngle, d.startAngle);
-                            const j = d3.interpolate(d.previousEndAngle, d.endAngle);
-
-                            d.previousStartAngle = d.startAngle;
-                            d.previousEndAngle = d.endAngle;
+                            const i = d3.interpolate(0, d.startAngle); // TODO: This should really start at the previous angles
+                            const j = d3.interpolate(0, d.endAngle);
 
                             return time => {
                                 d.startAngle = i(time);
                                 d.endAngle = j(time);
                                 return arc(d);
                             }}))
+                    .each(d => {
+                        d.previousStartAngle = d.startAngle;
+                        d.previousEndAngle = d.endAngle;
+                    })
             },
             exit => exit.remove()
         )
+
+    legendParentGroup.selectAll('g .entry')
+        .data(data, d => {return d.country})
+        .join(
+            enter => {
+                const entry = enter.append('g')
+                    .attr('class', 'entry')
+                    .attr('transform', `translate(0, ${ourHeight - 30})`)
+                    .call(enter => enter.transition(t)
+                        .attr('transform', d => {
+                            return `translate(0, ${legendScale(d.country)})`
+                        }))
+
+                entry.append('circle')
+                    .attr('cx', 20)
+                    .attr('cy', -legendScale.bandwidth()/4)
+                    .attr('r', legendScale.bandwidth()/2)
+                    .attr('fill', d => colors(d))
+
+                entry.append('text')
+                    .text(d => d.country)
+                    .attr('x', legendScale.bandwidth() * 2)
+            },
+            update => {
+                update
+                    .call(update => update.transition(t)
+                        .attr('transform', d => {
+                            return `translate(0, ${legendScale(d.country)})`
+                        }))
+            }
+        )
 };
 
-
-
-
-// const render = data => {
-//     console.log('Rendering pie chart')
-//
-//     const chart = PieChart(data, {
-//         name: d => d.country,
-//         value: d => d.refugees,
-//         width : innerWidth,
-//         height: innerHeight,
-//         innerRadius: 100
-//     });
-//
-//     svg.append(() => { return chart; });
-// };
 
 /**
  * This section is only relevant for the implementation of the diagram within the iframe.

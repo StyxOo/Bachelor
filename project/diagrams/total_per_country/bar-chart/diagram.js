@@ -71,7 +71,7 @@ const render = data => {
     /**
      * This is where the actual content of the diagram is drawn.
      */
-    contentParentGroup.selectAll('g .bar').data(data)
+    contentParentGroup.selectAll('g .bar').data(data, d => {return d.country})
         .join(
             enter => {
                 const bar = enter.append('g')
@@ -93,7 +93,7 @@ const render = data => {
                     .attr('y', d => yScale(yValue(d)) + yScale.bandwidth()/2)
                     .attr('x', 0)
                     .call(enter => enter.transition(t)
-                        .attr('x', d=>{
+                        .attr('x', d => {
                             const scaleValue = xScale(xValue(d));
                             return (scaleValue - 60 > 0) ? scaleValue - 10 : 60;
                         }))

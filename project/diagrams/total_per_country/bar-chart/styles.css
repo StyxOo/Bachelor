@@ -29,8 +29,3 @@ text {
     stroke: #C0C0BB;
     stroke-width: 0.15em;
 }
-
-#axis-label {
-    font-size: 1.2em;
-    fill : black;
-}
