@@ -19,9 +19,55 @@ const contentParentGroup = diagramGroup.append('g')
     .attr('id', 'content')
     .attr('transform', `translate(${radius + 20},${ourHeight/2})`)
 
-const contentLabel = contentParentGroup.append('text')
-    .text('Some text here')
-    .attr('id', 'contentLabel')
+
+const totalTextGroup = contentParentGroup.append('text')
+    .attr('id', 'totalTextGroup')
+    .attr('display', true)
+
+totalTextGroup.append('tspan')
+    .text('So far a total of')
+    .attr('dy', '-2.3em')
+    .attr('x', 0)
+
+const totalTextSpan = totalTextGroup.append('tspan')
+    .text('TotalNumberHere')
+    .attr('class', 'important')
+    .attr('dy', '1.3em')
+    .attr('x', 0)
+
+totalTextGroup.append('tspan')
+    .text('refugees have fled')
+    .attr('dy', '1.1em')
+    .attr('x', 0)
+
+totalTextGroup.append('tspan')
+    .text('Ukraine')
+    .attr('class', 'important')
+    .attr('dy', '1.3em')
+    .attr('x', 0)
+
+
+const currentTextGroup = contentParentGroup.append('text')
+    .attr('id', 'currentTextGroup')
+    .attr('display', 'none')
+
+const currentNumberTextSpan = currentTextGroup.append('tspan')
+    .text('CurrentNumberHere')
+    .attr('class', 'important')
+    .attr('dy', '-0.5em')
+    .attr('x', 0)
+
+currentTextGroup.append('tspan')
+    .text('refugees have fled to')
+    .attr('dy', '1.1em')
+    .attr('x', 0)
+
+const currentCountryTextSpan = currentTextGroup.append('tspan')
+    .text('DestinationCountryHere')
+    .attr('class', 'important')
+    .attr('dy', '1.3em')
+    .attr('x', 0)
+
 
 const legendParentGroup = diagramGroup.append('g')
     .attr('id', 'legend')
@@ -36,6 +82,9 @@ const legendHeader = legendParentGroup.append('text')
 
 const render = data => {
     console.log('Rendering pie chart')
+
+    const totalRefugees = d3.sum(data, d => d.refugees)
+    totalTextSpan.text(`${totalRefugees}`)
 
     const t = svg.transition()
         .duration(1500);
@@ -86,9 +135,15 @@ const render = data => {
                         d.previousStartAngle = d.startAngle;
                         d.previousEndAngle = d.endAngle;
                     })
-                    .on('mouseover', d => {
-                        console.log(d)
-                        contentLabel.text(d.refugees)
+                    .on('mouseover', (e, d) => {
+                        currentNumberTextSpan.text(d.data.refugees)
+                        currentCountryTextSpan.text(d.data.country)
+                        currentTextGroup.attr('display', 'true')
+                        totalTextGroup.attr('display', 'none')
+                    })
+                    .on('mouseout', () => {
+                        currentTextGroup.attr('display', 'none')
+                        totalTextGroup.attr('display', 'true')
                     })
             },
             update => {
