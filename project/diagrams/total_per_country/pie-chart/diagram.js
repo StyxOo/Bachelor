@@ -19,6 +19,9 @@ const contentParentGroup = diagramGroup.append('g')
     .attr('id', 'content')
     .attr('transform', `translate(${radius + 20},${ourHeight/2})`)
 
+const diagramParentGroup = contentParentGroup.append('g')
+    .attr('id', 'diagram')
+
 
 const totalTextGroup = contentParentGroup.append('text')
     .attr('id', 'totalTextGroup')
@@ -79,7 +82,6 @@ const legendHeader = legendParentGroup.append('text')
     .attr('x', 10)
     .attr('y', -27)
 
-
 const render = data => {
     console.log('Rendering pie chart')
 
@@ -88,9 +90,6 @@ const render = data => {
 
     const t = svg.transition()
         .duration(1500);
-
-    const xValue = d => d.refugees;
-    const yValue = d => d.country;
 
     const colors = d3.scaleOrdinal(d3.schemeDark2);
 
@@ -113,28 +112,27 @@ const render = data => {
 
 
     //Generate groups
-    contentParentGroup.selectAll('g .arc')
+    diagramParentGroup.selectAll('g .arc')
         .data(pie, d => {return d.data.country})
         .join(
             enter => {
                 enter.append('g')
                     .attr('class', 'arc')
                     .append('path')
-                    .attr('fill', d => colors(d))
+                    .attr('fill', d => colors(d.data))
                     .call(enter => enter.transition(t)
-                        .attrTween('d', d => {
+                        .attrTween('d', (d, index, nodes) => {
                                 const i = d3.interpolate(0, d.startAngle);
                                 const j = d3.interpolate(0, d.endAngle);
+
+                                nodes[index].previousStartAngle = d.startAngle;
+                                nodes[index].previousEndAngle = d.endAngle;
 
                                 return time => {
                                     d.startAngle = i(time);
                                     d.endAngle = j(time);
                                     return arc(d);
                                 }}))
-                    .each(d => {
-                        d.previousStartAngle = d.startAngle;
-                        d.previousEndAngle = d.endAngle;
-                    })
                     .on('mouseover', (e, d) => {
                         currentNumberTextSpan.text(d.data.refugees)
                         currentCountryTextSpan.text(d.data.country)
@@ -149,19 +147,18 @@ const render = data => {
             update => {
                 update.select('path')
                     .call(update => update.transition(t)
-                        .attrTween('d', d => {
-                            const i = d3.interpolate(0, d.startAngle); // TODO: This should really start at the previous angles
-                            const j = d3.interpolate(0, d.endAngle);
+                        .attrTween('d', (d, index, nodes) => {
+                            const i = d3.interpolate(nodes[index].previousStartAngle, d.startAngle);
+                            const j = d3.interpolate(nodes[index].previousEndAngle, d.endAngle);
+
+                            nodes[index].previousStartAngle = d.startAngle;
+                            nodes[index].previousEndAngle = d.endAngle;
 
                             return time => {
                                 d.startAngle = i(time);
                                 d.endAngle = j(time);
                                 return arc(d);
                             }}))
-                    .each(d => {
-                        d.previousStartAngle = d.startAngle;
-                        d.previousEndAngle = d.endAngle;
-                    })
             },
             exit => exit.remove()
         )

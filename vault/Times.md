@@ -27,4 +27,4 @@
 | 05.05.22 | 12:45 | 18:00 | Project work, maybe 45 mins break |
 | 07.05.22 | 11:30 | 15:00 | Project work, pie chart |
 | 10.05.22 | 13:00 | 22:00 | Project work, pie chart, also a bit on the bar cahrt, maybe 2h break |
-| 11.05.22 | 13:30 | hh:mm | Project work |
+| 11.05.22 | 13:30 | 23:00 | Project work, about 2-3h break |
