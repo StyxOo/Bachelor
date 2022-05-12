@@ -1,4 +1,3 @@
-
 %%% File-Information {{{
 %%% Filename: template_bericht.tex
 %%% Purpose: lab report, technical report, project report
@@ -11,7 +10,7 @@
 %%%   20040625 (vk,ss) initial version
 %%%
 %%% Notes:
-%%%
+%%% Adapted for my bachelor thesis exposé
 %%%
 %%%
 %%% }}}
@@ -42,6 +41,8 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
 %%%
 %%% packages
 %%%
+
+\usepackage{fancyhdr}
 
 %%%
 %%% encoding and language set
@@ -191,16 +192,60 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
 % \subject{}   %% subject which appears above titlehead
 % \titlehead{} %% special heading for the titlepage
 
-%%% title
-\title{Showcase of d3.js and its possibilities in infographics using refugee data of the current Ukraine conflict}
+%%%% title
+%\title{d3.js and its possibilities in infographics\\
+%\large Creating a diagram showcase using ukrainian refugee data\\
+%of the ongoing armed conflict}
+%
+%%%% author(s)
+%\author{Luis Rothenh\"ausler (20202459)}
+%
+%%%% date
+%\date{Brandenburg, \today{}}
+%
+%\publishers{Professor Julia Schnitzer}
 
-%%% author(s)
-\author{Luis Rothenh\"ausler (20202459)}
+\newcommand{\THBTitle}[9]{
 
-%%% date
-\date{Brandenburg, \today{}}
+  \thispagestyle{empty}
+  \vspace*{\stretch{1}}
+  {\parindent0cm
+  \rule{\linewidth}{.7ex}}
+  \begin{flushright}
+    \vspace*{\stretch{1}}
+    \sffamily\bfseries\Huge
+    #1\\
+    \vspace*{\stretch{1}}
+    \sffamily\bfseries\large
+    #2\\
+    \vspace*{\stretch{1}}
+    \sffamily\bfseries\small
+    #3
+  \end{flushright}
+  \rule{\linewidth}{.7ex}
 
-% \publishers{}
+  \vspace*{\stretch{1}}
+  \begin{center}
+    \includegraphics[width=2in]{figs/2015_10_05_THB_FB-IM_Logo_RGB} \\
+    \vspace*{\stretch{1}}
+    \Large  Bachelorarbeit\\
+
+    \vspace*{\stretch{2}}
+   \large Fachbereich Informatik\\
+    \large und Medien\\
+    \large Technische Hochschule Brandenburg\\
+    \vspace*{\stretch{1}}
+    \large Betreuer:  #8 \\[1mm]
+    \large 2. Betreuer:  #9 \\[1mm]
+    
+    \vspace*{\stretch{1}}
+    \large Brandenburg, den #7 \\
+        \vspace*{\stretch{0.25}}
+
+    Bearbeitungszeit: dd.mm.yyyy - dd.mm.yyyy % Die Bearbeitungszeit der Seminar-/ Abschlussarbeit ist hier einzutragen.
+
+  \end{center}
+}
 
 % \thanks{} %% use it instead of footnotes (only on titlepage)
 
@@ -261,14 +306,28 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
 
 \begin{document}
 
+\THBTitle
+      {d3.js and its possibilities in infographics\\
+      \large Creating a diagram showcase using ukrainian refugee data\\
+      of the ongoing armed conflict}        % Titel der Arbeit
+      {Luis Rothenh\"ausler}                        % Vor- und Nachname des Autors
+      {20202459}
+      
+      {Technische Hochschule Brandenburg}  % Name der Fakultaet
+      {Brandenburg 2022}                          % Ort und Jahr der Erstellung
+      {12.05.2022}                              % Tag der Abgabe
+      {Prof. Julia Schnitzer}               % Name des Erstgutachters
+      {Hier k\"onnte Ihr Name stehen}                          % Name des Zweitgutachters
+
 % \pagenumbering{roman} %% small roman page numbers
 
 %%% include the title
 % \thispagestyle{empty}  %% no header/footer (only) on this page
- \maketitle
+%\maketitle
 
 %%% start a new page and display the table of contents
-% \newpage
+\newpage
+\setcounter{page}{1}
 \tableofcontents
 
 %%% start a new page and display the list of figures
@@ -292,46 +351,68 @@ a4paper,     %% defines the paper size: a4paper (default), a5paper, letterpaper,
 \newpage
 
 \section{Introduction}
-The postmodern world produces huge amounts of data every second. Analyzing this data leads to better informed decision making in every sector. Yet the wast amounts of created data are often hard to comprehend with the human mind. Infographics is about finding ways to represent this data in visually appealing, yet easily understandable visual representations. Doing this quickly and always up to date can be crucial. There are many tools available to help with the creating of infographics. This thesis will be a deep dive into the possibilities of one of these tools, the 'd3.js'(D3) library for JavaScript. To show its capabilities we will create graphics, giving an overview of the Ukraine as a sovereign nation and the current events unfolding, using publicly available data.
+The postmodern world produces huge amounts of data every second. Analyzing this data leads to better-informed decision-making in every sector. Yet the wast amounts of created data are often hard to comprehend with the human mind. Infographics is about finding ways to represent this data in visually appealing, yet easily understandable visual representations. Doing this quickly and always up to date can be crucial. There are many tools available to help with the creating of infographics. This thesis will be a deep dive into the possibilities of one of these tools, the 'd3.js'(D3) library for JavaScript. To show its capabilities we will use D3 to create a showcase containing several different graphics.
+
+The following sections describe what the goal of this thesis are, as well as why they should be pursued and how they will be achieved.
 
 \section{Basics}
-This chapter gives an overview of the different aspects and concepts necessary to understand and follow the thesis.
+D3 stands for "Data-Driven Documents" and "[...] is a JavaScript library for manipulating documents based on data. D3 helps you bring data to life using HTML, SVG, and CSS." \cite{d3js}
+Since the first notation of the development of D3 in 2011, the library has seen continuos development. During this time many different resources and usage examples have been created for D3. Yet a lot of these openly available examples are created in online environments with D3 preloaded, are lacking documentation, use different styles of JavaScript or do not react to changing data.
 
-\paragraph{Infographics}
-"Infographics (a clipped compound of "information" and "graphics") are graphic visual representations of information, data, or knowledge intended to present information quickly and clearly. They can improve cognition by utilizing graphics to enhance the human visual system's ability to see patterns and trends." \footnote{https://en.wikipedia.org/wiki/Infographic - 31.03.2022}
+\section{Goals}
+The main goal for this thesis will be the creation of a showcase of diagrams created in D3. Yet there are several questions that will be answered in the process. What are the strengths and weaknesses of D3? How easy is D3 to use? When is D3 a viable option for creating graphics?
 
-\paragraph{Technologies}
-The project will be built using mainly JavaScript and HTML, with a bit of CSS. This allows to easily adapt the results into all kinds of web based applications, without compatibility issues which could arise by using a framework. Additionally we use the D3.js library. "[It] is a JavaScript library for manipulating documents based on data. D3 helps you bring data to life using HTML, SVG, and CSS." \footnote{https://d3js.org/ - 31.03.2022}
+Furthermore there are certain requirements the showcase should fulfill. Each diagram should be well documented and explained, be easily adaptable to ones personal use and use some aspect of D3 which is not used by the other diagrams. They should also be easily comparable to each other, to allow fast comprehension and understanding of the differences in the creation process. Furthermore all diagrams should be able to react to data changes, so they can continuously update as the data changes.
 
-Versioning control is done using a git repository. For easy access, the repository is hosted on github. The raw datasets are not provided in git directly, as the files are too big. Their sources are provided though.
+\section{How}
+To achieve our goals, we will set certain limitations. Besides using a consistent code style and proper documentation, each diagram should be fully independent of the other graphics. This will allow easier adaptation and an easier comparison in effort between the graphics. To further simplify the comparison, we will use a limited number of datasets. Furthermore the diagrams should be implemented using only JavaScript, HTML and CSS, and not rely on a specific framework. This makes them lightweight and easier to adapt them to all kinds of web based projects. To mimic changing data, the showcase has an option to manipulate the used data-set.
 
-To faster comprehend the huge amounts of available raw data, Python is used. It helps quickly parsing the data and identifying interesting aspects. It is also used to extract the relevant data we want to use.
+\section{Data}
+Data is produced everywhere. Most of it is created in a commercial setting. But there are many public data sources available as well. Some is open source or available through api requests. Yet most of the available data on current events is highly individual and not machine readable. This thesis only uses data which is publicly available and machine readable. As this thesis focuses on the technical implementation and to show the possibilities of D3, we do neither need nor claim the data to be correct or unbiased.
 
-\paragraph{Diagrams}
-Diagrams or charts are visual representations of data. They help to understand and comprehend big amounts of data. Different types of diagrams can show different types of data. Quantitative data might need other representation than categorical data. The most common ways to encode data are using the x and y positions in a graph, areas and color.
+Data can be categorized into three different kinds. There is nominal, ordinal and quantitative data. Nominal and ordinal data are both qualitative. Yet nominal data does not have a natural order, whilst ordinal data does. As different types of data can be shown differently in diagrams, our datasets will cover all three types of data. The first dataset contains the refugees(quantitative) per country(nominal). The second dataset is about the total refugees(quantitative) over time(ordinal).
 
-Digital diagrams can also use transitions and animations to show relations between different aspects, show changes over time, or to simple be more visually appealing to potential readers.
+All data comes from the UNHCR, the UN Refugee Agency\cite{unhcr}.
 
-\paragraph{Data}
-Data is produced everywhere. Most of it is created in a commercial setting. But there are many public data sources available as well. Some is open source or available through api requests. Yet most of the available data on current events is highly individual and not machine readable. This thesis only uses data which is publicly available and machine readable. As this thesis focuses on the technical implementation and to show the possibilities of D3, we do neither need nor claim the data to be correct or unbiased. The data used in this thesis comes from the UNHCR, the UN Refugee Agency.
-
-\section{Selection process}
-Selecting the data and diagrams to show is not an easy task. When selecting the data used it is important to find data with different attribute types. There should be data using quantitative, but also ordered and categorical attributes. This allows for a wider range of possible diagrams. When selecting the type of diagram, it is important to pay attention to what diagram can represent which types of data attributes well. Usually it is also worth paying attention to how accurately the presented data is perceived. This depends on the chosen shapes, colors and diagram types. As we are trying to create a showcase for the possibilities of D3, we do not need to consider the best didactic choices. Yet the chosen combinations of data and diagrams should still be reasonable and realistically usable.
-
-\section{Creating a showcase}
-The showcase is centered around the refugees of the current Ukraine conflict. For any chosen dataset, there should be the possibility to manipulate the data table within the browser on one side of the screen. On the other side, we can scroll through several types of diagrams, visualizing the same dataset. Allowing the user to manipulate the data or time frame in the browser, will allow for full use of D3's adaptability to data changes. Creating different diagrams for the same set of data also allows easy comparison of the implementation of different diagrams. Even though the showcase is trying to compare diagrams with each other, it can easily be imagined that single diagrams are adopted by news agencies or state websites to provide an overview of the current situation. Therefore the showcase should be build in a modular way, which makes it easy to reuse the single diagrams.
+\section{Diagrams}
+When selecting the type of diagram, it is important to pay attention to what diagram can represent which types of data well. Usually it is also worth paying attention to how accurately the presented data is perceived. This depends on the chosen shapes, colors and diagram types.\cite{heer2010crowdsourcing} It can also differ depending on the types of data which are presented\cite{mackinlay1986automating}. As we are trying to create a showcase for the possibilities of D3, we will not need to consider the best didactic choices. Yet the chosen combinations of data and diagrams should still be reasonable and realistically usable, while using a wide range of D3's possibilities.
 
 \section{Expectations}
-Choosing interesting and representative data for the showcase will be a challenge. Every person has different interests and could find different aspects interesting. Furthermore it is very difficult finding machine readable data about the ongoing conflict. Yet the amount of data available on the country is enormous. Looking through all the available data is a huge time investment. Therefore it is important not to get carried away in wanting to present more and more.
-I think the possibilities of creating the showcase are quite unlimited. It will be an interesting journey going through and refining the different aspects. But I do think the benefits of having such a showcase can be quite strong. Besides acting as a baseline and possible starting point for others in understanding and working with D3, a lot, if not most, people, including myself, only have a vague idea about the Ukraine as a country. By creating this showcase I hope to provide context about the country we so commonly see in the news today. It might even motivate people to increase or start their active involvement against the war.
+I think the possibilities of creating the showcase are quite unlimited. It will be an interesting journey going through and refining the different aspects. But I do think the benefits of having such a showcase can be quite strong. It can act as a baseline and possible starting point for others in understanding and working with D3. 
 
+Furthermore I think it will be interesting to see in which cases using D3 can be reasonably justified. As the visualization tools of of other software, i.e. Excel are quite strong, I assume that there are many cases where it can be easier and faster to not use D3. 
+
+\section{Preliminary Structure}
+This is the preliminary structure of the actual bachelors thesis:
+
+\begin{itemize}
+  \item German Abstract
+  \item Introduction
+  \item Basics
+  \begin{itemize}
+    \item Infographics
+    \item D3.js
+    \item Data
+    \item Diagrams
+  \end{itemize}
+  \item Implementation
+  \begin{itemize}
+    \item Diagrams
+    \item Showcase
+  \end{itemize}
+  \item Conclusion
+  \item Sources
+  \item Appendix
+\end{itemize}
+
+\newpage
 
 %%%
 %%% end main document
 %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% \appendix  %% include it, if something (bibliography, index, ...) follows below
+\appendix  %% include it, if something (bibliography, index, ...) follows below
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%
@@ -339,11 +420,11 @@ I think the possibilities of creating the showcase are quite unlimited. It will 
 %%%
 %%% available styles: abbrv, acm, alpha, apalike, ieeetr, plain, siam, unsrt
 %%%
-% \bibliographystyle{plain}
+\bibliographystyle{IEEEtran}
 
 %%% name of the bibliography file without .bib
 %%% e.g.: literature.bib -> \bibliography{literature}
-% \bibliography{FIXXME}
+\bibliography{sources}
 
 \end{document}
 %%% }}}

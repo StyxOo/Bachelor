@@ -29,3 +29,4 @@
 | 10.05.22 | 13:00 | 22:00 | Project work, pie chart, also a bit on the bar cahrt, maybe 2h break |
 | 11.05.22 | 13:30 | 23:00 | Project work, about 2-3h break |
 | 12.05.22 | 12:00 | 13:30 | Project work |
+| 12.05.22 | 14:00 | 19:00 | Back to the exposé |
