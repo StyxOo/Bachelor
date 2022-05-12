@@ -82,6 +82,10 @@ const legendHeader = legendParentGroup.append('text')
     .attr('x', 10)
     .attr('y', -27)
 
+
+const colors = d3.scaleOrdinal(d3.schemeDark2);
+
+
 const render = data => {
     console.log('Rendering pie chart')
 
@@ -91,7 +95,6 @@ const render = data => {
     const t = svg.transition()
         .duration(1500);
 
-    const colors = d3.scaleOrdinal(d3.schemeDark2);
 
     const legendScale = d3.scaleBand()
         .domain(data.map(d => d.country))

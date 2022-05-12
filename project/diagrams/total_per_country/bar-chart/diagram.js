@@ -24,6 +24,9 @@ const contentParentGroup = diagramGroup.append('g')
     .attr('id', 'content')
 
 
+const colors = d3.scaleOrdinal(d3.schemeDark2);
+
+
 const render = data => {
     console.log('Rendering bar chart')
 
@@ -46,7 +49,6 @@ const render = data => {
         .range([0, ourHeight])
         .padding(0.2);
 
-    const colors = d3.scaleOrdinal(d3.schemeDark2);
 
     /**
      * Here we set up the y and x axes.

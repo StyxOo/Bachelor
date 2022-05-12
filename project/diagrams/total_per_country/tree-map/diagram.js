@@ -18,6 +18,17 @@ const diagramGroup = svg.append('g')
 const contentParentGroup = diagramGroup.append('g')
     .attr('id', 'content')
 
+const contentBackground = contentParentGroup.append('rect')
+    .attr('id', 'contentBackground')
+    .attr('x', 0)
+    .attr('y', 0)
+    .attr('width', ourWidth * 2 / 3,)
+    .attr('height', ourHeight)
+    .attr('fill', 'none')
+
+const treemapParentGroup = contentParentGroup.append('g')
+    .attr('id', 'treeMapParent')
+
 const legendParentGroup = diagramGroup.append('g')
     .attr('id', 'legend')
     .attr('transform', `translate(${2 * ourWidth / 3 }, ${ourHeight/2 + 20})`)
@@ -27,6 +38,12 @@ const legendHeader = legendParentGroup.append('text')
     .attr('id', 'legendHeadline')
     .attr('x', 10)
     .attr('y', -27)
+
+
+// TODO: Ad some kind of tooltip to this diagram
+
+
+const colors = d3.scaleOrdinal(d3.schemeDark2)
 
 
 const render = data => {
@@ -65,7 +82,7 @@ const render = data => {
     /**
      * Here we set up all the required scales. One for the x-axis, one for the y-axis and one for the color-coding
      */
-    const colors = d3.scaleOrdinal(d3.schemeDark2)
+
 
     const legendScale = d3.scaleBand()
         .domain(data.map(d => d.country))
@@ -77,7 +94,7 @@ const render = data => {
     /**
      * This is where the actual content of the diagram is drawn.
      */
-    contentParentGroup.selectAll('rect').data(root.leaves(), d => {return d.data.country})
+    treemapParentGroup.selectAll('rect').data(root.leaves(), d => {return d.data.country})
         .join(
             enter => {
                 const bar = enter.append('rect')

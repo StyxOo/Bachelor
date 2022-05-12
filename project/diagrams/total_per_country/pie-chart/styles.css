@@ -4,7 +4,8 @@ body {
 }
 
 path:hover {
-    fill: lightskyblue;
+    stroke: lightskyblue;
+    stroke-width: 0.2em;
 }
 
 text {
