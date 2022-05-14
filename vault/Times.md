@@ -30,3 +30,4 @@
 | 11.05.22 | 13:30 | 23:00 | Project work, about 2-3h break |
 | 12.05.22 | 12:00 | 13:30 | Project work |
 | 12.05.22 | 14:00 | 19:00 | Back to the exposé |
+| 14.05.22 | 10:00 | 11:00 | Finish exposé again |
