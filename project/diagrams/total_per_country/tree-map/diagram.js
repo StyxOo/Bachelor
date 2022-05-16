@@ -40,7 +40,25 @@ const legendHeader = legendParentGroup.append('text')
     .attr('y', -27)
 
 
-// TODO: Ad some kind of tooltip to this diagram
+const tooltip = d3.select("body")
+    .append('svg')
+    .attr('height', 50)
+    .attr('width', 400)
+    .attr('id', 'tooltip')
+    .style('position', 'absolute')
+    .style('z-index', 10)
+    .classed('hidden', true)
+
+const background = tooltip.append('rect')
+    .attr('height', 50)
+    .attr('width', 100)
+    .attr('rx', 10)
+    .attr('ry', 10)
+
+const tooltipText = tooltip.append('text')
+    .attr('y', 20)
+    .attr('x', 5)
+    .text('Some text')
 
 
 const colors = d3.scaleOrdinal(d3.schemeDark2)
@@ -108,6 +126,20 @@ const render = data => {
                         .attr('y', d => { return d.y0; })
                         .attr('width', d => { return d.x1 - d.x0; })
                         .attr('height', d => { return d.y1 - d.y0; }))
+                    .on('mouseover', (e, d) => {
+                        tooltip.classed('hidden', false)
+                        tooltipText.text(`${d.data.country}\nRefugees : ${d.data.refugees}`)
+                        const textWidth = tooltipText.node().getBBox().width
+                        background.attr('width', textWidth + 10)
+                    })
+                    .on('mousemove', e => {
+                        const position = d3.pointer(e)
+                        tooltip.style("top", (position[1]+0)+"px")
+                            .style("left",(position[0]+35)+"px");
+                    })
+                    .on('mouseout', () => {
+                        tooltip.classed('hidden', true)
+                    })
 
             },
             update => {

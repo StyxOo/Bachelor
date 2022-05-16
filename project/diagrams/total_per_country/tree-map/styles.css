@@ -32,3 +32,22 @@ text .important {
 #content {
     text-anchor: middle;
 }
+
+#tooltip {
+    white-space: pre-wrap;
+    pointer-events: none;
+}
+
+#tooltip.hidden {
+    display: none;
+}
+
+#tooltip text {
+    fill : white;
+}
+
+#tooltip rect {
+    fill: #635F5D;
+    opacity: 75%;
+    stroke: #494847;
+}
