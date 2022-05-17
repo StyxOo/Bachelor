@@ -1,0 +1,20 @@
+body {
+    margin: 0px;
+    overflow: hidden;
+}
+
+rect:hover {
+    stroke: lightskyblue;
+    stroke-width: 0.2em;
+}
+
+rect {
+    stroke: #635F5D;
+}
+
+text {
+    font-size: 0.8em;
+    font-family: sans-serif;
+    fill : #635F5D;
+    pointer-events: none;
+}

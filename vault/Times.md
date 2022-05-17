@@ -31,3 +31,5 @@
 | 12.05.22 | 12:00 | 13:30 | Project work |
 | 12.05.22 | 14:00 | 19:00 | Back to the exposé |
 | 14.05.22 | 10:00 | 11:00 | Finish exposé again |
+| 16.05.22 | 14:00 | 16:00 | Treemap tooltip |
+| 17.05.22 | 12:30 | 16:00 | Made a sankey graph |
