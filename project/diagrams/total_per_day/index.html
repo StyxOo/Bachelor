@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Total refugees by country</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Import D3.js libraries -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+</head>
+<body>
+<h>Total Ukrainian refugees by country fled to</h>
+<br>
+<iframe class="diagram" src="circle/diagram.html" frameborder="01" height="360" width="720"></iframe>
+<br>
+<div class="slidecontainer">
+    <input type="range" min="0" max="100" value="0" class="slider" id="timeSlider">
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Refugees</th>
+            <th>Remove Row</th>
+        </tr>
+    </thead>
+    <tbody id="tBody"></tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">
+                <input type="button" value="Update data" onclick="updateData()">
+            </td>
+            <td>
+                <input type="button" value="Add New Row" onclick="addRow()">
+            </td>
+        </tr>
+    </tfoot>
+    <script src="index.js"></script>
+</table>
+</body>
+
+</html>
