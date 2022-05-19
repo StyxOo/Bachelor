@@ -9,23 +9,17 @@ rect:hover {
 }
 
 text {
-    font-size: 1.2em;
-    font-family: sans-serif;
-}
-
-.barText {
     font-size: 0.8em;
-    fill : #635F5D;
+    font-family: sans-serif;
+    fill: #635F5D;
+    text-anchor: middle;
     pointer-events: none;
+    /*text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;*/
 }
 
-.tick text {
+.legend {
     font-size: 1em;
-    fill : #635F5D;
-    /*transform: rotate(20deg);*/
-}
-
-.tick line {
-    stroke: #C0C0BB;
-    stroke-width: 0.15em;
+    fill: none;
+    stroke: #635F5D;
+    stroke-width: 0.1em;
 }

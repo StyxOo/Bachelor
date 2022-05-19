@@ -34,3 +34,4 @@
 | 16.05.22 | 14:00 | 16:00 | Treemap tooltip |
 | 17.05.22 | 12:30 | 16:00 | Made a sankey graph |
 | 18.05.22 | 12:30 | 14:30 | Second dataset |
+| 19.05.22 | 14:00 | 17:00 | Circle graph |

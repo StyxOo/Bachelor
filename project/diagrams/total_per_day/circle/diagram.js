@@ -14,6 +14,10 @@ const ourHeight = innerHeight - margin.top - margin.bottom
 const diagramGroup = svg.append('g')
     .attr('transform', `translate(${margin.left},${margin.top})`);
 
+
+const legendParentGroup = diagramGroup.append('g')
+    .attr('id', 'legend')
+
 const contentParentGroup = diagramGroup.append('g')
     .attr('id', 'content')
 
@@ -29,40 +33,77 @@ const render = (data, time01 = 0) => {
     /**
      * Here we set up all the required scales. One for the x-axis, one for the y-axis and one for the color-coding
      */
-    const timeScale = d3.scaleLinear()
+    const timeScale = d3.scaleQuantize()
         .domain([0, 1])  // Original range of values
-        .range([d3.min(data, d => d.date), d3.max(data, d => d.date)])
+        .range(data.map(d => d.date))
 
 
     const radiusScale = d3.scaleSqrt()
-        .domain([d3.min(data, d => d.date), d3.max(data, d => d.date)])
-        .range([50, ourHeight/2])
-
-    const unixTime = timeScale(time01)
-    console.log('Day: ' + new Date(unixTime))
-    console.log('Radius: ' + radiusScale(unixTime))
-
+        .domain([0, d3.max(data, d => d.refugees)])
+        .range([0, ourHeight/2])
 
     /**
      * Here we set up the y and x axes.
      */
 
+    const ticks = radiusScale.ticks(10).filter(d => d !== 0)
+    let tickData = []
+    for (let i = 0; i < ticks.length; i++) {
+        tickData.push({id: i, value: ticks[i]})
+    }
+    console.log(tickData)
+    legendParentGroup.selectAll('g').data(tickData, d => {return d.id})
+        .join(
+            enter => {
+                const tick = enter.append('g')
+                    .attr('opacity', '0%')
+                    .call(enter => enter.transition(t)
+                        .attr('opacity', '100%'))
+                tick.append('circle')
+                    .attr('cx', ourWidth / 2)
+                    .attr('cy', d => ourHeight - radiusScale(d.value))
+                    .attr('r', d => radiusScale(d.value))
+                    .attr('class', 'legend')
+                tick.append('text')
+                    .text(d => d.value/10000)
+                    .attr('dy', '-0.1em')
+                    .attr('x', ourWidth/2)
+                    .attr('y', d => ourHeight - 2 * radiusScale(d.value))
+            },
+            update => {
+                update.call(update => update.transition(t)
+                    .attr('cy', d => ourHeight - radiusScale(d.value))
+                    .attr('r', d => radiusScale(d.value)))
+                update.select('text')
+                    .text(d => d.value/10000)
+            }
+            ,
+            exit => exit.call(exit=> exit.transition(t)
+                .attr('opacity', '0%'))
+                .remove()
+        )
+
 
     /**
      * This is where the actual content of the diagram is drawn.
      */
+    const unixTime = timeScale(time01)
+    const datum = data.find(d => d.date === unixTime)
     contentParentGroup.selectAll('circle').data([time01], () => [0])
         .join(
             enter => enter.append('circle')
                 .attr('cx', ourWidth/2)
-                .attr('cy', ourHeight/2)
+                .attr('cy', ourHeight)
                 .attr('r', 0)
                 .attr('fill', 'red')
+                .attr('opacity', '50%')
                 .call(enter => enter.transition(t)
-                    .attr('r', () => radiusScale(timeScale(time01)))
+                    .attr('cy', () => ourHeight - radiusScale(datum.refugees))
+                    .attr('r', () => radiusScale(datum.refugees))
                 ),
             update => update.call(update => update.transition(t)
-                .attr('r', () => radiusScale(timeScale(time01))))
+                .attr('cy', () => ourHeight - radiusScale(datum.refugees))
+                .attr('r', () => radiusScale(datum.refugees)))
         )
 
 
