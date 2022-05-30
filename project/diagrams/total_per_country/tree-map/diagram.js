@@ -153,6 +153,7 @@ const render = data => {
             exit => exit.remove()
         )
 
+
     legendParentGroup.selectAll('g .entry')
         .data(data, d => {return d.country})
         .join(

@@ -35,3 +35,7 @@
 | 17.05.22 | 12:30 | 16:00 | Made a sankey graph |
 | 18.05.22 | 12:30 | 14:30 | Second dataset |
 | 19.05.22 | 14:00 | 17:00 | Circle graph |
+| 24.05.22 | 13:00 | 14:30 | Exposé again -.-' |
+| 25.05.22 | 15:00 | 15:15 | Diagrams, uffffff |
+| 30.05.22 | 16:00 | 18:00 | E-mails, writing |
+
