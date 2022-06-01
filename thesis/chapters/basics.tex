@@ -16,7 +16,7 @@ Even though data comes from a huge variety of sources and can express a plethora
 \subsubsection{Categorical}
 What is categorical data? Nominal and ordinal data
 
-Categorical data is information collected in groups. It is often of descriptive nature. Whilst the values can be represented in numbers, they do not allow for arithmetic operations.
+Categorical or qualitative data is information collected in groups. It is often of descriptive nature. Whilst the values can be represented in numbers, they do not allow for arithmetic operations.
 There are two types of categorical data. Nominal and ordinal data.
 
 \paragraph{Nominal}
@@ -26,24 +26,61 @@ data is mostly descriptive in nature. They are independent and have no inherit o
 data is mostly similar to nominal data. Yet the data does have some sort of internal order. For example different dates each describe a day, but one day also comes after another.
 
 \subsubsection{Numeric}
-What is numeric data? Continuous and ???
+What is numeric data? Continuous and Discrete
+
+Numeric or quantitative data is all data expressed in numbers, where numbers do not represent categories. It allows for arithmetical operations and can be split into Discrete and Continuous data.
+
+\paragraph{Discrete}
+data can only take certain defined values. This usually means whole numbers to represent things that can not be split up further. Like the 'Number of Refugees' or 'Tickets sold'. Discrete data is countable.
+
+\paragraph{Continuous}
+data can be measured. It can have any real number as value. Therefore fractions are possible as well. For example when measuring the temperature, or the length or weight of an object.
 
 \subsection{Datasets}
 What are our datasets about? Where do they come from?
 
+Datasets are a collection of several data-points. each of these data-points is made up of different attributes. Each attribute corresponds to a specific data-type.
+
+In this thesis, two data-sets are used. They are both from UNHCR\cite{unhcr}. The first data-set contains information about the total number of refugees per country\cite{unhcr_rpc}. The second dataset is about the total cumulative total amount of refugees per day\cite{unhcr_rpd}. Both data-sets are in the JSON format.
+
 \subsubsection{Preprocessing}
 What is done in preprocessing? Python script which removes all excess / maybe do that in JS as well..?
+
+As both of the used data-sets have a lot of 'unnecessary' information, they are both preprocessed. In both cases the data-sets are read and the valuable information extracted and saved in the csv format. Both of the newly created csv files have two columns and one header row. The resulting csv of the refugees per country dataset, contains the two columns of country and refugees. The other resulting csv contains a column for the date and one for the cumulative refugees.
+The data-set about the refugees per country can also easily be converted into using percentages. After adding up the total amount of refugees from each data-point, one can convert the absolute number of refugees into percent.
 
 \subsubsection{Data Types}
 Which data types can be found in our data-sets? Where?
 
+The two chosen data-sets already cover most of the data-types. The refugees per country dataset contains two attributes per data-point. The country is a categorical attribute. The number of refugees is discrete. When converting this data-set into using percentages, the percentage of refugees becomes a continuous attribute. The In the refugees per date data-set, the amount of refugees is still a discrete attribute. The date itself is an ordinal attribute though. As one day clearly comes before and after another day.
 
-\section{Data Visualization}
+Choosing data-sets which cover all types of data-types was an important consideration. Different data-types can have different ways of representation, as well as different ways of implementation on the programming side of things.
+
+
+\subsection{Data Visualization}
 What is it? Where is it? Why is it important?
+
+Data visualization is the process of turning data into graphical representations. As the vast amounts of data which are gathered in charts and databases are often hard to comprehend with the human mind and might require a big amounts of space to directly represent, it is often desired to turn these data-sets into a more easily understandable formats. Therefore data is turned into diagrams. We constantly come across the results of data visualization in everyday life. They can be commonly found across all kinds of news sources, but also in reports, information campaigns or as part of user-interfaces in machinery or control systems. 
 
 
 \section{Diagrams}
 What diagrams exists? Which are the most common? What possibilities do they offer for encoding data? Which considerations for readability? Why do some diagrams not make as much sense? Which considerations where made for fulfilling the showcase requirements?
+
+Diagrams exists in many different shapes and sizes. There are many factors which should be taken into consideration when deciding which diagram to choose. There are usually many ways to represent the desired data. Some of the most common diagrams include bar-charts, pie-charts and scatter-plots (TODO: Find source (lel))
+
+All diagrams use a combination of marks and channels to encode data. Marks usually depend on the type of data. They are usually single points, lines or areas in a diagram. Channels depend on the singular data-points and influence the marks. The most common channels are position, color and size. It is important to note, that not all channels work with all data-types.
+
+\begin{figure}
+    \label{fig:bar-chart}
+    \includegraphics[width=\linewidth]{bar-chart.png}
+    \caption[bar-chart]{This is a bar-chart (TODO: which needs a frame..?)}
+\end{figure}
+
+To understand this more easily, we can look at diagram \ref{fig:bar-chart}. This diagram uses lines as marks. The y-position, as well as the hue, are both used to encodes the same categorical attribute. The area/size encodes a discrete attribute.
+
+Different combinations of marks and channels can influence the readability and the correctness of how the represented data is comprehended \cite{heer2010crowdsourcing} \cite{mackinlay1986automating}.
+
+
 
 \subsection{Refugees per country}
 Which ones did I choose? Why? Which data attributes do they encode?

@@ -1,6 +1,10 @@
 \documentclass[a4paper,12pt]{report}
 \usepackage[utf8]{inputenc}
 \usepackage{titlesec}
+\usepackage{listings}
+
+\usepackage{graphicx}
+\graphicspath{ {./figs} }
 
 \titleformat{\chapter}{\normalfont\huge}{\thechapter.}{20pt}{\huge}
 
@@ -13,6 +17,7 @@
 %%% date
 \date{Brandenburg, \today{}}
 
+
 \begin{document}
     \maketitle
     \input{chapters/abstract_german.tex}
@@ -21,7 +26,10 @@
     \input{chapters/basics.tex}
     \input{chapters/implementation.tex}
     \input{chapters/conclusion.tex}
-    \input{chapters/sources.tex}
-    \input{chapters/appendix.tex}
+    %\input{chapters/sources.tex}
     
+    \bibliographystyle{IEEEtran}
+    \bibliography{sources}
+    
+    \input{chapters/appendix.tex}
 \end{document}
