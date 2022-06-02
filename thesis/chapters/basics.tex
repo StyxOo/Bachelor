@@ -76,48 +76,42 @@ All diagrams use a combination of marks and channels to encode data. Marks usual
     \caption[bar-chart]{This is a bar-chart (TODO: which needs a frame..?)}
 \end{figure}
 
-To understand this more easily, we can look at diagram \ref{fig:bar-chart}. This diagram uses lines as marks. The y-position, as well as the hue, are both used to encodes the same categorical attribute. The area/size encodes a discrete attribute.
+\begin{figure}
+    \label{fig:donut-chart}
+    \includegraphics[width=\linewidth]{donut-chart.png}
+    \caption[donut-chart]{This is a donut-chart (TODO: which needs a frame..?)}
+\end{figure}
+
+To understand this more easily, we can look at diagram \ref{fig:bar-chart}. This diagram uses lines as marks. The y-position, as well as the hue, are both used to encodes the same categorical attribute. The area/size encodes a discrete attribute. The donut chart(\ref{fig:donut-chart}) instead used areas as marks. Their size encodes a discrete, whilst the hue encodes a categorical attribute.
 
 Different combinations of marks and channels can influence the readability and the correctness of how the represented data is comprehended \cite{heer2010crowdsourcing} \cite{mackinlay1986automating}.
-
-
-
-\subsection{Refugees per country}
-Which ones did I choose? Why? Which data attributes do they encode?
-
-\subsubsection{Bar chart}
-What is it? Why is it here?
-
-\subsubsection{Pie chart}
-What is it? Why is it here?
-
-\subsubsection{Tree map}
-What is it? Why is it here?
-
-\subsubsection{Sankey}
-What is it? Why is it here?
-
-\subsection{Refugees over time}
-Which ones did I choose? Why? Which data attributes do they encode?
-
-\subsubsection{Area graph}
-What is it? Why is it here?
-
-\subsubsection{Circle graph}
-What is it? Why is it here?
 
 
 \section{D3.js}
 This is all about d3. What is it? Where does it come from? What is it used for? Who uses it? Why should it be used? How does it work? Enter, update and exit pattern. Something about the modular structure of D3 as well. Might be worth mentioning "observables" as well.
 
-\subsection{What is it?}
-General definition. What is it, where does it come from, what is it for?
+"D3.js is a JavaScript library for manipulating documents based on data. D3 helps you bring data to life using HTML, SVG, and CSS."\cite{d3js}. The name D3 is short for data-driven documents. The D3 library was originally created by Mike Bostock and is published under the BSD-3-Clause open-source license.
 
 \subsection{How does it work?}
 General functioning of D3.
 
+"D3 allows you to bind arbitrary data to a Document Object Model (DOM), and then apply data-driven transformations to the document."\cite{d3js}. There are three main concepts that make up the core of D3. Selections, data joins and the general update pattern. Importing the d3 library into a project allows access to the \verb|d3| namespace.
+
+\subsubsection{Selections}
+What are they? Why are they useful?
+
+All operations in D3 run on an arbitrary collection of nodes these collections of nodes are called selections. There are two functions in D3 to create a new selection: \verb|d3.select("selector")| and \verb|d3.selectAll("selector")|. Both functions require a selector for identifying the appropriate elements. The selectors are defined in the W3C Selectors API\cite{w3c_selectors_api}. It is possible to directly access the DOM elements as the selections are only collections of nodes. But there are also many predefined functions for modifying the nodes properties. This includes the modification of attributes and styles, as well as event handling. Selections can also be extended or shrunken by adding or removing nodes, or by combining multiple selections.
+
+\subsubsection{Data Joins}
+What are they and why are they important?
+
+Data joins are a key feature of D3. They link up a data-point to a specific DOM element. To create a data-join, one has to call the \verb|.data(dataset)| function on a selection. It takes a dataset, an array of data-points, as parameter. This will bind the data elements to the nodes in the selection. When we want to create diagrams which can respond to data changes over time, it is usually also a good idea to specify a identifier function for the data-points. As the default identifier corresponds to the index of the data-point. This can lead to unexpected behavior when the dataset is modified. It is not important for the number of data-points to match up with the number of nodes in the selection. This is taken care of through the general update pattern.
+
 \subsubsection{General Update Pattern}
 What is it? What can it do? Describe data joins and dom element links.
+
+The general update pattern is another core concept of D3. Every time a data join is created or updated, it comes into play. There are three possible cases that can happen, when a data join is invoked. The first case, which usually happens as the data join is first created, is, that there are more data-points than nodes. In this case, all the data-points without a linked node are called the enter selection. The second case is about data-points which already have a linked DOM element. They make up the update selection. The last case , where a data-point which was already linked to a DOM element has been removed, is called the exit selection. For each three of the resulting sub-selections, we can define the behavior. For the entry selection, we usually want to create a new DOM element to represent the data-point. When the goal is to create only static representations, it is even enough to only implement the entry functionality. If we want to allow for data to change over time, we probably also want to implement the update and exit selections behaviors.
+
 
 \subsubsection{Modules}
 The way D3 is split up into modules, the core package and what kind of extensions are there.
