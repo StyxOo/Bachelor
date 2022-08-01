@@ -118,7 +118,6 @@ const render = data => {
                     })
                     .on('mousemove', e => {
                         const position = d3.pointer(e)
-                        console.log(position)
                         tooltip.style("top", (position[1]+0)+"px");
                         if (position[0] > ourWidth/2) {
                             const rect = tooltip.select('rect')
