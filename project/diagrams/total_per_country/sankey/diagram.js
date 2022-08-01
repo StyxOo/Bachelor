@@ -53,16 +53,11 @@ const render = data => {
 
     data.push(parent)
 
-    console.log(nodes)
-    console.log(links)
-
     const graph = d3.sankey()
         .nodeId(d => d.name)
         .nodeAlign(d3.sankeyJustify)
         .size([ourWidth, ourHeight])
         ({nodes, links})
-
-    console.log(graph)
 
     data.pop()
 

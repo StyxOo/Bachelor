@@ -1,0 +1,29 @@
+body {
+    margin: 0px;
+    overflow: hidden;
+}
+
+path:hover {
+    stroke: lightskyblue;
+    stroke-width: 0.2em;
+}
+
+text {
+    font-size: 0.9em;
+    fill : #635F5D;
+    font-family: sans-serif;
+}
+
+text .important {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+#legendHeadline {
+    font-size: 1.5em;
+    text-decoration: underline;
+}
+
+#content {
+    text-anchor: middle;
+}
