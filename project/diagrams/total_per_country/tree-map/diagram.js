@@ -22,22 +22,12 @@ const contentBackground = contentParentGroup.append('rect')
     .attr('id', 'contentBackground')
     .attr('x', 0)
     .attr('y', 0)
-    .attr('width', ourWidth * 2 / 3,)
+    .attr('width', ourWidth)
     .attr('height', ourHeight)
     .attr('fill', 'none')
 
 const treemapParentGroup = contentParentGroup.append('g')
     .attr('id', 'treeMapParent')
-
-const legendParentGroup = diagramGroup.append('g')
-    .attr('id', 'legend')
-    .attr('transform', `translate(${2 * ourWidth / 3 }, ${ourHeight/2 + 20})`)
-
-const legendHeader = legendParentGroup.append('text')
-    .text('Legend')
-    .attr('id', 'legendHeadline')
-    .attr('x', 10)
-    .attr('y', -27)
 
 
 const tooltip = d3.select("body")
@@ -93,19 +83,13 @@ const render = data => {
 
 
     const treemap = d3.treemap()
-        .size([ourWidth * 2 / 3, ourHeight])
+        .size([ourWidth, ourHeight])
         .padding(4)(root)
 
 
     /**
      * Here we set up all the required scales. One for the x-axis, one for the y-axis and one for the color-coding
      */
-
-
-    const legendScale = d3.scaleBand()
-        .domain(data.map(d => d.country))
-        .range([0, ourHeight/2])
-        .padding(0.2);
 
 
 
@@ -134,8 +118,15 @@ const render = data => {
                     })
                     .on('mousemove', e => {
                         const position = d3.pointer(e)
-                        tooltip.style("top", (position[1]+0)+"px")
-                            .style("left",(position[0]+35)+"px");
+                        console.log(position)
+                        tooltip.style("top", (position[1]+0)+"px");
+                        if (position[0] > ourWidth/2) {
+                            const rect = tooltip.select('rect')
+                            const width = rect.attr('width')
+                            tooltip.style("left", (position[0] - width + 10) + "px");
+                        } else {
+                            tooltip.style("left", (position[0] + 35) + "px");
+                        }
                     })
                     .on('mouseout', () => {
                         tooltip.classed('hidden', true)
@@ -151,38 +142,6 @@ const render = data => {
                         .attr('height', d => { return d.y1 - d.y0; }))
             },
             exit => exit.remove()
-        )
-
-
-    legendParentGroup.selectAll('g .entry')
-        .data(data, d => {return d.country})
-        .join(
-            enter => {
-                const entry = enter.append('g')
-                    .attr('class', 'entry')
-                    .attr('transform', `translate(0, ${ourHeight - 30})`)
-                    .call(enter => enter.transition(t)
-                        .attr('transform', d => {
-                            return `translate(0, ${legendScale(d.country)})`
-                        }))
-
-                entry.append('circle')
-                    .attr('cx', 20)
-                    .attr('cy', -legendScale.bandwidth()/4)
-                    .attr('r', legendScale.bandwidth()/2)
-                    .attr('fill', d => colors(d))
-
-                entry.append('text')
-                    .text(d => d.country)
-                    .attr('x', legendScale.bandwidth() * 2)
-            },
-            update => {
-                update
-                    .call(update => update.transition(t)
-                        .attr('transform', d => {
-                            return `translate(0, ${legendScale(d.country)})`
-                        }))
-            }
         )
 };
 

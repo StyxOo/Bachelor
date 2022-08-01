@@ -17,7 +17,7 @@ const diagramGroup = svg.append('g')
 
 const contentParentGroup = diagramGroup.append('g')
     .attr('id', 'content')
-    .attr('transform', `translate(${radius + 20},${ourHeight/2})`)
+    .attr('transform', `translate(${ourWidth/3},${ourHeight/2})`)
 
 const diagramParentGroup = contentParentGroup.append('g')
     .attr('id', 'diagram')
@@ -72,16 +72,6 @@ const currentCountryTextSpan = currentTextGroup.append('tspan')
     .attr('x', 0)
 
 
-const legendParentGroup = diagramGroup.append('g')
-    .attr('id', 'legend')
-    .attr('transform', `translate(${2 * radius + 60}, ${ourHeight/2 + 20})`)
-
-const legendHeader = legendParentGroup.append('text')
-    .text('Legend')
-    .attr('id', 'legendHeadline')
-    .attr('x', 10)
-    .attr('y', -27)
-
 
 const colors = d3.scaleOrdinal(d3.schemeDark2);
 
@@ -94,12 +84,6 @@ const render = data => {
 
     const t = svg.transition()
         .duration(1500);
-
-
-    const legendScale = d3.scaleBand()
-        .domain(data.map(d => d.country))
-        .range([0, ourHeight/2])
-        .padding(0.2);
 
 
     // Generate the pie
@@ -164,37 +148,6 @@ const render = data => {
                             }}))
             },
             exit => exit.remove()
-        )
-
-    legendParentGroup.selectAll('g .entry')
-        .data(data, d => {return d.country})
-        .join(
-            enter => {
-                const entry = enter.append('g')
-                    .attr('class', 'entry')
-                    .attr('transform', `translate(0, ${ourHeight - 30})`)
-                    .call(enter => enter.transition(t)
-                        .attr('transform', d => {
-                            return `translate(0, ${legendScale(d.country)})`
-                        }))
-
-                entry.append('circle')
-                    .attr('cx', 20)
-                    .attr('cy', -legendScale.bandwidth()/4)
-                    .attr('r', legendScale.bandwidth()/2)
-                    .attr('fill', d => colors(d))
-
-                entry.append('text')
-                    .text(d => d.country)
-                    .attr('x', legendScale.bandwidth() * 2)
-            },
-            update => {
-                update
-                    .call(update => update.transition(t)
-                        .attr('transform', d => {
-                            return `translate(0, ${legendScale(d.country)})`
-                        }))
-            }
         )
 };
 
