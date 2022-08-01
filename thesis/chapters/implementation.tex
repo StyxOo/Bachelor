@@ -1,32 +1,131 @@
 \chapter{Implementation}
 How are the chosen diagrams implemented? Which D3 modules have been used? How was the implementation done?
 
-\section{Showcase}
-How is the showcase structured? How can you get there? Why does it exist? Who might benefit? How can you reuse a part the interesting parts?
+In the following sections the process of creating the showcase and the diagram are described. There are several parts to this. At first the data-sets, which should be represented, are chosen. In most real world usages, this is already given. Afterwards the possible diagrams are considered and chosen. Their implementation and usages of D3 are described. Finally the showcase bringing all the diagrams together is described.
 
-\subsection{Integration of each diagram}
-How is each diagram integrated? How can you access them? Where can you grab them standalone?
+\section{Datasets}
+What are our datasets about? Where do they come from?
 
-\subsection{Data Updates}
-How can you simulate data changes? Why is this useful?
+In this thesis, two data-sets are used. They are both from UNHCR\cite{unhcr}. The first data-set contains information about the total number of refugees per country\cite{unhcr_rpc}. The second dataset is about the total cumulative total amount of refugees per day\cite{unhcr_rpd}. Both data-sets are in the JSON format.
+As different data-types allow for different representations and require varying parts of D3, the data-sets have been specifically chosen to cover all data-types.
+
+\subsection{Preprocessing}
+What is done in preprocessing? Python script which removes all excess / maybe do that in JS as well..?
+
+It would be possible to use both these data-sets as is. Yet the vast amounts of filler data, which does not contain any valuable information, makes data accesses unnecessarily complicated. Therefore both data-sets are preprocessed. In both cases the data-sets are read and the valuable information extracted and saved in the csv format. Both of the newly created csv files have two columns and one header row. The resulting csv of the refugees per country dataset, contains the two columns of country and refugees. The other resulting csv contains a column for the date and one for the cumulative refugees. 
+The data-set about the refugees per country can also easily be converted into using percentages. After adding up the total amount of refugees from each data-point, one can convert the absolute number of refugees into percent.
+
+\subsection{Data Types}
+Which data types can be found in our data-sets? Where?
+
+The two chosen data-sets already cover most of the data-types. The refugees per country dataset contains two attributes per data-point. The country is a categorical attribute. The number of refugees is discrete. When converting this data-set into using percentages, the percentage of refugees becomes a continuous attribute. The In the refugees per date data-set, the amount of refugees is still a discrete attribute. The date itself is an ordinal attribute though. As one day clearly comes before and after another day.
+
+Choosing data-sets which cover all types of data-types was an important consideration. Different data-types can have different ways of representation, as well as different ways of implementation on the programming side of things.
+
 
 \section{Diagrams}
-describe all the diagrams and why they are special and what makes them tick
+describe all the diagrams and why they are special and what makes them tick. Why have they been chosen?
+
+The following section is all about the selection and implementation of each diagram. As the selection of diagrams was heavily influenced by differences in functions of D3 they use, the common features are explained first, before diving into the more detailed explanation of each diagram and their specifics.
+
+\subsection{Common features}
+What does every diagram use?
+
+All diagrams consist of three parts. A HTML, a CSS an a JavaScript file. The HTML loads the D3 library in the header. The body of the HTML only consists of a svg tag where the diagram will be drawn, and a script tag which loads the JavaScript file. The CSS defines the general styling of the diagram which is not dependent on the input data. The main part of the implementation is done in the Javascript section.
+The JavaScript part follows a specific pattern in its implementation. At first there is a general setup section, which is run once as the website is loaded. It is followed by a render function, which is responsible for drawing the diagram. The render function requires the data-set as input. It is also split into two parts. At first the requires scales are initiated. It is followed by the section responsible for creating and manipulating the diagram. This is done by firstly creating a data join, before specifying the behavior of the general update pattern. The render function is called once initially and every time the data changed. Therefore all diagrams are implemented in a way which allows for them to react to data updates.
+
+\subsubsection{Initialization}
+What happens here?
+Generally all things which are data independent are done during the initialization. It starts with setting some core variables. A reference to the svg tag which will be used as the container is made. It is followed by a margin definition, where the margin of our diagram content in relation to the container size is defined. The resulting values for \verb|ourHeight| and \verb|ourWidth|, which we will use as space to draw the diagram, are saved. 
+
+Following there are a few group elements which are added to the svg tag. These group elements provide a general hierarchy and spacing for different aspects of the diagram. For example the diagram and the legend are usually split in two different groups on the highest level. The diagram can further be separated into groups for the axes and the actual content of the diagram. This general hierarchy is only created on a level which is independent of the provided data and is therefore sufficient to be only created at the beginning.
+
+Finally if there data independent scales, they are defined here. A common example here is a color scale for discrete values. It is not important to already know the specific input values, to be able to create a list of colors which is used by the scale. When queried, it will then return a new color from the list, for each new query value. It is important to note that when the color list runs out of new colors, it restarts at the beginning of the list.
+
+\subsubsection{Scales}
+What are scales? Which kinds of scales exist? How do they work?
+The first part of the render function is setting up all the required scales. 
+
+Scales convert from a domain to a range. The domain is filled with the inputs values. The range is consist of the available outputs. Depending on the type of scale and which data types are used, the domain and range can look quite different. In this thesis the scales are mostly used to find the appropriate coordinates to be able to accurately draw svg elements in the available space. Either by converting the number of refugees to coordinate space, or to find the appropriate spacing and coordinate position of different categories. Specific scales are described in the implementation of the specific diagrams.
+
+As scales depend on the input data they need to be recreated with each render call, to make sure that they are still up to date. Furthermore they are required while describing the behavior in the general update pattern, and therefore need to be defined in the beginning of the render call.
+
+\subsubsection{Data joins}
+How are they created?
+
+After the scales are defined, the data join is created. When there are several parts to the diagram, like the content and a legend, additional data joins might be required.
+
+A data join is created when binding data to a selection. This is achieved by first calling the \verb|.data(DATA)| function of a selection. The data function creates pairs of elements and data entries. By default, these are matched through their index in the selection and data arrays. This can lead to unexpected behavior when entries are removed or inserted at the not last position. Therefore the default identifier function can be overwritten by passing a custom identifier function as the second optional parameter to the data function. A custom identifier function should return a value and is called for each element in the data array. For the refugees per country data-set in this thesis, the identifier is usually \verb|d => {return d.country}|.
+
+When we initially create the data join, or when data-points are added, we do not have sufficient elements in the selection to pair them with data entries. D3 will therefore create empty placeholders for these elements. To make these placeholders become a part of the DOM, we add the \verb|.join()| after the data() call. There are two ways to use the join function. We can either pass a string which will result in adding a matching tag to the DOM. The attributes and style for each new element can then be defined by method chaining. This approach is reasonable for diagrams that do not need to react to daa changes. In this thesis we want all diagrams to implement the full extend of the general update pattern, to be able to react to changing data and use the full possibilities of D3.
+
+\subsubsection{General Update Pattern}
+How is this implemented? Where does it come into play?
+
+When the join function is called, instead of passing a single string as parameter, three functions can be passed as parameters. These three functions correspond to the three cases of the general update pattern and describe their respective behavior. Each of the three function has one input parameter, corresponding to the respective sub-selection. In the enter function we usually want to add some element to the DOM. In the exit selection we remove elements again. The update function is optional, but always used in this thesis, as this is the place to update existing elements to accommodate for data changes and therefore possibly removed or newly added elements as well.
+
+The enter function should add the applicable placeholder element to the svg as actual content. Therefore the first part of the enter function is usually an \verb|.append(string)| call. The string describes the tag which will be added to the DOM. Following this the applicable styles, attributes and sub-elements are added. It is important to provide enough information, that the provided selector which was used to create the selection for the data join whose behavior we are defining, can also match the newly created element. Part of creating the new element is using the scales to position and size the elements accordingly.
+
+The update function is necessary when we want to react to data changes. It is usually similar to the enter function, in that is adjusts the positioning and sizing of the elements according to the possibly changes scales. The exit function is defined by default to simply remove the applicable elements.
+
+All three functions can make use of animations and transitions to improve their feel.
+
+\subsubsection{Animations}
+What are they? How do they work? Why are there two kinds? What makes them tick?
+
+Animations can improve the feel, appeal and readability of diagrams. Especially when reacting to data changes, it is easier to understand and see the changes when for example bars in a bar-chart shift to their new positions, instead of a seemingly entirely new diagram popping up out of thin air. The animations allow the viewer to keep track of the existing entries and visually follow any changes. It is also possible to see the changes of existing values, by following, for example, the growth of shrinking of the length of a bar in a bar-chart. Animations can also be used when initially drawing the diagram, to make it seemingly build itself from nothing, instead of popping into existence.
+
+Animating elements in D3 is achieved by using transitions. Transitions are called from a selection and run on all the elements of the selection. A transition requires a duration and can also be provided with a delay and an easing function. The duration and delay are both in milliseconds. Animating numerical, color or string values is very easy with transition. It is only required to call the attribute or style with the target value and the transition will take care of the rest. This makes it very fast and easy to animate for example positioning or sizing.
+
+\begin{lstlisting}[style=htmlcssjs]
+    enter.call(enter => enter.transition(t)
+    .attrTween('d', (d, index, nodes) => {
+            const i = d3.interpolate(0, d.startAngle);
+            const j = d3.interpolate(0, d.endAngle);
+
+            nodes[index].previousStartAngle = d.startAngle;
+            nodes[index].previousEndAngle = d.endAngle;
+
+            return time => {
+                d.startAngle = i(time);
+                d.endAngle = j(time);
+                return arc(d);
+            }}))
+\end{lstlisting}
+
+Instead of using the default behaviors for numbers, string and colors or when trying to animate other values like svg paths, a tween function can be defined using \verb|attrTween| or \verb|styleTween|. Both tweens need to return a function which will be invoked for each frame of the animation, with a time value between 0 and 1, depending on the frame. The returned function must itself return a value, which is applied to the desired style or attribute every frame. In this thesis tweens are only specifically defined to animate svg path tags.
+
 
 \subsection{Bar Chart}
 How does it work? Which d3 features does it use? how do they work?
 
-\subsubsection{Pie chart}
+\subsection{Pie chart}
 How does it work? Which d3 features does it use? how do they work?
 
-\subsubsection{Tree map}
+\subsection{Tree map}
 How does it work? Which d3 features does it use? how do they work?
 
-\subsubsection{Sankey}
+\subsection{Sankey}
 How does it work? Which d3 features does it use? how do they work?
 
-\subsubsection{Area graph}
+\subsection{Area graph}
 How does it work? Which d3 features does it use? how do they work?
 
-\subsubsection{Circle graph}
+\subsection{Circle graph}
 How does it work? Which d3 features does it use? how do they work?
+
+
+\section{Showcase}
+How is the showcase structured? How can you get there? Why does it exist? Who might benefit? How can you reuse a part the interesting parts?
+
+There are actually two showcases. One for each data-set. Each showcase is split into two main parts. Firstly there is a section with all the different diagrams for the applicable data-set. All diagrams in one showcase represent the same data-set. This allows for an easy visual comparison, as well as easier comparison of the code. When each diagram would show different data, it would be harder to distinguish between implementation differences which are due to the different representation and differences which are caused by accommodating different data-sets. Additionally each showcase has a section where the input data can be seen and modified.
+
+\subsection{Integration of each diagram}
+How is each diagram integrated? How can you access them? Where can you grab them standalone?
+
+Each diagram is implemented to work on its own and without the showcase. Each diagram is also designed to use all the space available in its container. When loading one of the diagrams htmls directly, it will therefore fill the whole browser window. The showcase loads each of the diagrams into a separate IFrame tag with consistent width and height.
+
+\subsection{Data Updates}
+How can you simulate data changes? Why is this useful?
+
+The showcases have a section which allows for data manipulation. Rows of data can be modified, added or removed here. The data changes here are not persistent and therefore do not get written in the original data csv files. When data is changed, the diagrams are provided with the updated data and adapt accordingly. It is important to be able to modify the data, as one of the core features of D3 is reacting to changes in data. This manual style of changing data is probably not so common in real world applications. Yet it is easy to replace these manual data changes to regular API calls or other automatically updating data-sources. As the source of the data changes does not matter for the functionality of D3, the manual approach chosen here is sufficient in demonstrating the possibilities of D3.

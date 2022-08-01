@@ -1,6 +1,7 @@
 # Goal
 ## What?
 The goal is to create a showcase for the possibilities of [[d3.js]]. 
+- Quantitative explorative
 
 ## How?
 We will several vastly different kinds of [[Diagrams]] to display the range of possibilities of [[d3.js]].

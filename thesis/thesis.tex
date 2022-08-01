@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{titlesec}
 \usepackage{listings}
+\input{styles.tex}
 
 \usepackage{graphicx}
 \graphicspath{ {./figs} }
@@ -19,12 +20,14 @@
 
 
 \begin{document}
-    \maketitle
+    %\maketitle
+    \input{chapters/title.tex}
     \input{chapters/abstract_german.tex}
     \tableofcontents
     \input{chapters/introduction.tex}
     \input{chapters/basics.tex}
     \input{chapters/implementation.tex}
+    \input{chapters/discussion.tex}
     \input{chapters/conclusion.tex}
     %\input{chapters/sources.tex}
     

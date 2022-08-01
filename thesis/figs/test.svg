@@ -1,0 +1,103 @@
+<svg id="mainFrame" height="360" width="720">
+    <g transform="translate(118,20)">
+        <g id="xAxis" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"
+            transform="translate(0,320)">
+            <g class="tick" opacity="1" transform="translate(0.5,0)">
+                <line stroke="currentColor" y2="-320"></line><text fill="currentColor" y="3" dy="0.71em">0</text>
+            </g>
+            <g class="tick" opacity="1" transform="translate(39.3,0)">
+                <line stroke="currentColor" y2="-320"></line><text fill="currentColor" y="3" dy="0.71em">200k</text>
+            </g>
+            <g class="tick" opacity="1" transform="translate(78.1,0)">
+                <line stroke="currentColor" y2="-320"></line><text fill="currentColor" y="3" dy="0.71em">400k</text>
+            </g>
+            <g class="tick" opacity="1" transform="translate(116.9,0)">
+                <line stroke="currentColor" y2="-320"></line><text fill="currentColor" y="3" dy="0.71em">600k</text>
+            </g>
+            <g class="tick" opacity="1" transform="translate(155.7,0)">
+                <line stroke="currentColor" y2="-320"></line><text fill="currentColor" y="3" dy="0.71em">800k</text>
+            </g>
+            <g class="tick" opacity="1" transform="translate(194.5,0)">
+                <line stroke="currentColor" y2="-320"></line><text fill="currentColor" y="3" dy="0.71em">1.0M</text>
+            </g>
+            <g class="tick" opacity="1" transform="translate(233.3,0)">
+                <line stroke="currentColor" y2="-320"></line><text fill="currentColor" y="3" dy="0.71em">1.2M</text>
+            </g>
+            <g class="tick" opacity="1" transform="translate(272.1,0)">
+                <line stroke="currentColor" y2="-320"></line><text fill="currentColor" y="3" dy="0.71em">1.4M</text>
+            </g>
+            <g class="tick" opacity="1" transform="translate(310.9,0)">
+                <line stroke="currentColor" y2="-320"></line><text fill="currentColor" y="3" dy="0.71em">1.6M</text>
+            </g>
+            <g class="tick" opacity="1" transform="translate(349.7,0)">
+                <line stroke="currentColor" y2="-320"></line><text fill="currentColor" y="3" dy="0.71em">1.8M</text>
+            </g>
+            <g class="tick" opacity="1" transform="translate(388.5,0)">
+                <line stroke="currentColor" y2="-320"></line><text fill="currentColor" y="3" dy="0.71em">2.0M</text>
+            </g>
+            <g class="tick" opacity="1" transform="translate(427.29999999999995,0)">
+                <line stroke="currentColor" y2="-320"></line><text fill="currentColor" y="3" dy="0.71em">2.2M</text>
+            </g>
+            <g class="tick" opacity="1" transform="translate(466.1,0)">
+                <line stroke="currentColor" y2="-320"></line><text fill="currentColor" y="3" dy="0.71em">2.4M</text>
+            </g>
+            <g class="tick" opacity="1" transform="translate(504.90000000000003,0)">
+                <line stroke="currentColor" y2="-320"></line><text fill="currentColor" y="3" dy="0.71em">2.6M</text>
+            </g>
+            <g class="tick" opacity="1" transform="translate(543.7,0)">
+                <line stroke="currentColor" y2="-320"></line><text fill="currentColor" y="3" dy="0.71em">2.8M</text>
+            </g>
+            <g class="tick" opacity="1" transform="translate(582.5,0)">
+                <line stroke="currentColor" y2="-320"></line><text fill="currentColor" y="3" dy="0.71em">3.0M</text>
+            </g>
+        </g>
+        <g id="yAxis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end">
+            <g class="tick" opacity="1" transform="translate(0,26.666666666666664)"><text fill="currentColor" x="-9"
+                    dy="0.32em">Poland</text></g>
+            <g class="tick" opacity="1" transform="translate(0,71.11111111111111)"><text fill="currentColor" x="-9"
+                    dy="0.32em">Romania</text></g>
+            <g class="tick" opacity="1" transform="translate(0,115.55555555555554)"><text fill="currentColor" x="-9"
+                    dy="0.32em">Russian Federation</text></g>
+            <g class="tick" opacity="1" transform="translate(0,159.99999999999997)"><text fill="currentColor" x="-9"
+                    dy="0.32em">Hungary</text></g>
+            <g class="tick" opacity="1" transform="translate(0,204.44444444444443)"><text fill="currentColor" x="-9"
+                    dy="0.32em">Republic of Moldova</text></g>
+            <g class="tick" opacity="1" transform="translate(0,248.88888888888889)"><text fill="currentColor" x="-9"
+                    dy="0.32em">Slovakia</text></g>
+            <g class="tick" opacity="1" transform="translate(0,293.3333333333333)"><text fill="currentColor" x="-9"
+                    dy="0.32em">Belarus</text></g>
+        </g>
+        <g id="content">
+            <g class="bar">
+                <rect width="562.544322" height="35.55555555555556" y="8.888888888888886" fill="#1b9e77"></rect><text
+                    class="barText" text-anchor="end" dy="0.32em" y="26.666666666666664" x="552.544322">2899713</text>
+            </g>
+            <g class="bar">
+                <rect width="150.174236" height="35.55555555555556" y="53.33333333333333" fill="#d95f02"></rect><text
+                    class="barText" text-anchor="end" dy="0.32em" y="71.11111111111111" x="140.174236">774094</text>
+            </g>
+            <g class="bar">
+                <rect width="112.18146999999999" height="35.55555555555556" y="97.77777777777777" fill="#7570b3"></rect>
+                <text class="barText" text-anchor="end" dy="0.32em" y="115.55555555555554"
+                    x="102.18146999999999">578255</text>
+            </g>
+            <g class="bar">
+                <rect width="95.012276" height="35.55555555555556" y="142.2222222222222" fill="#e7298a"></rect><text
+                    class="barText" text-anchor="end" dy="0.32em" y="159.99999999999997" x="85.012276">489754</text>
+            </g>
+            <g class="bar">
+                <rect width="84.043516" height="35.55555555555556" y="186.66666666666666" fill="#66a61e"></rect><text
+                    class="barText" text-anchor="end" dy="0.32em" y="204.44444444444443" x="74.043516">433214</text>
+            </g>
+            <g class="bar">
+                <rect width="68.73982600000001" height="35.55555555555556" y="231.11111111111111" fill="#e6ab02"></rect>
+                <text class="barText" text-anchor="end" dy="0.32em" y="248.88888888888889"
+                    x="58.73982600000001">354329</text>
+            </g>
+            <g class="bar">
+                <rect width="4.672296" height="35.55555555555556" y="275.55555555555554" fill="#a6761d"></rect><text
+                    class="barText" text-anchor="end" dy="0.32em" y="293.3333333333333" x="60">24084</text>
+            </g>
+        </g>
+    </g>
+</svg>

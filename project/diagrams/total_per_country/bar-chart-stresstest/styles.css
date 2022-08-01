@@ -1,0 +1,31 @@
+body {
+    margin: 0px;
+    overflow: hidden;
+}
+
+
+rect:hover {
+    fill: lightskyblue;
+}
+
+text {
+    font-size: 1.2em;
+    font-family: sans-serif;
+}
+
+.barText {
+    font-size: 0.8em;
+    fill : #635F5D;
+    pointer-events: none;
+}
+
+.tick text {
+    font-size: 1em;
+    fill : #635F5D;
+    /*transform: rotate(20deg);*/
+}
+
+.tick line {
+    stroke: #C0C0BB;
+    stroke-width: 0.15em;
+}
