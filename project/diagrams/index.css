@@ -68,7 +68,8 @@ div {
 .info {
     position: sticky;
     top: 0;
-    padding: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .legend {
@@ -80,9 +81,14 @@ div {
 }
 .legend-container {
     padding-bottom: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     border-bottom: 2px solid #635F5D;
 }
 
 .data {
+}
+
+th {
+    font-size: 0.85em;
+    font-weight: normal;
 }

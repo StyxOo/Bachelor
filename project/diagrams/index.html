@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Showcase</title>
     <link rel="stylesheet" href="index.css">
+
+    <!-- Import D3.js libraries -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
     <div class="main-grid">
@@ -24,9 +27,33 @@
             <div class="info-space">
                 <div class="info">
                     <div class="legend-container">Legend
-                        <iframe class="legend" src="./total_per_country/legend/diagram.html" frameborder="0" height="100%" width="100%"></iframe>
+                        <div>
+                            <iframe class="legend" src="./total_per_country/legend/diagram.html" frameborder="0" height="100%" width="100%"></iframe>
+                        </div>
                     </div>
-                    <div class="data">Data</div>
+                    <div class="data">Data
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Country</th>
+                                <th>Refugees</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody id="tBody_per_country"></tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="2">
+                                    <input type="button" value="Update data" onclick="updateData()">
+                                </td>
+                                <td>
+                                    <input type="button" value="Add New Row" onclick="addRow()">
+                                </td>
+                            </tr>
+                            </tfoot>
+                            <script src="./total_per_country/country-data-service.js"></script>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -44,7 +71,29 @@
             <div class="info-space">
                 <div class="info">
 <!--                    <div class="legend">Legend</div>-->
-                    <div class="data">Data</div>
+                    <div class="data">Data
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Refugees</th>
+                                <th>Remove Row</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tBody_per_day"></tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="2">
+                                    <input type="button" value="Update data" onclick="updateData()">
+                                </td>
+                                <td>
+                                    <input type="button" value="Add New Row" onclick="addRow()">
+                                </td>
+                            </tr>
+                            </tfoot>
+                            <script src="./total_per_day/data-service.js"></script>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
