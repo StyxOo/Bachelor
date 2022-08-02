@@ -1,0 +1,44 @@
+<div class="topic">
+    <div class="topic-headline">Refugees per Country</div>
+    <div class="content">
+        <div class="diagrams">
+            <iframe class="diagram" src="./bar-chart/diagram.html" frameborder="01" height="100%" width="100%"></iframe>
+            <iframe class="diagram" src="./pie-chart/diagram.html" frameborder="01" height="100%" width="100%"></iframe>
+            <!--<iframe class="diagram" src="./stacked-bar-chart/diagram.html" frameborder="01" height="360" width="720"></iframe>-->
+            <iframe class="diagram" src="./tree-map/diagram.html" frameborder="01" height="100%" width="100%"></iframe>
+            <iframe class="diagram" src="./sankey/diagram.html" frameborder="01" height="100%" width="100%"></iframe>
+        </div>
+    </div>
+    <div class="info-space">
+        <div class="info">
+            <div class="legend-container">Legend
+                <div>
+                    <iframe class="legend" src="./legend/diagram.html" frameborder="0" height="100%" width="100%"></iframe>
+                </div>
+            </div>
+            <div class="data">Data
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Country</th>
+                        <th>Refugees</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody id="tBody"></tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="2">
+                            <input type="button" value="Update data" onclick="updateData()">
+                        </td>
+                        <td>
+                            <input type="button" value="Add New Row" onclick="addRow()">
+                        </td>
+                    </tr>
+                    </tfoot>
+                    <script src="./index.js"></script>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
