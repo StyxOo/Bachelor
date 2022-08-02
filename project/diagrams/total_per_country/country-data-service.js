@@ -1,18 +1,14 @@
-const test = () => {
-    console.log("Testing");
-}
+const countryDataPath = './total_per_country/total_refugees_per_country_condensed.csv';
 
-const dataPath = './total_per_country/total_refugees_per_country_condensed.csv';
-
-const tBody = document.getElementById('tBody_per_country')
+const countryTBody = document.getElementById('tBody_per_country')
 
 /**
  * This section creates a new row in the data table using a given country name and refugee count.
  * It is used to fill the table in the beginning, after loading the data, as well as when creating a new table row.
  */
-const addRow = (country = "Country name", refugees= 0) => {
+const addCountryRow = (country = "Country name", refugees= 0) => {
     const row = document.createElement('tr')
-    row.className = 'dataRow'
+    row.className = 'countryDataRow'
     const countryCell = document.createElement('td')
     const refugeesCell = document.createElement('td')
     const removeButtonCell = document.createElement('td')
@@ -26,7 +22,7 @@ const addRow = (country = "Country name", refugees= 0) => {
 
     const removeButton = document.createElement('button')
     removeButton.textContent = "Remove Row"
-    removeButton.onclick= event => {removeRow(event)}
+    removeButton.onclick= event => {removeCountryRow(event)}
 
     countryCell.appendChild(countryInput)
     refugeesCell.appendChild(refugeesInput)
@@ -35,18 +31,18 @@ const addRow = (country = "Country name", refugees= 0) => {
     row.appendChild(countryCell)
     row.appendChild(refugeesCell)
     row.appendChild(removeButtonCell)
-    tBody.appendChild(row)
+    countryTBody.appendChild(row)
 }
 
-const fillTable = data => {
+const fillCountryTable = data => {
     data.forEach(d => {
-        addRow(d.country, d.refugees)
+        addCountryRow(d.country, d.refugees)
     })
 }
 
-const removeRow = (event) => {
+const removeCountryRow = (event) => {
     console.log(event)
-    tBody.removeChild(event.target.parentElement.parentElement)
+    countryTBody.removeChild(event.target.parentElement.parentElement)
     // updateData();
 }
 
@@ -56,12 +52,12 @@ const removeRow = (event) => {
  * It creates a new data object, mimicking the original data read from the csv.
  * It also invokes the render function, updating the diagrams.
  */
-let latestData = undefined;
+let latestCountryData = undefined;
 
-const updateData = () => {
+const updateCountryData = () => {
     console.log("Update data aka create new data element")
     const data = []
-    const tableRows = document.getElementsByClassName('dataRow');
+    const tableRows = document.getElementsByClassName('countryDataRow');
 
     data.columns = ['country', 'refugees']
 
@@ -73,8 +69,8 @@ const updateData = () => {
     console.log('Newly updated data set:')
     console.log(data)
 
-    latestData = data;
-    render()
+    latestCountryData = data;
+    renderCountryDiagrams()
 }
 
 /**
@@ -82,25 +78,25 @@ const updateData = () => {
  * They will be invoked when the data changes.
  * The section with `window.` exposes the function to be callable by the diagrams using the `parent.` keyword.
  */
-const diagramRenderCallbacks = []
+const countryDiagramRenderCallbacks = []
 
-window.registerDiagramRenderCallback = (callback) =>
+window.registerCountryDiagramRenderCallback = (callback) =>
 {
-    diagramRenderCallbacks.push(callback)
+    countryDiagramRenderCallbacks.push(callback)
 
     /**
      * This will only happen, if the data was already loaded before the callback is getting registered.
      * If the callback is registered before the data is loaded, it will be called through the render call in the data loading.
      */
-    if (latestData !== undefined) {
-        callback(latestData)
+    if (latestCountryData !== undefined) {
+        callback(latestCountryData)
     }
 }
 
-const render = () => {
+const renderCountryDiagrams = () => {
     console.log('Render diagrams through registered callbacks')
-    for (const diagramRenderCallback of diagramRenderCallbacks) {
-        diagramRenderCallback(latestData)
+    for (const diagramRenderCallback of countryDiagramRenderCallbacks) {
+        diagramRenderCallback(latestCountryData)
     }
 
     /**
@@ -120,15 +116,15 @@ const render = () => {
  */
 
 // .csv creates a promise, when it resolves .then do something else
-d3.csv(dataPath).then(data => {
+d3.csv(countryDataPath).then(data => {
     data.forEach(d => {                         // Foreach data-point in data
         d.refugees = +d.refugees;           // Cast value to float and take times 1000
         d.country = `${d.country}`;             // Kind of unnecessary, but fixed webstorm complaining
     });
     console.log('Loaded data:')
     console.log(data);
-    fillTable(data);
+    fillCountryTable(data);
 
-    latestData = data;
-    render();
+    latestCountryData = data;
+    renderCountryDiagrams();
 })

@@ -138,7 +138,7 @@ const render = data => {
  * If there is no data providing parent, it'll load its own data.
  */
 try {
-    parent.registerDiagramRenderCallback(render)
+    parent.registerCountryDiagramRenderCallback(render)
     console.log('Could successfully subscribe to parent for data updates')
 } catch (e) {
     console.log('Data is not provided externally. Loading data directly')

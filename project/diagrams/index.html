@@ -44,10 +44,10 @@
                             <tfoot>
                             <tr>
                                 <td colspan="2">
-                                    <input type="button" value="Update data" onclick="updateData()">
+                                    <input class="button" type="button" value="Update data" onclick="updateCountryData()">
                                 </td>
                                 <td>
-                                    <input type="button" value="Add New Row" onclick="addRow()">
+                                    <input type="button" value="Add New Row" onclick="addCountryRow()">
                                 </td>
                             </tr>
                             </tfoot>
@@ -61,37 +61,78 @@
             <div class="topic-headline">Refugees per Day</div>
             <div class="content">
                 <div class="diagrams">
-                    <iframe class="diagram" src="./total_per_country/bar-chart/diagram.html" frameborder="01" height="100%" width="100%"></iframe>
-                    <iframe class="diagram" src="./total_per_country/pie-chart/diagram.html" frameborder="01" height="100%" width="100%"></iframe>
-                    <!--<iframe class="diagram" src="./stacked-bar-chart/diagram.html" frameborder="01" height="360" width="720"></iframe>-->
-                    <iframe class="diagram" src="./total_per_country/tree-map/diagram.html" frameborder="01" height="100%" width="100%"></iframe>
-                    <iframe class="diagram" src="./total_per_country/sankey/diagram.html" frameborder="01" height="100%" width="100%"></iframe>
+                    <iframe class="diagram" src="./total_per_day/circle/diagram.html" frameborder="01" width="100%"></iframe>
+<!--                    <iframe class="diagram" src="./total_per_country/bar-chart/diagram.html" frameborder="01" width="100%"></iframe>-->
+<!--                    <iframe class="diagram" src="./total_per_country/pie-chart/diagram.html" frameborder="01" width="100%"></iframe>-->
+<!--                    &lt;!&ndash;<iframe class="diagram" src="./stacked-bar-chart/diagram.html" frameborder="01" height="360" width="720"></iframe>&ndash;&gt;-->
+<!--                    <iframe class="diagram" src="./total_per_country/tree-map/diagram.html" frameborder="01" width="100%"></iframe>-->
+<!--                    <iframe class="diagram" src="./total_per_country/sankey/diagram.html" frameborder="01" width="100%"></iframe>-->
                 </div>
             </div>
             <div class="info-space">
                 <div class="info">
-<!--                    <div class="legend">Legend</div>-->
+                    <div class="slider-container">
+                        Current Time Selector
+                        <br>
+                        <table width="100%">
+                            <tbody>
+                                <tr>
+                                    <td colspan="3">
+                                        <input type="range" min="0" max="100" value="0" class="slider" id="timeSlider">
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>Start Date</td>
+                                    <td align="center">Current Date</td>
+                                    <td align="right">End Date</td>
+                                </tr>
+                                <tr>
+                                    <td id="startDate">DD-MM-YYYY</td>
+                                    <td id="currentDate" align="center">DD-MM-YYYY</td>
+                                    <td id="endDate" align="right">DD-MM-YYYY</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                     <div class="data">Data
                         <table>
                             <thead>
                             <tr>
                                 <th>Date</th>
                                 <th>Refugees</th>
-                                <th>Remove Row</th>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <input class="button" type="button" value="Add day before" onclick="addDayBefore()">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <input class="button" type="button" value="Remove first day" onclick="removeFirstDay()">
+                                </td>
                             </tr>
                             </thead>
                             <tbody id="tBody_per_day"></tbody>
                             <tfoot>
                             <tr>
                                 <td colspan="2">
-                                    <input type="button" value="Update data" onclick="updateData()">
+                                    <input class="button" type="button" value="Remove last day" onclick="removeLastDay()">
                                 </td>
-                                <td>
-                                    <input type="button" value="Add New Row" onclick="addRow()">
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <input class="button" type="button" value="Add day after" onclick="addDayAfter()">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <input class="button" type="button" value="Update data" onclick="updateDailyData()">
                                 </td>
                             </tr>
                             </tfoot>
-                            <script src="./total_per_day/data-service.js"></script>
+                            <script src="./total_per_day/daily-data-service.js"></script>
                         </table>
                     </div>
                 </div>
