@@ -32,7 +32,11 @@
                         </div>
                     </div>
                     <div class="data">Data
-                        <table>
+                        <div class="showData">
+                            <label for="showCountryData">Show Data</label>
+                            <input type="checkbox" id="showCountryData" onclick="triggerCountryData(this)">
+                        </div>
+                        <table id="countryDataTable" hidden>
                             <thead>
                             <tr>
                                 <th>Country</th>
@@ -98,7 +102,11 @@
                         </table>
                     </div>
                     <div class="data">Data
-                        <table>
+                        <div class="showData">
+                            <label for="showDailyData">Show Data</label>
+                            <input type="checkbox" id="showDailyData" onclick="triggerDailyData(this)">
+                        </div>
+                        <table id="dailyDataTable" hidden>
                             <thead>
                             <tr>
                                 <th>Date</th>
@@ -139,6 +147,7 @@
                 </div>
             </div>
         </div>
+        <script src="index.js"></script>
     </div>
 </body>
 </html>

@@ -51,7 +51,6 @@ const render = (data, time01 = 0) => {
     for (let i = 0; i < ticks.length; i++) {
         tickData.push({id: i, value: ticks[i]})
     }
-    console.log(tickData)
     legendParentGroup.selectAll('g').data(tickData, d => {return d.id})
         .join(
             enter => {
@@ -105,52 +104,6 @@ const render = (data, time01 = 0) => {
                 .attr('cy', () => ourHeight - radiusScale(datum.refugees))
                 .attr('r', () => radiusScale(datum.refugees)))
         )
-
-
-    // contentParentGroup.selectAll('g .bar').data(data, d => {return d.country})
-    //     .join(
-    //         enter => {
-    //             const bar = enter.append('g')
-    //                 .attr('class', 'bar')
-    //
-    //             bar.append('rect')
-    //                 .attr('width', 0)
-    //                 .attr('height', yScale.bandwidth())
-    //                 .attr('y', d => yScale(yValue(d)))
-    //                 .attr('fill', d => colors(d))
-    //                 .call(enter => enter.transition(t)
-    //                     .attr('width', d => xScale(xValue(d))))
-    //
-    //             bar.append('text')
-    //                 .text(d => xValue(d))
-    //                 .attr('class', 'barText')
-    //                 .attr('text-anchor', 'end')
-    //                 .attr('dy', '0.32em')
-    //                 .attr('y', d => yScale(yValue(d)) + yScale.bandwidth()/2)
-    //                 .attr('x', 0)
-    //                 .call(enter => enter.transition(t)
-    //                     .attr('x', d => {
-    //                         const scaleValue = xScale(xValue(d));
-    //                         return (scaleValue - 60 > 0) ? scaleValue - 10 : 60;
-    //                     }))
-    //         },
-    //         update => {
-    //             update.select('rect')
-    //                 .call(update => update.transition(t)
-    //                     .attr('width', d => xScale(xValue(d)))
-    //                     .attr('height', yScale.bandwidth())
-    //                     .attr('y', d => yScale(yValue(d))))
-    //             update.select('text')
-    //                 .text(d => xValue(d))
-    //                 .call(update => update.transition(t)
-    //                 .attr('y', d => yScale(yValue(d)) + yScale.bandwidth()/2)
-    //                 .attr('x', d => {
-    //                     const scaleValue = xScale(xValue(d));
-    //                     return (scaleValue - 60 > 0) ? scaleValue - 10 : 60;
-    //                 }))
-    //         },
-    //         exit => exit.remove()
-    //     )
 };
 
 /**

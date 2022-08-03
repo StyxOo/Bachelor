@@ -42,9 +42,7 @@ div {
     gap: 10px;
     grid-auto-flow: row;
 
-
     padding-right: 10px;
-
     border-right: 2px solid #635F5D;
 }
 
@@ -55,6 +53,7 @@ div {
     grid-auto-rows: minmax(360px, auto);
     gap: 10px;
     grid-auto-flow: row;
+    align-self: start;
 }
 
 .diagram {
@@ -105,4 +104,8 @@ th {
 
 .button {
     width: 100%;
+}
+
+.showData {
+    float: right;
 }

@@ -151,19 +151,19 @@ const render = (data, time01 = 0) => {
                     .attr('y', yScale(datum.refugees) - 10)
             },
             update => {
-                update.select('circle')
+                update.select('circle').call(update => update.transition(t)
                     .attr('cx', xScale(datum.date))
-                    .attr('cy', yScale(datum.refugees))
+                    .attr('cy', yScale(datum.refugees)))
 
-                update.select('line')
+                update.select('line').call(update => update.transition(t)
                     .attr('x1', xScale(datum.date))
                     .attr('x2', xScale(datum.date))
-                    .attr('y1', yScale(datum.refugees))
+                    .attr('y1', yScale(datum.refugees)))
 
-                update.select('text')
+                update.select('text').call(update => update.transition(t)
                     .text(datum.refugees)
                     .attr('x', xScale(datum.date))
-                    .attr('y', yScale(datum.refugees) - 20)
+                    .attr('y', yScale(datum.refugees) - 20))
             }
         )
 
