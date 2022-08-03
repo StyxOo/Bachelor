@@ -78,7 +78,13 @@ const render = data => {
                     .attr('y', d => d.y0)
                     .attr('width', 0)
                     .attr('height', d => d.y1 - d.y0)
-                    .attr('fill', d => colors(d))
+                    .attr('fill', d => {
+                        if (d.name == 'Ukraine') {
+                            return '#0057B8'
+                        } else {
+                            return colors(d)
+                        }
+                    })
                     .call(enter => enter.transition(t)
                         .attr('x', d => d.x0)
                         .attr('width', d => d.x1 - d.x0))

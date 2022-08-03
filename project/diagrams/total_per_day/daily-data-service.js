@@ -1,6 +1,6 @@
 const DailyDataPath = './total_per_day/total_refugees_daily_condensed.csv';
 
-const dailyTBody = document.getElementById('tBody_per_day')
+const dailyTBody = document.getElementById('tBody-daily')
 const sliderStartLabel = document.getElementById('startDate')
 const sliderCurrentLabel = document.getElementById('currentDate')
 const sliderEndLabel = document.getElementById('endDate')
