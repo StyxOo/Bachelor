@@ -46,4 +46,5 @@
 | 15.05.22 | 15:00 | 17:30 | Writing |
 | 01.08.22 | 13:30 | 21:00 | Comtemplating everything |
 | 02.08.22 | 12:15 | 17:15 | Showcase work |
-| 03.08.22 | 12:30 | hh:mm | Showcase work |
+| 03.08.22 | 12:30 | 20:00 | Showcase work |
+| 03.08.22 | 13:45 | 17:00 | Showcase work |

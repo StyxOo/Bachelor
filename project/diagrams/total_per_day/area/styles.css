@@ -33,9 +33,13 @@ text {
     opacity: 50%;
 }
 
+.dateLineDot {
+    fill: black;
+}
+
 .dateLineLine {
-    stroke: red;
-    stroke-width: 2px;
+    stroke: black;
+    stroke-width: 1.5px;
 }
 
 .dateLineText {
@@ -45,4 +49,10 @@ text {
                     1px -1px 1px #ffffff,
                     -1px 1px 1px #ffffff,
                     -1px 1px 1px #ffffff;
+}
+
+.topLine {
+    stroke: red;
+    stroke-width: 3px;
+    fill: none;
 }

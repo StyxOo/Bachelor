@@ -67,27 +67,21 @@ const render = (data, time01 = 0) => {
 
     const dateToDisplay = date => {
         const day = date.getDate()
-        const month = date.getMonth() + 1
-        const year = date.getFullYear()
+        const month = date.toLocaleString('default', { month: 'short' });
 
         let dayString = day
         if (day < 10) {
             dayString = '0' + dayString
         }
 
-        let monthString = month
-        if (month < 10) {
-            monthString = '0' + monthString
-        }
-
-        return [dayString, monthString, year].join('-')
+        return [month, dayString].join('-')
     }
 
 
     const xAxisTickFormat = date =>
         dateToDisplay(date)
 
-    const tickModulo = Math.floor(data.length / 10)
+    const tickModulo = Math.floor(data.length / 15)
 
     const xAxis = d3.axisBottom(xScale) // Pass a scale function as axis
         .tickFormat(xAxisTickFormat)    // and pass a formatting function to format the string
@@ -109,18 +103,40 @@ const render = (data, time01 = 0) => {
 
     const area = d3.area()
         .x(d => xScale(d.date))
-        .y0(ourHeight)
-        .y1(d => yScale(d.refugees));
+        .y1(ourHeight)
+        .y0(d => yScale(d.refugees));
 
-    contentParentGroup.selectAll('path').data([0], () => [0])
+    const line = d3.line()
+        .x(d => xScale(d.date))
+        .y(d => yScale(d.refugees));
+
+    contentParentGroup.selectAll('g .areaGroup').data([0], () => [0])
         .join(
             enter => {
-                enter.append('path')
+                const areaParent = enter.append('g')
+                    .attr('class', 'areaGroup')
+
+                areaParent.append('path')
+                    .attr('class', 'topLine')
+                    .attr('d', line(data))
+
+                areaParent.append('path')
                     .attr('class', 'area')
                     .attr('d', area(data))
             },
+            update => {
+                console.log(update)
+                console.log(update.select('path .topLine'))
+                update.select('.topLine')
+                    .call(update => update.transition(t)
+                        .attr('d', line(data)))
 
+                update.select('.area')
+                    .call(update => update.transition(t)
+                        .attr('d', area(data)))
+            }
         )
+
 
     const unixTime = timeScale(time01)
     const datum = data.find(d => d.date === unixTime)
@@ -132,10 +148,10 @@ const render = (data, time01 = 0) => {
                     .attr('class', 'dateLine')
 
                 dateLine.append('circle')
+                    .attr('class', 'dateLineDot')
                     .attr('cx', xScale(datum.date))
                     .attr('cy', yScale(datum.refugees))
-                    .attr('fill', 'red')
-                    .attr('r', 5)
+                    .attr('r', 6)
 
                 dateLine.append('line')
                     .attr('class', 'dateLineLine')
@@ -166,72 +182,6 @@ const render = (data, time01 = 0) => {
                     .attr('y', yScale(datum.refugees) - 20))
             }
         )
-
-
-
-
-    // contentParentGroup.selectAll('circle').data([time01], () => [0])
-    //     .join(
-    //         enter => enter.append('circle')
-    //             .attr('cx', ourWidth/2)
-    //             .attr('cy', ourHeight)
-    //             .attr('r', 0)
-    //             .attr('fill', 'red')
-    //             .attr('opacity', '50%')
-    //             .call(enter => enter.transition(t)
-    //                 .attr('cy', () => ourHeight - radiusScale(datum.refugees))
-    //                 .attr('r', () => radiusScale(datum.refugees))
-    //             ),
-    //         update => update.call(update => update.transition(t)
-    //             .attr('cy', () => ourHeight - radiusScale(datum.refugees))
-    //             .attr('r', () => radiusScale(datum.refugees)))
-    //     )
-
-
-    // contentParentGroup.selectAll('g .bar').data(data, d => {return d.country})
-    //     .join(
-    //         enter => {
-    //             const bar = enter.append('g')
-    //                 .attr('class', 'bar')
-    //
-    //             bar.append('rect')
-    //                 .attr('width', 0)
-    //                 .attr('height', yScale.bandwidth())
-    //                 .attr('y', d => yScale(yValue(d)))
-    //                 .attr('fill', d => colors(d))
-    //                 .call(enter => enter.transition(t)
-    //                     .attr('width', d => xScale(xValue(d))))
-    //
-    //             bar.append('text')
-    //                 .text(d => xValue(d))
-    //                 .attr('class', 'barText')
-    //                 .attr('text-anchor', 'end')
-    //                 .attr('dy', '0.32em')
-    //                 .attr('y', d => yScale(yValue(d)) + yScale.bandwidth()/2)
-    //                 .attr('x', 0)
-    //                 .call(enter => enter.transition(t)
-    //                     .attr('x', d => {
-    //                         const scaleValue = xScale(xValue(d));
-    //                         return (scaleValue - 60 > 0) ? scaleValue - 10 : 60;
-    //                     }))
-    //         },
-    //         update => {
-    //             update.select('rect')
-    //                 .call(update => update.transition(t)
-    //                     .attr('width', d => xScale(xValue(d)))
-    //                     .attr('height', yScale.bandwidth())
-    //                     .attr('y', d => yScale(yValue(d))))
-    //             update.select('text')
-    //                 .text(d => xValue(d))
-    //                 .call(update => update.transition(t)
-    //                 .attr('y', d => yScale(yValue(d)) + yScale.bandwidth()/2)
-    //                 .attr('x', d => {
-    //                     const scaleValue = xScale(xValue(d));
-    //                     return (scaleValue - 60 > 0) ? scaleValue - 10 : 60;
-    //                 }))
-    //         },
-    //         exit => exit.remove()
-    //     )
 };
 
 /**
