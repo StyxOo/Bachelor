@@ -47,7 +47,13 @@
                             <tbody id="tBody_per_country"></tbody>
                             <tfoot>
                             <tr>
-                                <td colspan="2">
+                                <td>
+                                    <div class="autUpdateData">
+                                        <label for="autoUpdateCountry">Auto Update</label>
+                                        <input type="checkbox" id="autoUpdateCountry" onclick="autoUpdateCountryData(this)">
+                                    </div>
+                                </td>
+                                <td>
                                     <input class="button" type="button" value="Update data" onclick="updateCountryData()">
                                 </td>
                                 <td>
@@ -62,7 +68,7 @@
             </div>
         </div>
         <div class="topic">
-            <div class="topic-headline">Refugees per Day</div>
+            <div class="topic-headline">Total Refugees per Day</div>
             <div class="content">
                 <div class="diagrams">
                     <iframe class="diagram" src="./total_per_day/circle/diagram.html" frameborder="01" width="100%"></iframe>
@@ -136,7 +142,13 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2">
+                                <td>
+                                    <div class="autUpdateData">
+                                        <label for="autoUpdateDaily">Auto Update</label>
+                                        <input type="checkbox" id="autoUpdateDaily" onclick="autoUpdateDailyData(this)">
+                                    </div>
+                                </td>
+                                <td>
                                     <input class="button" type="button" value="Update data" onclick="updateDailyData()">
                                 </td>
                             </tr>

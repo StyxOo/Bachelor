@@ -17,7 +17,12 @@ const addCountryRow = (country = "Country name", refugees= 0) => {
     countryInput.value = country
     const refugeesInput = document.createElement('input')
     refugeesInput.type = 'number'
-    refugeesInput.onkeyup = () => {refugeesInput.value=refugeesInput.value.replace(/\D/,'')}
+    refugeesInput.onkeyup = () => {
+        refugeesInput.value = refugeesInput.value.replace(/\D/,'')
+        if (autoUpdateCountry) {
+            updateCountryData()
+        }
+    }
     refugeesInput.value = refugees
 
     const removeButton = document.createElement('button')
@@ -32,6 +37,10 @@ const addCountryRow = (country = "Country name", refugees= 0) => {
     row.appendChild(refugeesCell)
     row.appendChild(removeButtonCell)
     countryTBody.appendChild(row)
+
+    if (autoUpdateCountry) {
+        updateCountryData()
+    }
 }
 
 const fillCountryTable = data => {
@@ -43,9 +52,17 @@ const fillCountryTable = data => {
 const removeCountryRow = (event) => {
     console.log(event)
     countryTBody.removeChild(event.target.parentElement.parentElement)
-    // updateData();
+
+    if (autoUpdateCountry) {
+        updateCountryData()
+    }
 }
 
+let autoUpdateCountry = false
+
+const autoUpdateCountryData = checkbox => {
+    autoUpdateCountry = checkbox.checked
+}
 
 /**
  * This function is triggered by the 'Update Data' button at the bottom of the data table.

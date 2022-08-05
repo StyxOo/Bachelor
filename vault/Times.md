@@ -47,4 +47,5 @@
 | 01.08.22 | 13:30 | 21:00 | Comtemplating everything |
 | 02.08.22 | 12:15 | 17:15 | Showcase work |
 | 03.08.22 | 12:30 | 20:00 | Showcase work |
-| 03.08.22 | 13:45 | 17:00 | Showcase work |
+| 04.08.22 | 13:45 | 17:00 | Showcase work |
+| 05.08.22 | 15:15 | hh:mm | Showcase work |

@@ -5,7 +5,7 @@ const svg = d3.select('#mainFrame')
 const margin = {
     top: 20,
     right: 20,
-    bottom: 20,
+    bottom: 30,
     left: 20
 }
 const ourWidth = innerWidth - margin.left - margin.right
@@ -21,6 +21,23 @@ const legendParentGroup = diagramGroup.append('g')
 const contentParentGroup = diagramGroup.append('g')
     .attr('id', 'content')
 
+const legendDescription = legendParentGroup.append('text')
+    .text('* scale in 10.00 refugees')
+    .attr('class', 'description')
+    .attr('x', ourWidth)
+    .attr('y', ourHeight)
+
+const dateToDisplay = date => {
+    const day = date.getDate()
+    const month = date.toLocaleString('default', { month: 'short' });
+
+    let dayString = day
+    if (day < 10) {
+        dayString = '0' + dayString
+    }
+
+    return [month, dayString].join('-')
+}
 
 
 const render = (data, time01 = 0) => {
@@ -57,14 +74,20 @@ const render = (data, time01 = 0) => {
                 const tick = enter.append('g')
                     .attr('opacity', '0%')
                     .call(enter => enter.transition(t)
-                        .attr('opacity', '100%'))
+                        .attr('opacity', '75%'))
                 tick.append('circle')
                     .attr('cx', ourWidth / 2)
                     .attr('cy', d => ourHeight - radiusScale(d.value))
                     .attr('r', d => radiusScale(d.value))
                     .attr('class', 'legend')
                 tick.append('text')
-                    .text(d => d.value/10000)
+                    .text((d, i) => {
+                        let value = d.value / 10000
+                        if (i === tickData.length-1) {
+                            value += '*'
+                        }
+                        return value
+                    })
                     .attr('dy', '-0.1em')
                     .attr('x', ourWidth/2)
                     .attr('y', d => ourHeight - 2 * radiusScale(d.value))
@@ -74,7 +97,13 @@ const render = (data, time01 = 0) => {
                     .attr('cy', d => ourHeight - radiusScale(d.value))
                     .attr('r', d => radiusScale(d.value)))
                 update.select('text')
-                    .text(d => d.value/10000)
+                    .text((d, i) => {
+                        let value = d.value / 10000
+                        if (i === tickData.length-1) {
+                            value += '*'
+                        }
+                        return value
+                    })
             }
             ,
             exit => exit.call(exit=> exit.transition(t)
@@ -91,18 +120,32 @@ const render = (data, time01 = 0) => {
     contentParentGroup.selectAll('circle').data([time01], () => [0])
         .join(
             enter => enter.append('circle')
-                .attr('cx', ourWidth/2)
+                .attr('cx', ourWidth / 2)
                 .attr('cy', ourHeight)
                 .attr('r', 0)
                 .attr('fill', 'red')
                 .attr('opacity', '50%')
                 .call(enter => enter.transition(t)
-                    .attr('cy', () => ourHeight - radiusScale(datum.refugees))
-                    .attr('r', () => radiusScale(datum.refugees))
-                ),
+                        .attr('cy', () => ourHeight - radiusScale(datum.refugees))
+                        .attr('r', () => radiusScale(datum.refugees))
+                    )
+            ,
             update => update.call(update => update.transition(t)
                 .attr('cy', () => ourHeight - radiusScale(datum.refugees))
-                .attr('r', () => radiusScale(datum.refugees)))
+                .attr('r', () => radiusScale(datum.refugees))
+            )
+        )
+
+    contentParentGroup.selectAll('text').data([time01], () => [0])
+        .join(
+            enter => enter.append('text')
+                .attr('x', ourWidth/2)
+                .attr('y', ourHeight + 17)
+                .text(datum.refugees + ' refugees by ' + dateToDisplay(datum.date))
+            ,
+            update => update.call(update => update.transition(t)
+                .text(datum.refugees + ' refugees by ' + dateToDisplay(datum.date))
+            )
         )
 };
 

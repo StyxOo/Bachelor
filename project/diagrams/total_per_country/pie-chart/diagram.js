@@ -17,7 +17,7 @@ const diagramGroup = svg.append('g')
 
 const contentParentGroup = diagramGroup.append('g')
     .attr('id', 'content')
-    .attr('transform', `translate(${ourWidth/3},${ourHeight/2})`)
+    .attr('transform', `translate(${ourWidth/2},${ourHeight/2})`)
 
 const diagramParentGroup = contentParentGroup.append('g')
     .attr('id', 'diagram')

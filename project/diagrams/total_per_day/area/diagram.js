@@ -52,13 +52,20 @@ const render = (data, time01 = 0) => {
         .range([0, ourWidth])
         .padding(0.2);
 
+    const xScaleWithOffset = d => {
+        return xScale(d) + xScale.bandwidth()/2
+    }
+
 
     /**
      * Here we set up the y and x axes.
      */
 
-    yAxisParentGroup.call(d3.axisLeft(yScale))          // Call axisLeft as function on the g element
-        .selectAll('.domain, .tick line')   // and select all lines in tick class tags
+    const yAxis = d3.axisLeft(yScale)
+        .tickSize(-ourWidth)
+
+    yAxisParentGroup.call(yAxis)          // Call axisLeft as function on the g element
+        .selectAll('.domain')   // and select all lines in tick class tags
         .remove();                      // and remove them
 
     // const xAxisTickFormat = number =>   // For an input number
@@ -102,12 +109,12 @@ const render = (data, time01 = 0) => {
      */
 
     const area = d3.area()
-        .x(d => xScale(d.date))
+        .x(d => xScaleWithOffset(d.date))
         .y1(ourHeight)
         .y0(d => yScale(d.refugees));
 
     const line = d3.line()
-        .x(d => xScale(d.date))
+        .x(d => xScaleWithOffset(d.date))
         .y(d => yScale(d.refugees));
 
     contentParentGroup.selectAll('g .areaGroup').data([0], () => [0])
@@ -125,8 +132,6 @@ const render = (data, time01 = 0) => {
                     .attr('d', area(data))
             },
             update => {
-                console.log(update)
-                console.log(update.select('path .topLine'))
                 update.select('.topLine')
                     .call(update => update.transition(t)
                         .attr('d', line(data)))
@@ -146,6 +151,7 @@ const render = (data, time01 = 0) => {
             enter => {
                 const dateLine = enter.append('g')
                     .attr('class', 'dateLine')
+                    .attr('transform', `translate(${xScale.bandwidth()/2},0)`)
 
                 dateLine.append('circle')
                     .attr('class', 'dateLineDot')

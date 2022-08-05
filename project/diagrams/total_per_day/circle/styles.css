@@ -17,6 +17,10 @@ text {
     /*text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;*/
 }
 
+.description {
+    text-anchor: end;
+}
+
 .legend {
     font-size: 1em;
     fill: none;

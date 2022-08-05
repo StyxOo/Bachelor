@@ -33,11 +33,21 @@ const updateSliderLimits = () => {
     sliderEndLabel.textContent = dateToDisplay(endDate)
 }
 
-const removeFirstDay = () =>
+const removeFirstDay = () => {
     dailyTBody.removeChild(dailyTBody.firstChild)
 
-const removeLastDay = () =>
+    if (autoUpdateDaily) {
+        updateDailyData()
+    }
+}
+
+const removeLastDay = () => {
     dailyTBody.removeChild(dailyTBody.lastChild)
+
+    if (autoUpdateDaily) {
+        updateDailyData()
+    }
+}
 
 
 const dateToDisplay = date => {
@@ -63,13 +73,22 @@ const displayToDate = display => {
     return new Date(+values[2], +values[1] - 1, +values[0])
 }
 
+let autoUpdateDaily = false
 
+const autoUpdateDailyData = checkbox => {
+    autoUpdateDaily = checkbox.checked
+}
 
 const addDayBefore = () => {
     const currentNewestDate = displayToDate(dailyTBody.firstChild.firstChild.firstChild.value)
     let dayBefore = new Date(currentNewestDate.getTime());
     dayBefore.setDate(currentNewestDate.getDate() - 1);
     addDay(dayBefore, true)
+
+    if (autoUpdateDaily)
+    {
+        updateDailyData()
+    }
 }
 
 const addDayAfter = (date = "Country name", refugees= 0) => {
@@ -77,6 +96,11 @@ const addDayAfter = (date = "Country name", refugees= 0) => {
     let dayAfter = new Date(currentLatestDate.getTime());
     dayAfter.setDate(currentLatestDate.getDate() + 1);
     addDay(dayAfter, false)
+
+    if (autoUpdateDaily)
+    {
+        updateDailyData()
+    }
 }
 
 const addDay = (date, addToBeginning, refugees = 0) => {
@@ -90,7 +114,14 @@ const addDay = (date, addToBeginning, refugees = 0) => {
     dateInput.setAttribute('readonly', '')
     const refugeesInput = document.createElement('input')
     refugeesInput.type = 'number'
-    refugeesInput.onkeyup = () => {refugeesInput.value=refugeesInput.value.replace(/\D/,'')}
+    refugeesInput.onkeyup = () => {
+        refugeesInput.value=refugeesInput.value.replace(/\D/,'')
+
+        if (autoUpdateDaily)
+        {
+            updateDailyData()
+        }
+    }
     refugeesInput.value = refugees
 
 
