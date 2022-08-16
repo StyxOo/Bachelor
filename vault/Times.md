@@ -48,4 +48,7 @@
 | 02.08.22 | 12:15 | 17:15 | Showcase work |
 | 03.08.22 | 12:30 | 20:00 | Showcase work |
 | 04.08.22 | 13:45 | 17:00 | Showcase work |
-| 05.08.22 | 15:15 | hh:mm | Showcase work |
+| 05.08.22 | 15:15 | 18:00 | Showcase work |
+| 15.08.22 | 12:00 | 16:30 | Writing |
+| 16.08.22 | 13:30 | 18:00 | Writing |
+

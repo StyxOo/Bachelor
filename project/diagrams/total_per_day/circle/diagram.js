@@ -22,7 +22,7 @@ const contentParentGroup = diagramGroup.append('g')
     .attr('id', 'content')
 
 const legendDescription = legendParentGroup.append('text')
-    .text('* scale in 10.00 refugees')
+    .text('* scale in 10,000 refugees')
     .attr('class', 'description')
     .attr('x', ourWidth)
     .attr('y', ourHeight)

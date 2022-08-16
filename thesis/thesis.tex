@@ -21,9 +21,15 @@
 
 \begin{document}
     %\maketitle
+    \pagenumbering{Roman}
+        \setcounter{page}{1}
     \input{chapters/title.tex}
+    \input{chapters/erklaerung.tex}
     \input{chapters/abstract_german.tex}
     \tableofcontents
+    \newpage
+    \pagenumbering{arabic}
+        \setcounter{page}{1}
     \input{chapters/introduction.tex}
     \input{chapters/basics.tex}
     \input{chapters/implementation.tex}
