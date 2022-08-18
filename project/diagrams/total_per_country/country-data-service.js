@@ -1,5 +1,8 @@
 const countryDataPath = './total_per_country/total_refugees_per_country_condensed.csv';
 
+const featuredCountriesPath = './total_per_country/2022-08-18_featured-in-refugee-response-plan.csv'
+const otherNeighboursPath = './total_per_country/2022-08-18_other-neighbouring-countries.csv'
+
 const countryTBody = document.getElementById('tBody_per_country')
 
 /**
@@ -132,16 +135,47 @@ const renderCountryDiagrams = () => {
  * The following loads the data from the csv and prefills the data table
  */
 
-// .csv creates a promise, when it resolves .then do something else
-d3.csv(countryDataPath).then(data => {
-    data.forEach(d => {                         // Foreach data-point in data
-        d.refugees = +d.refugees;           // Cast value to float and take times 1000
-        d.country = `${d.country}`;             // Kind of unnecessary, but fixed webstorm complaining
-    });
-    console.log('Loaded data:')
-    console.log(data);
-    fillCountryTable(data);
+let loadedParts = 0;
+let data = [];
+data.columns = ['country', 'refugees']
 
-    latestCountryData = data;
-    renderCountryDiagrams();
+const addDataPart = dataPart =>
+{
+    dataPart.forEach(entry => {
+        data.push(entry)
+    });
+
+    loadedParts ++;
+    if (loadedParts >= 2) {
+        // employees.sort((a, b) => b.age - a.age);
+        data.sort((a, b) => b.refugees - a.refugees)
+
+        console.log("All data-parts loaded. Full data is:")
+        console.log(data);
+
+        fillCountryTable(data);
+
+        latestCountryData = data;
+        renderCountryDiagrams();
+    }
+}
+
+const loadDataPart = data => {
+    console.log(data)
+    let strippedData = [];
+    for (let i = 0; i < data.length; i++) {
+        strippedData.push({'country': data[i]["Country"],'refugees': +data[i]["Border crossings from Ukraine*"]})
+    }
+    console.log(strippedData)
+    addDataPart(strippedData)
+}
+
+d3.csv(featuredCountriesPath).then(data => {
+    console.log('Loaded featured countries data:')
+    loadDataPart(data)
+})
+
+d3.csv(otherNeighboursPath).then(data => {
+    console.log('Loaded neighbour countries data:')
+    loadDataPart(data)
 })
