@@ -1,16 +1,16 @@
 \chapter{Basics}
-\textcolor{red}{
-Everything necessary to understand the implementation as well as anything which is done beforehand, will come up here}
+%\textcolor{red}{
+%Everything necessary to understand the implementation as well as anything which is done beforehand, will come up here}
 
-In the following, all concepts, technologies and required backgrounds for understanding this thesis are explained. Firstly data and data types are described. Secondly diagrams and how they are structured are described. Lastly D3 as a tool to create diagrams is described.
+In this chapter, all concepts, technologies and required backgrounds for understanding this thesis are explained. First data and data types are described. Second diagrams and how they are structured are described. Last D3 as a tool to create diagrams is described.
 
 
 \section{Data}
-\textcolor{red}{
-Well talk about data a bit. Where does it come from? How is it structured? What kind of attributes? What even are attributes?}
+%\textcolor{red}{
+%Well talk about data a bit. Where does it come from? How is it structured? What kind of attributes? What even are attributes?}
 
-Since ancient times, humans have recorded data. Recording the ins and outs of available resources was one of the driving factors behind the conceptualization of writing. (TODO: Check sources of the beer brewing video series)
-With the introduction of computers the amounts of gathered data have grown drastically. Nowadays vast amounts of data are gathered across all aspects of life.
+Since ancient times, humans have recorded data. Recording the ins and outs of available resources and other administrative record-keeping were one of the driving factors behind the conceptualization of writing\cite{senner1991origins}.
+With the introduction of computers the amounts of gathered data have grown drastically. Nowadays vast amounts of data are gathered across all aspects of life. The total amount of data created, consumed and stored by 2020 was already at 64.2 zettabytes and is projected to reach about 180 zettabytes by 2025\cite{statista_2022}.
 
 \begin{figure}
     \label{fig:data-visualization}
@@ -20,13 +20,13 @@ With the introduction of computers the amounts of gathered data have grown drast
 
 The vast amounts of data gathered in databases are often hard to comprehend and evaluate with the human mind. They are also unwieldy to present them in the often limited space of articles, dashboards or other informative purposes. Therefore data visualization (Figure \ref{fig:data-visualization}) is used to turn these datasets, collections of data-points, into diagrams.
 
-Data is commonly preprocessed before turning it into diagrams. Depending on the dataset and the desired result, this can mean different things. One might want to remove excessive information from the dataset, which is not necessary for the representation. On the other hand, additional data can be added by evaluating the existing data-points. These could for example be the median of values or grouping of certain value ranges. It is important to note, that this preprocessing can happen with specific intentions in mind. While it is only supposed to make the representations easier and more concrete, it can be abused to make data align with the desired results or to create a certain emphasis. This thesis is not too concerned with this, as the possibilities of D3 have nothing to do with the correctness of the chosen data.
+Data is commonly preprocessed before turning it into diagrams. Depending on the dataset and the desired result, this can mean different things. One might want to remove excessive information from the dataset, which is not necessary for the representation. On the other hand, additional data can be added by evaluating the existing data-points. These could for example be the median of values or grouping of certain value ranges\cite{garcia2015data}. It is important to note, that this preprocessing can happen with specific intentions in mind. While it is only supposed to make the representations easier and more concrete, it can be abused to make data align with the desired results or to create a certain emphasis. This thesis is not too concerned with this, as the possibilities of D3 have nothing to do with the correctness of the chosen data.
 
 Even though data comes from a huge variety of sources and can express a plethora of things, there are only four different types of data. They are split into two categories. Categorical and numerical data. Each category has two subtypes. In the following each of the types of data will be explained.
 
 \subsection{Categorical}
-\textcolor{red}{
-What is categorical data? Nominal and ordinal data}
+%\textcolor{red}{
+%What is categorical data? Nominal and ordinal data}
 
 Categorical or qualitative data is information collected in groups. It is often of descriptive nature. Whilst the values can be represented in numbers, they do not allow for arithmetic operations.
 There are two types of categorical data. Nominal and ordinal data.
@@ -38,8 +38,8 @@ data is mostly descriptive in nature. They are independent and have no inherited
 data is also descriptive, yet the data does have a internal order. For example different dates each describe a day, but one day also comes after another. Grades also have an internal order, as one grade is better then another. Whilst ordinal data has an ordering, the order is not necessarily equidistant.
 
 \subsection{Numeric}
-\textcolor{red}{
-What is numeric data? Continuous and Discrete}
+%\textcolor{red}{
+%What is numeric data? Continuous and Discrete}
 
 Numeric or quantitative data is all data expressed in numbers, where numbers do not represent categories. It allows for arithmetical operations and can be split into discrete and continuous data.
 
