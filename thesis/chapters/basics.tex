@@ -51,14 +51,14 @@ data can be measured. It can have any real number as value. Therefore fractions 
 
 
 \section{Diagrams}
-\textcolor{red}{
-What diagrams exists? Which are the most common? What possibilities do they offer for encoding data? Which considerations for readability? Why do some diagrams not make as much sense? Which considerations where made for fulfilling the showcase requirements?}
+%\textcolor{red}{
+%What diagrams exists? Which are the most common? What possibilities do they offer for encoding data? Which considerations for readability? Why do some diagrams not make as much sense? Which considerations where made for fulfilling the showcase requirements?}
 
-We constantly come across the results of data visualization in everyday life. They can be commonly found across all kinds of reports, information campaigns or as part of user-interfaces in machinery or control systems. Yet the selection of which diagram should be used to visualize which data-set is not trivial. Mostly there are several possible diagram choices for the given data. Furthermore there are a plethora of diagrams already in use and anyone can create totally new diagrams to suit their needs. Yet there are diagrams which are used more commonly. These include bar and pie-charts, scatter plots and heat-maps (TODO: Find source (lel)).
+We constantly come across the results of data visualization in everyday life. They can be commonly found across all kinds of reports, information campaigns or as part of user-interfaces in machinery or control systems. Yet the selection of which diagram should be used to visualize which data-set is not trivial. Mostly there are several possible diagram choices for the given data. Furthermore there are a plethora of diagrams already in use and anyone can create totally new diagrams to suit their needs. Yet the vast majority of use-cases can be accomplished by one of the more commonly known diagram types, like bar and column-charts, pie and doughnut-charts, line and area-charts, scatter-plots and heat-maps. Due to their popularity, tools like Excel provide support for these diagrams out of the box\cite{office_chart_types}. More specialized diagrams might use combinations or variations of the aforementioned diagram types. 
 
-Whilst there are countless types of diagrams, all diagrams use a combination of marks and channels to encode data. Marks are used for entries in the diagram. Channels describe the way specific marks encode data. The three possible marks are points, lines and areas. Each mark should use at least one channel to encode data. Otherwise it does not convey any information. The most commonly used channels are position, size, color and texture. The position in 2D can be split into the x and y positions. The color is split into hue and luminescence. For example looking at fig. \ref{fig:bar-chart} we can see lines being used as marks for each entry. It might seem like we are using areas, but the thickness of the line only serves visual understanding. The lines also use three channels to encode data. The y-position is used to represent the categorical data of which country. The hue of the bar encodes the same data. This is a big redundant, as the country is already encoded. Yet the hue makes it easy to follow along when data is changing and bars are shifting positions. The size, in this case length, of the bar encodes the discrete data of how many refugees have crossed into the country. In fig. \ref{fig:donut-chart} we see areas used as marks. Just like in the previous example the hue encodes the country and the size encodes the refugee count. 
+Whilst there are countless types of diagrams, all diagrams use a combination of marks and channels to present data. Marks are used for entries in the diagram. Channels describe the way specific marks encode data. The three possible marks are points, lines and areas. Each mark should use at least one channel to encode data. Otherwise it does not convey any information. The most commonly used channels are position, size, color and texture. The position in 2D can be split into the x and y positions. The color can be split into hue and luminescence. For example in fig. \ref{fig:bar-chart} we can see lines being used as marks for each of the seven entries. It might seem like areas are used, but the thickness of the line only serves visual understanding. The lines also use three channels to encode data. The y-position is used to represent the categorical data of which country. The hue of the bar encodes the same data. This is a bit redundant, as the country is already encoded. Yet the hue makes it easy to follow along when data is changing and bars are shifting positions. The size, in this case length, of the bar encodes the discrete data of how many refugees have crossed into the country. In fig. \ref{fig:donut-chart} we see areas used as marks. Just like in the previous example the hue encodes the country and the size encodes the refugee count. 
 
-All marks can be used with all channels. But not all data types should be represented by all channels. For example nominal data should not be encoded using the size channel. The different sizes would lead to a perceived order, which does not exist in nominal data. As the channels all differ in their appearance they are also not equally good in adequately representing the data types. Therefore it is important to consider which channels are chosen to represent the given data types. Therefore the selection of marks and channels should be considered carefully. If chosen poorly it can lead to undermine the purpose of the diagram, easily presenting data to a viewer. According to a study by Jock Mackinlay from 1986, the position channels can always be considered the strongest channels, no matter which marks are combined with it\cite{mackinlay1986automating}.
+All marks can be used with all channels. But not all data types should be represented by all channels. For example nominal data should not be encoded using the size channel. The different sizes would lead to a perceived order, which does not exist in nominal data. As the channels all differ in their appearance they are also not equally good in adequately representing the data types. Therefore it is important to consider which channels are chosen to represent the given data types.  According to a study by Jock Mackinlay from 1986, the position channels can always be considered the strongest channels, no matter which marks are combined with them\cite{mackinlay1986automating}. Therefore the selection of marks and channels should be considered carefully. If chosen poorly it can lead to undermine the purpose of the diagram of easily presenting data to a viewer.
 
 
 \begin{figure}
@@ -74,38 +74,35 @@ All marks can be used with all channels. But not all data types should be repres
 \end{figure}
 
 \section{D3.js}
-This is all about d3. What is it? Where does it come from? What is it used for? Who uses it? Why should it be used? How does it work? Enter, update and exit pattern. Something about the modular structure of D3 as well. Might be worth mentioning "observables" as well.
+%\textcolor{red}{
+%This is all about d3. What is it? Where does it come from? What is it used for? Who uses it? Why should it be used? How does it work? Enter, update and exit pattern. Something about the modular structure of D3 as well. Might be worth mentioning "observables" as well.}
 
 "D3.js is a JavaScript library for manipulating documents based on data. D3 helps you bring data to life using HTML, SVG, and CSS."\cite{d3js}. The name D3 is short for data-driven documents. The D3 library was originally created by Mike Bostock and is published under the BSD-3-Clause open-source license. It is about 500kb in size. It does not require a specific framework and can therefore be easily integrated into all kinds of web based projects. Whilst D3 is not limited to using svg, the visualization created using D3 mostly rely on svg elements for their implementation.
 
-D3 is not a high-level API for creating out of the box visualizations. Instead it is a library which aims at making the tedious parts of DOM manipulation easier. It also provides some helper functions, scales, to decrease the amount of mathematical equations needed to convert from the data extends to the necessary coordinates in the desired visualization.
+D3 is not a high-level API for creating out of the box visualizations. Instead "[it] allows you to bind arbitrary data to a Document Object Model, and then apply data-driven transformations to the document."\cite{d3js}, therefore making Document-Object-Model(DOM) manipulation easier and less tedious. The DOM represents the structure of an HTML in memory and offers scripts the possibility of accessing and modifying the represented HTML. D3 also provides some helper functions like scales, to decrease the amount of mathematical equations needed to convert from the data extends to the necessary coordinates in the desired visualization.
 
-TODO: merge the section above and below to one longer introduction
-
-General functioning of D3.
-
-"D3 allows you to bind arbitrary data to a Document Object Model (DOM), and then apply data-driven transformations to the document."\cite{d3js}. There are three main concepts that make up the core of D3. Selections, data joins and the general update pattern. All three of these concepts are working closely together. Whilst selections can be used without data joins and the general update pattern, these two aspects both rely on selections. Data joins can also be used without explicitly using the general update pattern. Usually all three of these concepts are used consecutively. First a selection is created. This selection is provided with a data join. Finally the behaviors for the general update pattern are defined for this data join.
+There are three main concepts that make up the core of D3. Selections, data joins and the general update pattern. All three of these concepts are working closely together. Whilst selections can be used without data joins and the general update pattern, these two aspects both rely on selections. Data joins can also be used without explicitly using the general update pattern. Usually all three of these concepts are used consecutively. First a selection is created. This selection is provided with a data join. Finally the behaviors for the general update pattern are defined for this data join.
 In the following all three of the core concepts of D3, as well as scales and D3's modularity are explained.
 
 \subsection{Selections}
-\textcolor{red}{
-What are they? Why are they useful?}
+%\textcolor{red}{
+%What are they? Why are they useful?}
 
 All operations in D3 run on an arbitrary collection of nodes. These collections of nodes are called selections. There are two functions in D3 to create a new selection: \verb|d3.select("selector")| and \verb|d3.selectAll("selector")|. Both functions require a selector for identifying the appropriate elements. The selectors are defined in the W3C Selectors API\cite{w3c_selectors_api} and function like CSS selectors. Whilst select only selects a single element, the first element matching the selector, selectAll selects all elements which match the selector. It is important to note, that select also propagates the existing information of this node, whilst selectAll does not.
 Selections can also be extended or shrunken by adding or removing nodes, or by combining multiple selections.
 It is possible to directly access DOM elements through the selections. The respective DOM elements are linked in the nodes which make up the selection. But usually this is not required, as there are predefined functions for modifying the nodes properties. This includes the modification of attributes and styles, as well as event handling. 
 
 \subsection{Data Joins}
-\textcolor{red}{
-What are they and why are they important?}
+%\textcolor{red}{
+%What are they and why are they important?}
 
 Data joins are a key feature of D3. They link up a specific data-point to a specific DOM element. To create a data-join, one has to call the \verb|.data(dataset)| function on a selection. It takes a dataset, an array of data-points, as parameter. This will bind the data-points to the nodes in the selection. This is achieved by using an identifier function. The default identifier function returns the index of the data-point in the dataset. When we want to create diagrams which can respond to data changes over time, this is not a reliable identification. When data-points are removed or added in arbitrary locations, the index will not match the elements it previously did. Therefore we can specific a custom identifier function. This is passed as the second parameter of the data function, will be called for each data-point and has to return some value which will be used as an id.
 
 When creating a data join, it can be that the number of data-points does not match up with the number of elements to represent them. Therefore the data-joins provide an empty placeholder node to all data-points which are not matched up with an element. What happens to the placeholders is defined in the general update pattern.
 
 \subsection{General Update Pattern}
-\textcolor{red}{
-What is it? What can it do? Describe data joins and dom element links.}
+%\textcolor{red}{
+%What is it? What can it do? Describe data joins and dom element links.}
 
 \begin{figure}
     \label{fig:general-update-pattern}
@@ -121,15 +118,15 @@ When the goal is to create only static diagrams, which are only initially create
 
 
 \subsection{Scales}
-\textcolor{red}{
-What are scales? What do they do? Why and when are they used? How do they look like?}
+%\textcolor{red}{
+%What are scales? What do they do? Why and when are they used? How do they look like?}
 
 Scales are a way to convert between two data-spaces. Some scales can even convert between two data-types. Scales can be found in many places. For example converting percentages of correct answers in a test, continuous data, to the appropriate grade, ordinal data. Or the scale factor of maps and model-kits.
 
 As most diagrams created with D3 are created as SVG, the scales provided by D3 are mostly used to convert from the data-space to the coordinate space in which elements should be drawn. All scales require a domain and a range. The domain describe the input values, the range where they should map to. Some types of scales also allow to be used in reverse. 
 
 \subsection{Modules}
-\textcolor{red}{
-The way D3 is split up into modules, the core package and what kind of extensions are there.}
+%\textcolor{red}{
+%The way D3 is split up into modules, the core package and what kind of extensions are there.}
 
 D3 provides the most used, general functionalities in the core library. Yet there are many more modules which can be added, which add functionalities for more specific use-cases.

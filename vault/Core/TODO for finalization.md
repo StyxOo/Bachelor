@@ -1,0 +1,12 @@
+- [ ] Literature for data-types
+- [ ] Marks and Channels -> new graphic
+- [ ] selections graphic
+- [ ] data joins graphics
+- [ ] Descirbe modules
+- [ ] show datasets preview
+- [ ] Implementation specific examples aka the things used in the diagrams -> describe
+- [ ] Show and explain examples in discussion
+- [ ] Write conclusion
+- [ ] Make appendix contain referenced files
+- [ ] Comment code
+- [ ] Maybe add percentage switch for first data-set

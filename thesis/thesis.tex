@@ -2,6 +2,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{titlesec}
 \usepackage{listings}
+\usepackage[ddmmyyyy]{datetime}
+\renewcommand{\dateseparator}{.}
 \input{styles.tex}
 
 \usepackage{graphicx}
@@ -24,6 +26,7 @@
     \pagenumbering{Roman}
         \setcounter{page}{1}
     \input{chapters/title.tex}
+    \newpage
     \input{chapters/erklaerung.tex}
     \input{chapters/abstract_german.tex}
     \tableofcontents
