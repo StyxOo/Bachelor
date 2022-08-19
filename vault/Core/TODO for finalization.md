@@ -1,12 +1,21 @@
 - [ ] Literature for data-types
 - [ ] Marks and Channels -> new graphic
+	- [x] hand-drawn
+	- [ ] final
 - [ ] selections graphic
+	- [x] hand-drawn
+	- [ ] final
 - [ ] data joins graphics
-- [ ] Descirbe modules
+	- [x] hand-drawn
+	- [ ] final
+- [x] Describe modules
 - [ ] show datasets preview
 - [ ] Implementation specific examples aka the things used in the diagrams -> describe
 - [ ] Show and explain examples in discussion
 - [ ] Write conclusion
 - [ ] Make appendix contain referenced files
 - [ ] Comment code
-- [ ] Maybe add percentage switch for first data-set
+- [x] Maybe add percentage switch for first data-set
+	- no
+- [x] Update data
+	- Done for per country. Over time was not found

@@ -11,6 +11,8 @@ const margin = {
 const ourWidth = innerWidth - margin.left - margin.right
 const ourHeight = innerHeight - margin.top - margin.bottom
 
+const legendScaleFactor = 100000
+
 const diagramGroup = svg.append('g')
     .attr('transform', `translate(${margin.left},${margin.top})`);
 
@@ -22,7 +24,7 @@ const contentParentGroup = diagramGroup.append('g')
     .attr('id', 'content')
 
 const legendDescription = legendParentGroup.append('text')
-    .text('* scale in 10,000 refugees')
+    .text('* scale in 100,000 refugees')
     .attr('class', 'description')
     .attr('x', ourWidth)
     .attr('y', ourHeight)
@@ -82,7 +84,7 @@ const render = (data, time01 = 0) => {
                     .attr('class', 'legend')
                 tick.append('text')
                     .text((d, i) => {
-                        let value = d.value / 10000
+                        let value = d.value / legendScaleFactor
                         if (i === tickData.length-1) {
                             value += '*'
                         }
@@ -98,7 +100,7 @@ const render = (data, time01 = 0) => {
                     .attr('r', d => radiusScale(d.value)))
                 update.select('text')
                     .text((d, i) => {
-                        let value = d.value / 10000
+                        let value = d.value / legendScaleFactor
                         if (i === tickData.length-1) {
                             value += '*'
                         }

@@ -13,9 +13,9 @@ Since ancient times, humans have recorded data. Recording the ins and outs of av
 With the introduction of computers the amounts of gathered data have grown drastically. Nowadays vast amounts of data are gathered across all aspects of life. The total amount of data created, consumed and stored by 2020 was already at 64.2 zettabytes and is projected to reach about 180 zettabytes by 2025\cite{statista_2022}.
 
 \begin{figure}
-    \label{fig:data-visualization}
     \includegraphics[width=\linewidth]{data-visualization2.png}
     \caption[data-visualization]{Where data visualization comes into play.}
+    \label{fig:data-visualization}
 \end{figure}
 
 The vast amounts of data gathered in databases are often hard to comprehend and evaluate with the human mind. They are also unwieldy to present them in the often limited space of articles, dashboards or other informative purposes. Therefore data visualization (Figure \ref{fig:data-visualization}) is used to turn these datasets, collections of data-points, into diagrams.
@@ -62,15 +62,15 @@ All marks can be used with all channels. But not all data types should be repres
 
 
 \begin{figure}
-    \label{fig:bar-chart}
     \includegraphics[width=\linewidth]{bar-chart-channels.png}
-    \caption[bar-chart]{This is a bar-chart with used channels shown.(TODO: which needs a frame..? Also draw in marks and channels)}
+    \caption[bar-chart]{This bar-chart uses lines as marks. Each bar is a single line mark. The thickness has no relevance other than making the line visible. The three channels each mark encodes are marked. The y-position and the hue are used to encode the country. The size of the line, aka the length, corresponds to the number of refugees.}
+    \label{fig:bar-chart}
 \end{figure}
 
 \begin{figure}
-    \label{fig:donut-chart}
     \includegraphics[width=\linewidth]{donut-chart.png}
     \caption[donut-chart]{This is a donut-chart (TODO: which needs a frame..? Also draw in marks and channels)}
+    \label{fig:donut-chart}
 \end{figure}
 
 \section{D3.js}
@@ -88,33 +88,50 @@ In the following all three of the core concepts of D3, as well as scales and D3'
 %\textcolor{red}{
 %What are they? Why are they useful?}
 
-All operations in D3 run on an arbitrary collection of nodes. These collections of nodes are called selections. There are two functions in D3 to create a new selection: \verb|d3.select("selector")| and \verb|d3.selectAll("selector")|. Both functions require a selector for identifying the appropriate elements. The selectors are defined in the W3C Selectors API\cite{w3c_selectors_api} and function like CSS selectors. Whilst select only selects a single element, the first element matching the selector, selectAll selects all elements which match the selector. It is important to note, that select also propagates the existing information of this node, whilst selectAll does not.
-Selections can also be extended or shrunken by adding or removing nodes, or by combining multiple selections.
-It is possible to directly access DOM elements through the selections. The respective DOM elements are linked in the nodes which make up the selection. But usually this is not required, as there are predefined functions for modifying the nodes properties. This includes the modification of attributes and styles, as well as event handling. 
+All operations in D3 run on an arbitrary collection of nodes. These collections of nodes are called selections. There are two functions in D3 to create a new selection: \verb|d3.select("selector")| and \verb|d3.selectAll("selector")|. Both functions require a selector for identifying the appropriate elements. The selectors are defined in the W3C Selectors API\cite{w3c_selectors_api} and function like CSS selectors. Whilst \verb|select| only selects a single element, the first element matching the selector, \verb|selectAll| selects all elements which match the selector. It is important to note, that \verb|select| also propagates the existing information of this node, whilst \verb|selectAll| does not. Thee are also other functions which return selections. Calling a data join creates three new selections. Selections can also be extended or shrunken by adding or removing nodes, or by combining multiple selections. \verb|select| and \verb|selectAll| can also be called on on elements of an already existing selections. The selector will then assume the existing element as root fo its selection process.
+
+It is possible to directly access DOM elements through the selections. The respective DOM elements are linked in the nodes which make up the selection. But usually this is not required, as there are predefined functions for easily modifying the nodes properties. This includes the modification of attributes and styles, as well as event handling. 
 
 \subsection{Data Joins}
 %\textcolor{red}{
 %What are they and why are they important?}
 
-Data joins are a key feature of D3. They link up a specific data-point to a specific DOM element. To create a data-join, one has to call the \verb|.data(dataset)| function on a selection. It takes a dataset, an array of data-points, as parameter. This will bind the data-points to the nodes in the selection. This is achieved by using an identifier function. The default identifier function returns the index of the data-point in the dataset. When we want to create diagrams which can respond to data changes over time, this is not a reliable identification. When data-points are removed or added in arbitrary locations, the index will not match the elements it previously did. Therefore we can specific a custom identifier function. This is passed as the second parameter of the data function, will be called for each data-point and has to return some value which will be used as an id.
+\begin{figure}
+    \includegraphics[width=\linewidth]{data-joins.png}
+    \caption[data-joins]{A representation of possible data joins. In the top left, the data join was able to match all data points to an element of the provided selection. In the top right, there are data points but no elements in the provided selection. In the bottom left, the provided selection already was filled with elements, but their corresponding data points have been removed. The bottom right shows that all three previous cases can exist in a single data-join.}
+    \label{fig:data-joins}
+\end{figure}
 
-When creating a data join, it can be that the number of data-points does not match up with the number of elements to represent them. Therefore the data-joins provide an empty placeholder node to all data-points which are not matched up with an element. What happens to the placeholders is defined in the general update pattern.
+
+Data joins are a key feature of D3. They link up a specific data-point to a specific DOM element. To create a data-join, one has to first create a selection of elements. These are the elements one wants to match to specific data points. The data join is then created by calling the \verb|.data(dataset)| function on the selection. It takes a dataset, an array of objects where each object represents a single data-point, as parameter. This will bind the data-points to the nodes in the selection. This is achieved by using an identifier function. The default identifier function returns the index of the data-point in the dataset. When we want to create diagrams which can respond to data changes over time, this is not a reliable identification. When data-points are removed or added in arbitrary locations, the index will not match the elements it previously did. Therefore we can specific a custom identifier function. This can be passed as the second parameter of the data function, will be called for each data-point and has to return some value which will be used as the id. When updating a data-join one should also recreate the underlying selection.
+
+As seen in fig \ref{fig:data-joins}, it can be that the number of data-points does not match up with the number of elements to represent them. when there is no element matched to a certain data-point, d3 will create an empty placeholder node for this data-point. What happens to the placeholders is defined in the general update pattern.
 
 \subsection{General Update Pattern}
 %\textcolor{red}{
 %What is it? What can it do? Describe data joins and dom element links.}
 
+%\begin{figure}
+%    \label{fig:general-update-pattern}
+%    \includegraphics[width=\linewidth]{general-update-pattern.png}
+%    \caption[general-update-pattern]{A visual representation of the make up of the general update pattern\cite{bostock_2012}}
+%\end{figure}
+
 \begin{figure}
+    \includegraphics[width=\linewidth]{general-update-pattern_own.png}
+    \caption[general-update-pattern]{A possible data-join. It contains all three of the cases of the general update pattern. The cases marked blue make up the update selection, the pink cases the enter selection and the orange ones make up the exit selection. All these three cases of the general update pattern can have different behavior specified.}
     \label{fig:general-update-pattern}
-    \includegraphics[width=\linewidth]{general-update-pattern.png}
-    \caption[general-update-pattern]{A visual representation of the make up of the general update pattern\cite{bostock_2012}}
 \end{figure}
 
-The general update pattern is another core concept of D3. Every time a data join is created or updated, it comes into play. The general update pattern differentiates between three different cases. For each of these cases a sub-selection is created. For each of these three selections the behavior can be defined. The first selection is the enter selection. All data-points which have been matched up with a placeholder node while creating the data-join are in here. In the behavior for the enter selection, usually a corresponding element is created as the first step.
 
-All the elements which are already linked to a data-point using the identifier function, make up the update selection. The last selection, the exit selection, is made up of all the elements for which the corresponding data-point has been removed. The behavior of the exit selection is by default defined to remove the respective elements.
 
-When the goal is to create only static diagrams, which are only initially created from data, it is enough to define the behavior for the enter selection, as all data-points will be matched up with a placeholder when creating the data-join. Here the identifier function is also not important, as the created element will not need to change over time and therefore do not need to be able to be appropriately selected again as data changes. If diagrams should be able to react to data changes and update their appearance, like in this thesis, it is also important to define the update behavior as well as a proper identifier function, so elements are always matched with the same data-points. The exit behavior can be defined if a more visually pleasing removal of elements is desired, like fading out before deleting.
+The general update pattern is another core concept of D3. Every time a data join is created or updated, it comes into play. The general update pattern differentiates between three different cases. For each of these cases a sub-selection is created. For each of these three selections the behavior can be defined. The first selection is the enter selection. It corresponds to the pink elements in fig \ref{fig:general-update-pattern}. All data-points which have been matched up with a placeholder node while creating the data-join are in here. In the behavior for the enter selection, usually a corresponding element is created as the first step.
+
+All the elements which are already linked to a data-point using the identifier function, make up the update selection. they are marked in blue in fig \ref{fig:general-update-pattern}. Specifying the behavior of the update selection allows the diagram to react to changing data by moving existing elements or changing their appearance to accommodate for other new or removed elements.
+
+The last selection, the exit selection, is made up of all the elements for which the corresponding data-point has been removed. They are marked in orange in fig \ref{fig:general-update-pattern}. The behavior of the exit selection is by default defined to remove the respective elements.
+
+When the goal is to create only static diagrams, which are only initially created from data, it is enough to define the behavior for the enter selection, as all data-points will be matched up with a placeholder when first creating the data-join. Here the identifier function is also not important, as the created element will not need to change over time and therefore does not need to be appropriately matched by the data-join. If diagrams should be able to react to data changes and update their appearance, like in this thesis, it is important to define the update behavior as well as a proper identifier function, so elements are always matched with the same data-points. It is also important to provide elements which are created in the enter behavior with enough information, that the next time the data-joins underlying selection is done, the newly added elements are matched as well. The exit behavior can be defined if a more visually pleasing removal of elements is desired, like fading out before deleting.
 
 
 \subsection{Scales}
@@ -123,10 +140,10 @@ When the goal is to create only static diagrams, which are only initially create
 
 Scales are a way to convert between two data-spaces. Some scales can even convert between two data-types. Scales can be found in many places. For example converting percentages of correct answers in a test, continuous data, to the appropriate grade, ordinal data. Or the scale factor of maps and model-kits.
 
-As most diagrams created with D3 are created as SVG, the scales provided by D3 are mostly used to convert from the data-space to the coordinate space in which elements should be drawn. All scales require a domain and a range. The domain describe the input values, the range where they should map to. Some types of scales also allow to be used in reverse. 
+As most diagrams created with D3 are created as SVG, the scales provided by D3 are, in this thesis, mostly used to convert from the data-space to the coordinate space in which elements should be drawn. All scales require a domain and a range. The domain describe the input values, the range where they should map to. Some types of scales also allow to be used in reverse. 
 
-\subsection{Modules}
+\subsection{Plugins}
 %\textcolor{red}{
 %The way D3 is split up into modules, the core package and what kind of extensions are there.}
 
-D3 provides the most used, general functionalities in the core library. Yet there are many more modules which can be added, which add functionalities for more specific use-cases.
+D3 provides the most used, general functionalities in the core library. Yet there are many plugins which can be added to add functionalities for more specific use-cases. Plugins needs to be loaded additionally to the core library. This thesis makes use of the sankey plugin\cite{sankey_package}, to draw the sankey graph.

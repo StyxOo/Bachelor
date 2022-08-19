@@ -1,4 +1,5 @@
 const DailyDataPath = './total_per_day/total_refugees_daily_condensed.csv';
+const dailyDataPath = './total_per_day/2022-07-23_crossings_daily.json';
 
 const dailyTBody = document.getElementById('tBody-daily')
 const sliderStartLabel = document.getElementById('startDate')
@@ -219,17 +220,23 @@ const renderDailyDiagrams = () => {
  * The following loads the data from the csv and prefills the data table
  */
 
-// .csv creates a promise, when it resolves .then do something else
-d3.csv(DailyDataPath).then(data => {
-    data.forEach(d => {                         // Foreach data-point in data
-        d.refugees = +d.refugees;           // Cast value to float and take times 1000
-        d.date = new Date(d.date);             // Kind of unnecessary, but fixed webstorm complaining
-    });
-    console.log('Loaded data:')
+d3.json(dailyDataPath).then(data => {
+    console.log("Read daily data JSON:");
     console.log(data);
-    fillTable(data);
+    let newData = [];
+    newData.columns = ['date', 'refugees'];
 
-    latestDailyData = data;
+    data.data.timeseries.forEach(entry => {
+        newData.push({'date': new Date(entry.data_date), 'refugees': entry.individuals})
+    })
+
+    console.log('Loaded daily data:')
+    console.log(newData)
+
+    fillTable(newData);
+
+    latestDailyData = newData;
     updateSliderLimits()
     renderDailyDiagrams();
 })
+

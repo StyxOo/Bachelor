@@ -137,7 +137,7 @@ const renderCountryDiagrams = () => {
 
 let loadedParts = 0;
 let data = [];
-data.columns = ['country', 'refugees']
+data.columns = ['country', 'refugees'];
 
 const addDataPart = dataPart =>
 {

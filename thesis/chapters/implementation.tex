@@ -3,30 +3,38 @@
 
 %How are the chosen diagrams implemented? Which D3 modules have been used? How was the implementation done?}
 
-In the following sections the process of creating the showcase and the diagram are described. There are several parts to this. At first the data-sets, which should be represented, are chosen. In most real world usages, this is already given. Afterwards the possible diagrams are considered and chosen. Their implementation and usages of D3 are described. Finally the showcase bringing all the diagrams together is described.
+In the following sections the process of creating the showcase and the diagrams are described. There are several parts to this. At first the data-sets, which should be represented, are chosen. In most real world usages, this is already given. Afterwards the possible diagrams are considered and chosen. Their implementation and usages of D3 are described. Finally the showcase bringing all the diagrams together is described.
 
 \section{Datasets}
 %\textcolor{red}{
 %What are our datasets about? Where do they come from?}
+As different data-types allow for different representations and require varying parts of D3, the data used in this thesis has been specifically chosen to contain both types of categorical as well as numeric data. As there are no differences in the implementation of discrete and continuous data, no extra efforts was done to cover both these types.
 
-In this thesis, two data-sets are used. They are both from UNHCR\cite{unhcr}. The first data-set contains information about the total number of refugees per country\cite{unhcr_rpc}. The second dataset is about the total cumulative amount of refugees per day\cite{unhcr_rpd}. Both data-sets are in the JSON format.
-As different data-types allow for different representations and require varying parts of D3, the data-sets have been specifically chosen to cover all data-types.
+All data used for the creation of the diagrams in this thesis originates from UNHCR Ukraine refugee situation page\cite{unhcr}. The dataset about total cumulative border crossings from Ukraine per day\cite{unhcr_rpd} is in JSON format. The data about the border crossings into countries featured in the refugee response plan, as well as into other neighboring countries\cite{unhcr} were extracted directly as CSVs. While all data reference border crossings from Ukraine and not refugees directly, the UNHCR states that "[they do] not count border crossings of individuals from bordering countries leaving Ukraine to return home (i.e. Romanians returning to Romania), nonetheless among those forced to flee Ukraine are also Ukrainian nationals with dual citizenship"\cite{unhcr_note}. Therefore this thesis will henceforth use the refugee terminology.
+The refugees per country cover a time-span between february 24th 2022 up until august 16th 2022\cite{unhcr}. The refugees per day cover the time from february 24th 2022 until july 17th 2022\cite{unhcr_rpd}.
 
-%\subsection{Preprocessing}
-%\textcolor{red}{
-%What is done in preprocessing? Python script which removes all excess / maybe do that in JS as well..?}
 
-It would be possible to use both these data-sets as is. Yet the vast amounts of filler data, which does not contain any valuable information, makes data accesses unnecessarily complicated and hard to follow along and understand the diagrams implementations. Therefore both data-sets are preprocessed. In both cases the data-sets are read and the valuable information extracted and saved in the CSV format. Both of the newly created CSV files have two columns and one header row. The resulting CSV of the refugees per country dataset, contains the two columns of country and refugees. The other resulting CSV contains a column for the date and one for the cumulative refugees. 
+%(Due to the currentness of the situation, the UNHCR only recently changed to using border crossings from Ukraine. Previously these were referred to as refugees fleeing Ukraine. As the implementation was already completed at this point and because it makes no difference to the workings of D3, this thesis will henceforth use the refugee wording again.)
 
-(The data-set about the refugees per country can also easily be converted into using percentages. After adding up the total amount of refugees from each data-point, one can convert the absolute number of refugees into percent.)
+
+To keep the implementations of the diagrams as simple as possible, some data preprocessing was done. Therefore two data service JavaScript files have been created. The first JavaScript file, the countryDataService.js reads both csv files containing information about the refugees fleeing into all neighboring countries. Both files are then combined to one data array containing an object, with properties for country and refugees, for each data entry. The second data service, the dailyDataService.js, reads the JSON file containing information about the total refugees per day. As this JSON file contains a lot of filler data, which is not needed, the data service strips all unnecessarily information away and produces a single array. This array contains an object, with properties for date and refugees, for each data entry. Both data services pass the data to the applicable diagrams. The data services are also responsible for filling the data tables in the showcase and pass along any data changes done here to the applicable diagrams.
+
+
+Together both resulting data-sets contain most of the data types. The number of refugees, which can be found in both data-sets, is a discrete attribute. The countries in one data-set are a nominal attribute. The date in the other data-set is a ordinal attribute instead.
+
+
+
+%It would be possible to use both these data-sets as is. Yet the vast amounts of filler data, which does not contain any valuable information, makes data accesses unnecessarily complicated and hard to follow along and understand the diagrams implementations. Therefore both data-sets are preprocessed. In both cases the data-sets are read and the valuable information extracted and saved in the CSV format. Both of the newly created CSV files have two columns and one header row. The resulting CSV of the refugees per country dataset, contains the two columns of country and refugees. The other resulting CSV contains a column for the date and one for the cumulative refugees. 
+
+%(The data-set about the refugees per country can also easily be converted into using percentages. After adding up the total amount of refugees from each data-point, one can convert the absolute number of refugees into percent.)
 
 %\subsection{Data Types}
 %\textcolor{red}{
 %Which data types can be found in our data-sets? Where?}
 
-The two chosen data-sets already cover most of the data-types. Both dataset contain two attributes per data-point. The country is a categorical attribute. The number of refugees is discrete. When converting this data-set into percentages, the percentage of refugees becomes a continuous attribute. In the refugees per date data-set, the amount of refugees is still a discrete attribute. The date itself is an ordinal attribute though. As one day clearly comes before and after other days.
+%The two chosen data-sets already cover most of the data-types. Both dataset contain two attributes per data-point. The country is a categorical attribute. The number of refugees is discrete. When converting this data-set into percentages, the percentage of refugees becomes a continuous attribute. In the refugees per date data-set, the amount of refugees is still a discrete attribute. The date itself is an ordinal attribute though. As one day clearly comes before and after other days.
 
-Choosing data-sets which cover all types of data-types was an important consideration. Different data-types can have different ways of representation, as well as different ways of implementation on the programming side of things.
+%Choosing data-sets which cover all types of data-types was an important consideration. Different data-types can have different ways of representation, as well as different ways of implementation on the programming side of things.
 
 
 \section{Diagrams}

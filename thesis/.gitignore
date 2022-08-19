@@ -4,3 +4,8 @@ reference/
 # Everything in out folder, except the generated pdf
 out/*
 !out/*.pdf
+
+
+# Krita
+*autosave*
+*~

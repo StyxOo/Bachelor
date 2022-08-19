@@ -1,0 +1,753 @@
+{
+    "situation_view_id": "54",
+    "situation_view_name": "Ukraine Refugee Situation",
+    "situation_view_description": "The escalation of conflict in Ukraine has caused destruction of civilian infrastructure and civilian casualties and has forced people to flee their homes seeking safety, protection and assistance. In the first week, more than a million refugees from Ukraine crossed borders into neighbouring countries, and many more are on the move both inside and outside the country. They are in need of protection and support. As the situation continues to unfold, an estimated 4 million people may flee Ukraine. In light of the emergency and paramount humanitarian needs of refugees from Ukraine, an inter-agency regional refugee response is being carried out, in support of refugee-hosting countries\u2019 efforts. The regional refugee response plan brings together UN, NGO and other relevant partners and primarily focuses on supporting the host country governments to ensure safe access to territory for refugees and third-country nationals fleeing from Ukraine, in line with international standards. It also focuses on the provision of critical protection services and humanitarian assistance, while displacement dynamics and needs continue to grow exponentially.",
+    "data": {
+        "timeseries": [
+            {
+                "data_date": "2022-02-24",
+                "unix_timestamp": 1645660800,
+                "individuals": 79209
+            },
+            {
+                "data_date": "2022-02-25",
+                "unix_timestamp": 1645747200,
+                "individuals": 179525
+            },
+            {
+                "data_date": "2022-02-26",
+                "unix_timestamp": 1645833600,
+                "individuals": 322760
+            },
+            {
+                "data_date": "2022-02-27",
+                "unix_timestamp": 1645920000,
+                "individuals": 490433
+            },
+            {
+                "data_date": "2022-02-28",
+                "unix_timestamp": 1646006400,
+                "individuals": 652445
+            },
+            {
+                "data_date": "2022-03-01",
+                "unix_timestamp": 1646092800,
+                "individuals": 818761
+            },
+            {
+                "data_date": "2022-03-02",
+                "unix_timestamp": 1646179200,
+                "individuals": 989560
+            },
+            {
+                "data_date": "2022-03-03",
+                "unix_timestamp": 1646265600,
+                "individuals": 1173690
+            },
+            {
+                "data_date": "2022-03-04",
+                "unix_timestamp": 1646352000,
+                "individuals": 1343790
+            },
+            {
+                "data_date": "2022-03-05",
+                "unix_timestamp": 1646438400,
+                "individuals": 1540463
+            },
+            {
+                "data_date": "2022-03-06",
+                "unix_timestamp": 1646524800,
+                "individuals": 1742987
+            },
+            {
+                "data_date": "2022-03-07",
+                "unix_timestamp": 1646611200,
+                "individuals": 1948991
+            },
+            {
+                "data_date": "2022-03-08",
+                "unix_timestamp": 1646697600,
+                "individuals": 2132789
+            },
+            {
+                "data_date": "2022-03-09",
+                "unix_timestamp": 1646784000,
+                "individuals": 2301246
+            },
+            {
+                "data_date": "2022-03-10",
+                "unix_timestamp": 1646870400,
+                "individuals": 2433558
+            },
+            {
+                "data_date": "2022-03-11",
+                "unix_timestamp": 1646956800,
+                "individuals": 2552776
+            },
+            {
+                "data_date": "2022-03-12",
+                "unix_timestamp": 1647043200,
+                "individuals": 2666156
+            },
+            {
+                "data_date": "2022-03-13",
+                "unix_timestamp": 1647129600,
+                "individuals": 2789420
+            },
+            {
+                "data_date": "2022-03-14",
+                "unix_timestamp": 1647216000,
+                "individuals": 2900291
+            },
+            {
+                "data_date": "2022-03-15",
+                "unix_timestamp": 1647302400,
+                "individuals": 3007520
+            },
+            {
+                "data_date": "2022-03-16",
+                "unix_timestamp": 1647388800,
+                "individuals": 3108406
+            },
+            {
+                "data_date": "2022-03-17",
+                "unix_timestamp": 1647475200,
+                "individuals": 3191919
+            },
+            {
+                "data_date": "2022-03-18",
+                "unix_timestamp": 1647561600,
+                "individuals": 3270755
+            },
+            {
+                "data_date": "2022-03-19",
+                "unix_timestamp": 1647648000,
+                "individuals": 3343434
+            },
+            {
+                "data_date": "2022-03-20",
+                "unix_timestamp": 1647734400,
+                "individuals": 3401677
+            },
+            {
+                "data_date": "2022-03-21",
+                "unix_timestamp": 1647820800,
+                "individuals": 3460430
+            },
+            {
+                "data_date": "2022-03-22",
+                "unix_timestamp": 1647907200,
+                "individuals": 3524562
+            },
+            {
+                "data_date": "2022-03-23",
+                "unix_timestamp": 1647993600,
+                "individuals": 3586938
+            },
+            {
+                "data_date": "2022-03-24",
+                "unix_timestamp": 1648080000,
+                "individuals": 3653436
+            },
+            {
+                "data_date": "2022-03-25",
+                "unix_timestamp": 1648166400,
+                "individuals": 3716126
+            },
+            {
+                "data_date": "2022-03-26",
+                "unix_timestamp": 1648252800,
+                "individuals": 3777048
+            },
+            {
+                "data_date": "2022-03-27",
+                "unix_timestamp": 1648339200,
+                "individuals": 3830944
+            },
+            {
+                "data_date": "2022-03-28",
+                "unix_timestamp": 1648425600,
+                "individuals": 3879063
+            },
+            {
+                "data_date": "2022-03-29",
+                "unix_timestamp": 1648512000,
+                "individuals": 3921476
+            },
+            {
+                "data_date": "2022-03-30",
+                "unix_timestamp": 1648598400,
+                "individuals": 3972815
+            },
+            {
+                "data_date": "2022-03-31",
+                "unix_timestamp": 1648684800,
+                "individuals": 4025927
+            },
+            {
+                "data_date": "2022-04-01",
+                "unix_timestamp": 1648771200,
+                "individuals": 4074826
+            },
+            {
+                "data_date": "2022-04-02",
+                "unix_timestamp": 1648857600,
+                "individuals": 4125819
+            },
+            {
+                "data_date": "2022-04-03",
+                "unix_timestamp": 1648944000,
+                "individuals": 4173332
+            },
+            {
+                "data_date": "2022-04-04",
+                "unix_timestamp": 1649030400,
+                "individuals": 4218060
+            },
+            {
+                "data_date": "2022-04-05",
+                "unix_timestamp": 1649116800,
+                "individuals": 4267204
+            },
+            {
+                "data_date": "2022-04-06",
+                "unix_timestamp": 1649203200,
+                "individuals": 4322200
+            },
+            {
+                "data_date": "2022-04-07",
+                "unix_timestamp": 1649289600,
+                "individuals": 4377662
+            },
+            {
+                "data_date": "2022-04-08",
+                "unix_timestamp": 1649376000,
+                "individuals": 4437002
+            },
+            {
+                "data_date": "2022-04-09",
+                "unix_timestamp": 1649462400,
+                "individuals": 4499301
+            },
+            {
+                "data_date": "2022-04-10",
+                "unix_timestamp": 1649548800,
+                "individuals": 4554403
+            },
+            {
+                "data_date": "2022-04-11",
+                "unix_timestamp": 1649635200,
+                "individuals": 4608103
+            },
+            {
+                "data_date": "2022-04-12",
+                "unix_timestamp": 1649721600,
+                "individuals": 4663094
+            },
+            {
+                "data_date": "2022-04-13",
+                "unix_timestamp": 1649808000,
+                "individuals": 4718686
+            },
+            {
+                "data_date": "2022-04-14",
+                "unix_timestamp": 1649894400,
+                "individuals": 4777176
+            },
+            {
+                "data_date": "2022-04-15",
+                "unix_timestamp": 1649980800,
+                "individuals": 4831385
+            },
+            {
+                "data_date": "2022-04-16",
+                "unix_timestamp": 1650067200,
+                "individuals": 4876775
+            },
+            {
+                "data_date": "2022-04-17",
+                "unix_timestamp": 1650153600,
+                "individuals": 4915091
+            },
+            {
+                "data_date": "2022-04-18",
+                "unix_timestamp": 1650240000,
+                "individuals": 4959854
+            },
+            {
+                "data_date": "2022-04-19",
+                "unix_timestamp": 1650326400,
+                "individuals": 5013601
+            },
+            {
+                "data_date": "2022-04-20",
+                "unix_timestamp": 1650412800,
+                "individuals": 5063835
+            },
+            {
+                "data_date": "2022-04-21",
+                "unix_timestamp": 1650499200,
+                "individuals": 5112153
+            },
+            {
+                "data_date": "2022-04-22",
+                "unix_timestamp": 1650585600,
+                "individuals": 5154455
+            },
+            {
+                "data_date": "2022-04-23",
+                "unix_timestamp": 1650672000,
+                "individuals": 5190098
+            },
+            {
+                "data_date": "2022-04-24",
+                "unix_timestamp": 1650758400,
+                "individuals": 5212185
+            },
+            {
+                "data_date": "2022-04-25",
+                "unix_timestamp": 1650844800,
+                "individuals": 5244116
+            },
+            {
+                "data_date": "2022-04-26",
+                "unix_timestamp": 1650931200,
+                "individuals": 5292603
+            },
+            {
+                "data_date": "2022-04-27",
+                "unix_timestamp": 1651017600,
+                "individuals": 5347212
+            },
+            {
+                "data_date": "2022-04-28",
+                "unix_timestamp": 1651104000,
+                "individuals": 5403583
+            },
+            {
+                "data_date": "2022-04-29",
+                "unix_timestamp": 1651190400,
+                "individuals": 5457816
+            },
+            {
+                "data_date": "2022-04-30",
+                "unix_timestamp": 1651276800,
+                "individuals": 5510985
+            },
+            {
+                "data_date": "2022-05-01",
+                "unix_timestamp": 1651363200,
+                "individuals": 5551339
+            },
+            {
+                "data_date": "2022-05-02",
+                "unix_timestamp": 1651449600,
+                "individuals": 5588373
+            },
+            {
+                "data_date": "2022-05-03",
+                "unix_timestamp": 1651536000,
+                "individuals": 5629537
+            },
+            {
+                "data_date": "2022-05-04",
+                "unix_timestamp": 1651622400,
+                "individuals": 5679703
+            },
+            {
+                "data_date": "2022-05-05",
+                "unix_timestamp": 1651708800,
+                "individuals": 5728388
+            },
+            {
+                "data_date": "2022-05-06",
+                "unix_timestamp": 1651795200,
+                "individuals": 5779875
+            },
+            {
+                "data_date": "2022-05-07",
+                "unix_timestamp": 1651881600,
+                "individuals": 5834603
+            },
+            {
+                "data_date": "2022-05-08",
+                "unix_timestamp": 1651968000,
+                "individuals": 5881402
+            },
+            {
+                "data_date": "2022-05-09",
+                "unix_timestamp": 1652054400,
+                "individuals": 5912582
+            },
+            {
+                "data_date": "2022-05-10",
+                "unix_timestamp": 1652140800,
+                "individuals": 5949951
+            },
+            {
+                "data_date": "2022-05-11",
+                "unix_timestamp": 1652227200,
+                "individuals": 5997711
+            },
+            {
+                "data_date": "2022-05-12",
+                "unix_timestamp": 1652313600,
+                "individuals": 6047926
+            },
+            {
+                "data_date": "2022-05-13",
+                "unix_timestamp": 1652400000,
+                "individuals": 6095884
+            },
+            {
+                "data_date": "2022-05-14",
+                "unix_timestamp": 1652486400,
+                "individuals": 6142813
+            },
+            {
+                "data_date": "2022-05-15",
+                "unix_timestamp": 1652572800,
+                "individuals": 6184269
+            },
+            {
+                "data_date": "2022-05-16",
+                "unix_timestamp": 1652659200,
+                "individuals": 6227002
+            },
+            {
+                "data_date": "2022-05-17",
+                "unix_timestamp": 1652745600,
+                "individuals": 6272304
+            },
+            {
+                "data_date": "2022-05-18",
+                "unix_timestamp": 1652832000,
+                "individuals": 6320720
+            },
+            {
+                "data_date": "2022-05-19",
+                "unix_timestamp": 1652918400,
+                "individuals": 6368541
+            },
+            {
+                "data_date": "2022-05-20",
+                "unix_timestamp": 1653004800,
+                "individuals": 6420729
+            },
+            {
+                "data_date": "2022-05-21",
+                "unix_timestamp": 1653091200,
+                "individuals": 6469616
+            },
+            {
+                "data_date": "2022-05-22",
+                "unix_timestamp": 1653177600,
+                "individuals": 6511057
+            },
+            {
+                "data_date": "2022-05-23",
+                "unix_timestamp": 1653264000,
+                "individuals": 6553318
+            },
+            {
+                "data_date": "2022-05-24",
+                "unix_timestamp": 1653350400,
+                "individuals": 6599792
+            },
+            {
+                "data_date": "2022-05-25",
+                "unix_timestamp": 1653436800,
+                "individuals": 6648126
+            },
+            {
+                "data_date": "2022-05-26",
+                "unix_timestamp": 1653523200,
+                "individuals": 6696348
+            },
+            {
+                "data_date": "2022-05-27",
+                "unix_timestamp": 1653609600,
+                "individuals": 6747430
+            },
+            {
+                "data_date": "2022-05-28",
+                "unix_timestamp": 1653696000,
+                "individuals": 6799314
+            },
+            {
+                "data_date": "2022-05-29",
+                "unix_timestamp": 1653782400,
+                "individuals": 6843251
+            },
+            {
+                "data_date": "2022-05-30",
+                "unix_timestamp": 1653868800,
+                "individuals": 6890245
+            },
+            {
+                "data_date": "2022-05-31",
+                "unix_timestamp": 1653955200,
+                "individuals": 6939391
+            },
+            {
+                "data_date": "2022-06-01",
+                "unix_timestamp": 1654041600,
+                "individuals": 6987657
+            },
+            {
+                "data_date": "2022-06-02",
+                "unix_timestamp": 1654128000,
+                "individuals": 7036472
+            },
+            {
+                "data_date": "2022-06-03",
+                "unix_timestamp": 1654214400,
+                "individuals": 7086386
+            },
+            {
+                "data_date": "2022-06-04",
+                "unix_timestamp": 1654300800,
+                "individuals": 7136180
+            },
+            {
+                "data_date": "2022-06-05",
+                "unix_timestamp": 1654387200,
+                "individuals": 7178465
+            },
+            {
+                "data_date": "2022-06-06",
+                "unix_timestamp": 1654473600,
+                "individuals": 7223736
+            },
+            {
+                "data_date": "2022-06-07",
+                "unix_timestamp": 1654560000,
+                "individuals": 7272848
+            },
+            {
+                "data_date": "2022-06-08",
+                "unix_timestamp": 1654646400,
+                "individuals": 7315571
+            },
+            {
+                "data_date": "2022-06-09",
+                "unix_timestamp": 1654732800,
+                "individuals": 7368264
+            },
+            {
+                "data_date": "2022-06-10",
+                "unix_timestamp": 1654819200,
+                "individuals": 7422662
+            },
+            {
+                "data_date": "2022-06-11",
+                "unix_timestamp": 1654905600,
+                "individuals": 7478060
+            },
+            {
+                "data_date": "2022-06-12",
+                "unix_timestamp": 1654992000,
+                "individuals": 7523688
+            },
+            {
+                "data_date": "2022-06-13",
+                "unix_timestamp": 1655078400,
+                "individuals": 7568879
+            },
+            {
+                "data_date": "2022-06-14",
+                "unix_timestamp": 1655164800,
+                "individuals": 7618506
+            },
+            {
+                "data_date": "2022-06-15",
+                "unix_timestamp": 1655251200,
+                "individuals": 7673467
+            },
+            {
+                "data_date": "2022-06-16",
+                "unix_timestamp": 1655337600,
+                "individuals": 7727863
+            },
+            {
+                "data_date": "2022-06-17",
+                "unix_timestamp": 1655424000,
+                "individuals": 7786169
+            },
+            {
+                "data_date": "2022-06-18",
+                "unix_timestamp": 1655510400,
+                "individuals": 7843040
+            },
+            {
+                "data_date": "2022-06-19",
+                "unix_timestamp": 1655596800,
+                "individuals": 7899287
+            },
+            {
+                "data_date": "2022-06-20",
+                "unix_timestamp": 1655683200,
+                "individuals": 7950234
+            },
+            {
+                "data_date": "2022-06-21",
+                "unix_timestamp": 1655769600,
+                "individuals": 8007015
+            },
+            {
+                "data_date": "2022-06-22",
+                "unix_timestamp": 1655856000,
+                "individuals": 8069043
+            },
+            {
+                "data_date": "2022-06-23",
+                "unix_timestamp": 1655942400,
+                "individuals": 8133324
+            },
+            {
+                "data_date": "2022-06-24",
+                "unix_timestamp": 1656028800,
+                "individuals": 8195757
+            },
+            {
+                "data_date": "2022-06-25",
+                "unix_timestamp": 1656115200,
+                "individuals": 8257603
+            },
+            {
+                "data_date": "2022-06-26",
+                "unix_timestamp": 1656201600,
+                "individuals": 8309264
+            },
+            {
+                "data_date": "2022-06-27",
+                "unix_timestamp": 1656288000,
+                "individuals": 8356169
+            },
+            {
+                "data_date": "2022-06-28",
+                "unix_timestamp": 1656374400,
+                "individuals": 8408397
+            },
+            {
+                "data_date": "2022-06-29",
+                "unix_timestamp": 1656460800,
+                "individuals": 8465590
+            },
+            {
+                "data_date": "2022-06-30",
+                "unix_timestamp": 1656547200,
+                "individuals": 8522500
+            },
+            {
+                "data_date": "2022-07-01",
+                "unix_timestamp": 1656633600,
+                "individuals": 8579036
+            },
+            {
+                "data_date": "2022-07-02",
+                "unix_timestamp": 1656720000,
+                "individuals": 8638634
+            },
+            {
+                "data_date": "2022-07-03",
+                "unix_timestamp": 1656806400,
+                "individuals": 8692513
+            },
+            {
+                "data_date": "2022-07-04",
+                "unix_timestamp": 1656892800,
+                "individuals": 8740344
+            },
+            {
+                "data_date": "2022-07-05",
+                "unix_timestamp": 1656979200,
+                "individuals": 8792763
+            },
+            {
+                "data_date": "2022-07-06",
+                "unix_timestamp": 1657065600,
+                "individuals": 8847773
+            },
+            {
+                "data_date": "2022-07-07",
+                "unix_timestamp": 1657152000,
+                "individuals": 8903944
+            },
+            {
+                "data_date": "2022-07-08",
+                "unix_timestamp": 1657238400,
+                "individuals": 8959803
+            },
+            {
+                "data_date": "2022-07-09",
+                "unix_timestamp": 1657324800,
+                "individuals": 9016213
+            },
+            {
+                "data_date": "2022-07-10",
+                "unix_timestamp": 1657411200,
+                "individuals": 9069148
+            },
+            {
+                "data_date": "2022-07-11",
+                "unix_timestamp": 1657497600,
+                "individuals": 9118918
+            },
+            {
+                "data_date": "2022-07-12",
+                "unix_timestamp": 1657584000,
+                "individuals": 9170631
+            },
+            {
+                "data_date": "2022-07-13",
+                "unix_timestamp": 1657670400,
+                "individuals": 9228248
+            },
+            {
+                "data_date": "2022-07-14",
+                "unix_timestamp": 1657756800,
+                "individuals": 9288531
+            },
+            {
+                "data_date": "2022-07-15",
+                "unix_timestamp": 1657843200,
+                "individuals": 9350726
+            },
+            {
+                "data_date": "2022-07-16",
+                "unix_timestamp": 1657929600,
+                "individuals": 9411298
+            },
+            {
+                "data_date": "2022-07-17",
+                "unix_timestamp": 1658016000,
+                "individuals": 9467960
+            },
+            {
+                "data_date": "2022-07-18",
+                "unix_timestamp": 1658102400,
+                "individuals": 9518549
+            },
+            {
+                "data_date": "2022-07-19",
+                "unix_timestamp": 1658188800,
+                "individuals": 9567033
+            }
+        ],
+        "source": "UNHCR, Government"
+    },
+    "title_language_ar": "",
+    "title_language_en": "Border crossings from Ukraine (since 24 February 2022)*",
+    "title_language_es": "",
+    "title_language_fr": "",
+    "subtitle_language_ar": "",
+    "subtitle_language_en": "",
+    "subtitle_language_es": "",
+    "subtitle_language_fr": "",
+    "limit": "",
+    "color": "#3c8dbc",
+    "frequency": "day",
+    "chartType": "areaspline",
+    "currentSeries": 1
+}
