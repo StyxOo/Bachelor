@@ -34,11 +34,8 @@ const render = data => {
     const t = svg.transition()
         .duration(1500);
 
-    const totalRefugees = d3.sum(data, d => d.refugees)
-
     const parent = {
-        "country": "Ukraine",
-        "refugees": totalRefugees
+        "country": "Ukraine"
     }
 
     let nodes = [{name: parent.country}]
@@ -48,15 +45,11 @@ const render = data => {
         links.push({source: 'Ukraine', target: d.country, value: d.refugees})
     }
 
-    data.push(parent)
-
     const graph = d3.sankey()
         .nodeId(d => d.name)
         .nodeAlign(d3.sankeyJustify)
         .size([ourWidth, ourHeight])
         ({nodes, links})
-
-    data.pop()
 
 
     /**

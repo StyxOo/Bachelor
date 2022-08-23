@@ -80,6 +80,8 @@ const contentParentGroup = diagramGroup.append('g')
 
 If there are data independent scales, they are defined here. A common example here is a color scale for nominal values. It is used in all diagrams showing the refugees per country. It is not important to already know the specific input values, to be able to create a list of colors which is used by the scale. When queried, it will then return a new color from the list for each new query value. Therefor this scale does not require a predefined domain. Instead it is dynamically defined and extended with each new value querying the scale. It is important to note that when the predefined color list runs out of new colors, it starts reusing the same color list from the beginning.
 
+Any general helper functions are also defined here. Both diagrams about the cumulative refugees per day make use of a date conversion function, which produces a nicely formatted date string from a JavaScript date object. The resulting strings are in the form of mmm-DD. For example Mar-19 or Jun-21.
+
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[style=htmlcssjs, caption={Definition of the data independent color scale. \texttt{d3.schemeDarkv2} is a predefined list of color values which is to be used by the scale.}, label={color_scale}]
 const colors = d3.scaleOrdinal(d3.schemeDark2);
@@ -217,13 +219,21 @@ The general update pattern adds a \texttt{rect} for each leaf of the tree object
 \subsubsection{Sankey graph}
 %\textcolor{red}{
 %How does it work? Which d3 features does it use? how do they work?}
-Both the donut-chart as well as the sankey-graph also define a constant called \texttt{totalRefugees}. This constant is created using the \texttt{d3.sum(data, d => d.refugees)} function. It creates the sum of all entries in the data, using the \texttt{refugees} field for each entry.
+The sankey-graph consists of nodes and links. Therefor these two arrays are constructed first. Each node represents one country. The links describe the flow of values, in this case refugees, between nodes. This is achieved by providing a source, a target and the value. To be able to show a flow from the Ukraine to the other countries, the Ukraine is added as a node. All countries from our data are added as nodes, as well as a link to the Ukraine node is created. The resulting arrays are provided to the \texttt{d3.sankey()} function. This function adds additional information to the nodes and links allowing for appropriate placement of the according elements. It also adds all the links values to create a source value for the Ukraine node.
 
-As the sankey-graph and tree-map are both intended to use with hierarchical data, some tricks are employed to simulate this. In both cases a new parent element is added and the appropriate links are created. In the resulting sankey-graph, this parent element can be seen on the left side as the Ukraine as origin for all refugees. Following this all the data dependent scales are defined.
+The sankey-graph makes use of two data-joins. The first one links the nodes to appropriate group elements. During the enter behavior, each group elements is filled with a \texttt{rect} and a \texttt{text} element. The \texttt{rect} represents an entry in the sankey-graph and is sized according to the number of refugees and styled according to the country using the color scale. To make the color scale consistent with the other diagrams, the Ukraine node is provided with a fixed color. this prevents the Ukraine node to start querying the color scale and creating inconsistency with the other diagrams which do not contain a representation for the Ukraine. The \texttt{text} label contains the name and amount of refugees per country. It is placed next to the appropriate \texttt{rect}s. This can be on the left or rights side, depending on the x position of the rects. If the rect is in the left half of the diagram the label is right, if the rect is in the right half the label is left. Both rect and text make use of transitions to smoothly build up the diagram. The text also makes use of a small delay to the transition by using the \texttt{.delay(100)} function.
+
+The second data-join takes care of the links. They are matched to path elements. Each path is styled to match with the country it leads to. The required SVG path is created using the \texttt{d3.sankeyLinkHorizontal()} command. As the resulting path is only a single line, the stroke-width attribute corresponds to the size of the link. The links are also animated using the transition. When initially appearing, the links are provided with a delay before fading into existence after the nodes have settled in their positions.
 
 \subsubsection{Circle graph}
 %\textcolor{red}{
 %How does it work? Which d3 features does it use? how do they work?}
+
+The circle-graph makes use of two data dependent scales. \texttt{d3.scaleQuantize()} is used for converting the time slider value to an actual date. As the time slider value provides a value between zero and one, this domain is mapped to the range of available dates in the data-set. The second scale is used to get the correct radius of the circle. Because the area of the circle corresponds to the number of refugees, it is important to not scale the radius linearly. This would lead to circle areas which do not represent the correct number of refugees. Instead the \texttt{d3.scaleSqrt()} is used. The domain is set to [0, HighestNumberOfTotalRefugees] and the range to [0, ourHeight/2]. This scale is also used for drawing the background legend. This is achieved by getting the ticks of in the scale and saving the appropriate values in an array. This array is rendered in circles using the first data-join. This data-join draws and updates a circle and a text label for each tick.
+
+
+
+
 
 \subsubsection{Area graph}
 %\textcolor{red}{
