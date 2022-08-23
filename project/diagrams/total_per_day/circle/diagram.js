@@ -59,7 +59,7 @@ const render = (data, time01 = 0) => {
 
     const radiusScale = d3.scaleSqrt()
         .domain([0, d3.max(data, d => d.refugees)])
-        .range([0, ourHeight/2])
+        .range([0, ourHeight / 2])
 
     /**
      * Here we set up the y and x axes.
@@ -68,9 +68,9 @@ const render = (data, time01 = 0) => {
     const ticks = radiusScale.ticks(10).filter(d => d !== 0)
     let tickData = []
     for (let i = 0; i < ticks.length; i++) {
-        tickData.push({id: i, value: ticks[i]})
+        tickData.push({ id: i, value: ticks[i] })
     }
-    legendParentGroup.selectAll('g').data(tickData, d => {return d.id})
+    legendParentGroup.selectAll('g').data(tickData, d => { return d.id })
         .join(
             enter => {
                 const tick = enter.append('g')
@@ -85,13 +85,13 @@ const render = (data, time01 = 0) => {
                 tick.append('text')
                     .text((d, i) => {
                         let value = d.value / legendScaleFactor
-                        if (i === tickData.length-1) {
+                        if (i === tickData.length - 1) {
                             value += '*'
                         }
                         return value
                     })
                     .attr('dy', '-0.1em')
-                    .attr('x', ourWidth/2)
+                    .attr('x', ourWidth / 2)
                     .attr('y', d => ourHeight - 2 * radiusScale(d.value))
             },
             update => {
@@ -101,14 +101,14 @@ const render = (data, time01 = 0) => {
                 update.select('text')
                     .text((d, i) => {
                         let value = d.value / legendScaleFactor
-                        if (i === tickData.length-1) {
+                        if (i === tickData.length - 1) {
                             value += '*'
                         }
                         return value
                     })
             }
             ,
-            exit => exit.call(exit=> exit.transition(t)
+            exit => exit.call(exit => exit.transition(t)
                 .attr('opacity', '0%'))
                 .remove()
         )
@@ -119,35 +119,39 @@ const render = (data, time01 = 0) => {
      */
     const unixTime = timeScale(time01)
     const datum = data.find(d => d.date === unixTime)
-    contentParentGroup.selectAll('circle').data([time01], () => [0])
+    contentParentGroup.selectAll('g .content').data([time01], () => [0])
         .join(
-            enter => enter.append('circle')
-                .attr('cx', ourWidth / 2)
-                .attr('cy', ourHeight)
-                .attr('r', 0)
-                .attr('fill', 'red')
-                .attr('opacity', '50%')
-                .call(enter => enter.transition(t)
-                        .attr('cy', () => ourHeight - radiusScale(datum.refugees))
-                        .attr('r', () => radiusScale(datum.refugees))
-                    )
-            ,
-            update => update.call(update => update.transition(t)
-                .attr('cy', () => ourHeight - radiusScale(datum.refugees))
-                .attr('r', () => radiusScale(datum.refugees))
-            )
-        )
+            enter => {
+                const content = enter.append('g')
+                    .attr('class', 'content')
 
-    contentParentGroup.selectAll('text').data([time01], () => [0])
-        .join(
-            enter => enter.append('text')
-                .attr('x', ourWidth/2)
-                .attr('y', ourHeight + 17)
-                .text(datum.refugees + ' refugees by ' + dateToDisplay(datum.date))
+                content.append('circle')
+                    .attr('cx', ourWidth / 2)
+                    .attr('cy', ourHeight)
+                    .attr('r', 0)
+                    .attr('fill', 'red')
+                    .attr('opacity', '50%')
+                    .call(enter => enter.transition(t)
+                        .attr('cy', () => ourHeight - radiusScale(datum.refugees))
+                        .attr('r', () => radiusScale(datum.refugees)))
+
+                content.append('text')
+                    .attr('x', ourWidth / 2)
+                    .attr('y', ourHeight + 17)
+                    .text(datum.refugees + ' refugees by ' + dateToDisplay(datum.date))
+
+            }
             ,
-            update => update.call(update => update.transition(t)
-                .text(datum.refugees + ' refugees by ' + dateToDisplay(datum.date))
-            )
+            update => {
+                update.select('circle')
+                    .call(update => update.transition(t)
+                        .attr('cy', () => ourHeight - radiusScale(datum.refugees))
+                        .attr('r', () => radiusScale(datum.refugees)))
+
+                update.select('text')
+                    .call(update => update.transition(t)
+                        .text(datum.refugees + ' refugees by ' + dateToDisplay(datum.date)))
+            }
         )
 };
 
@@ -163,7 +167,7 @@ try {
     console.log('Data is not provided externally. Loading data directly')
     const dataPath = '../total_refugees_daily_condensed.csv';
 
-// .csv creates a promise, when it resolves .then do something else
+    // .csv creates a promise, when it resolves .then do something else
     d3.csv(dataPath).then(data => {
         data.forEach(d => {                         // Foreach data-point in data
             d.refugees = +d.refugees;           // Cast value to float and take times 1000
