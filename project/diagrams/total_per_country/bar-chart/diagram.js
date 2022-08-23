@@ -109,11 +109,11 @@ const render = data => {
                 update.select('text')
                     .text(d => xValue(d))
                     .call(update => update.transition(t)
-                    .attr('y', d => yScale(yValue(d)) + yScale.bandwidth()/2)
-                    .attr('x', d => {
-                        const scaleValue = xScale(xValue(d));
-                        return (scaleValue - 60 > 0) ? scaleValue - 10 : 60;
-                    }))
+                        .attr('y', d => yScale(yValue(d)) + yScale.bandwidth()/2)
+                        .attr('x', d => {
+                            const scaleValue = xScale(xValue(d));
+                            return (scaleValue - 60 > 0) ? scaleValue - 10 : 60;
+                        }))
             },
             exit => exit.remove()
         )
