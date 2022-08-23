@@ -119,7 +119,7 @@ const render = (data, time01 = 0) => {
      */
     const unixTime = timeScale(time01)
     const datum = data.find(d => d.date === unixTime)
-    contentParentGroup.selectAll('g .content').data([time01], () => [0])
+    contentParentGroup.selectAll('g .content').data([0], () => [0])
         .join(
             enter => {
                 const content = enter.append('g')

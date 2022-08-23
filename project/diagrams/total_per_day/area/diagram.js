@@ -53,7 +53,7 @@ const render = (data, time01 = 0) => {
         .padding(0.2);
 
     const xScaleWithOffset = d => {
-        return xScale(d) + xScale.bandwidth()/2
+        return xScale(d) + xScale.bandwidth() / 2
     }
 
 
@@ -93,8 +93,8 @@ const render = (data, time01 = 0) => {
     const xAxis = d3.axisBottom(xScale) // Pass a scale function as axis
         .tickFormat(xAxisTickFormat)    // and pass a formatting function to format the string
         .tickSize(-ourHeight)
-        .tickValues(xScale.domain().filter((d,i) => { return !(i % tickModulo)}))
-        // .ticks(30);
+        .tickValues(xScale.domain().filter((d, i) => { return !(i % tickModulo) }))
+    // .ticks(30);
 
     xAxisParentGroup.call(xAxis)
         .attr('transform', `translate(0,${ourHeight})`)
@@ -108,14 +108,14 @@ const render = (data, time01 = 0) => {
      * This is where the actual content of the diagram is drawn.
      */
 
+    const line = d3.line()
+        .x(d => xScaleWithOffset(d.date))
+        .y(d => yScale(d.refugees));
+
     const area = d3.area()
         .x(d => xScaleWithOffset(d.date))
         .y1(ourHeight)
         .y0(d => yScale(d.refugees));
-
-    const line = d3.line()
-        .x(d => xScaleWithOffset(d.date))
-        .y(d => yScale(d.refugees));
 
     contentParentGroup.selectAll('g .areaGroup').data([0], () => [0])
         .join(
@@ -151,7 +151,7 @@ const render = (data, time01 = 0) => {
             enter => {
                 const dateLine = enter.append('g')
                     .attr('class', 'dateLine')
-                    .attr('transform', `translate(${xScale.bandwidth()/2},0)`)
+                    .attr('transform', `translate(${xScale.bandwidth() / 2},0)`)
 
                 dateLine.append('circle')
                     .attr('class', 'dateLineDot')
@@ -202,7 +202,7 @@ try {
     console.log('Data is not provided externally. Loading data directly')
     const dataPath = '../total_refugees_daily_condensed.csv';
 
-// .csv creates a promise, when it resolves .then do something else
+    // .csv creates a promise, when it resolves .then do something else
     d3.csv(dataPath).then(data => {
         data.forEach(d => {                         // Foreach data-point in data
             d.refugees = +d.refugees;           // Cast value to float and take times 1000

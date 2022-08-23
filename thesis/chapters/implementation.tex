@@ -41,7 +41,9 @@ Together both resulting data-sets contain most of the data types. The number of 
 %\textcolor{red}{
 %describe all the diagrams and why they are special and what makes them tick. Why have they been chosen?}
 
-The following section is about the selection and implementation of each diagram. Whilst all diagrams are presented in one showcase, each diagrams is implemented to work standalone. This makes the comparison between diagrams, as well as evaluating the effort needed to create them easier. It also allows for easier adaptation if one is to use one of the diagrams as a template. Therefore all diagrams follow the same pattern. As each diagram is independent, they all consist of three parts. A HTML, a CSS and a JavaScript file.  The HTML loads the D3 library in the header. The body of the HTML consists of a svg tag where the diagram will be drawn, and a script tag which loads the JavaScript file. The CSS defines the general styling of the diagram which is not dependent on the input data. The main part of the implementation is done in the Javascript section.Additionally each diagram requires access to its respective data service.
+The following section is about the selection and implementation of each diagram. As there are countless ways to show the selected data-sets, a selection of diagrams was made first. There are two mayor aspects taken into the account for selecting the diagrams. Primarily they should be realistically usable, as there is no point in creating unnecessarily complex visualizations. Secondly they should all require different aspects of the D3 library. This ensures that this thesis actually tests the possibilities of D3. To achieve this, four diagrams have been chosen to show the refugees per country data-set. A bar-chart, a donut-chart, a tree-map and a sankey-graph. For the data-set showing the total amount of refugees over time, a circle-graph and an area-graph have been chosen.
+
+Whilst all diagrams are presented in one showcase, each diagrams is implemented to work standalone. This makes the comparison between diagrams, as well as evaluating the effort needed to create them easier. It also allows for easier adaptation if one is to use one of the diagrams as a template. Therefore all diagrams follow the same pattern. As each diagram is independent, they all consist of three parts. A HTML, a CSS and a JavaScript file. The HTML loads the D3 library in the header. The body of the HTML consists of a svg tag where the diagram will be drawn, and a script tag which loads the JavaScript file. The CSS defines the general styling of the diagram which is not dependent on the input data. The main part of the implementation is done in the Javascript section. Additionally each diagram requires access to its respective data-service.
 
 The JavaScript file also follows a general pattern. At first there is a initialization section which is run once as the website is loaded. It is followed by a render function which is responsible for drawing and updating the diagram. Both are explained in the following subsections.
 
@@ -125,23 +127,7 @@ Animations can improve the feel, appeal and readability of diagrams. Especially 
 
 Animating elements in D3 is achieved by using transitions. Transitions are called from a selection and run on all the elements of the selection. A transition requires a duration and can also be provided with a delay and an easing function. The duration and delay are both in milliseconds. Animating numerical, color or string values is very easy with transition. It is only required to call the attribute or style with the target value and the transition will take care of the rest. This makes it very fast and easy to animate for example positioning or sizing.
 
-\begin{lstlisting}[style=htmlcssjs]
-    enter.call(enter => enter.transition(t)
-    .attrTween('d', (d, index, nodes) => {
-            const i = d3.interpolate(0, d.startAngle);
-            const j = d3.interpolate(0, d.endAngle);
-
-            nodes[index].previousStartAngle = d.startAngle;
-            nodes[index].previousEndAngle = d.endAngle;
-
-            return time => {
-                d.startAngle = i(time);
-                d.endAngle = j(time);
-                return arc(d);
-            }}))
-\end{lstlisting}
-
-Instead of using the default behaviors for numbers, string and colors or when trying to animate other values like svg paths, a tween function can be defined using \verb|attrTween| or \verb|styleTween|. Both tweens need to return a function which will be invoked for each frame of the animation, with a time value between 0 and 1, depending on the frame. The returned function must itself return a value, which is applied to the desired style or attribute every frame. In this thesis tweens are only specifically defined to animate svg path tags.
+Instead of using the default behaviors for numbers, string and colors or when trying to animate other values like SVG paths, a tween function can be defined using \verb|attrTween| or \verb|styleTween|. Both tweens need to return a function which will be invoked for each frame of the animation, with a time value between 0 and 1, depending on the frame. The returned function must itself return a value, which is applied to the desired style or attribute every frame. In this thesis tweens are only specifically defined to animate SVG path tags.
 
 
 \subsubsection{Bar Chart}
@@ -229,15 +215,34 @@ The second data-join takes care of the links. They are matched to path elements.
 %\textcolor{red}{
 %How does it work? Which d3 features does it use? how do they work?}
 
-The circle-graph makes use of two data dependent scales. \texttt{d3.scaleQuantize()} is used for converting the time slider value to an actual date. As the time slider value provides a value between zero and one, this domain is mapped to the range of available dates in the data-set. The second scale is used to get the correct radius of the circle. Because the area of the circle corresponds to the number of refugees, it is important to not scale the radius linearly. This would lead to circle areas which do not represent the correct number of refugees. Instead the \texttt{d3.scaleSqrt()} is used. The domain is set to [0, HighestNumberOfTotalRefugees] and the range to [0, ourHeight/2]. This scale is also used for drawing the background legend. This is achieved by getting the ticks of in the scale and saving the appropriate values in an array. This array is rendered in circles using the first data-join. This data-join draws and updates a circle and a text label for each tick.
+The circle-graph makes use of two data dependent scales. \texttt{d3.scaleQuantize()} is used for converting the time slider value to an actual date. As the time slider value provides a value between zero and one, this domain is mapped to the range of available dates in the data-set. The second scale is used to get the correct radius of the circle. Because the area of the circle corresponds to the number of refugees, it is important to not scale the radius linearly. This would lead to circle areas which do not represent the correct number of refugees. Instead the \texttt{d3.scaleSqrt()} is used. The domain is set to [0, HighestNumberOfTotalRefugees] and the range to [0, ourHeight/2]. This scale is also used for drawing the background legend. This is achieved by getting the ticks of the scale and saving the appropriate values in an array. This array is rendered in circles using the first data-join. This data-join draws and updates a circle and a text label for each tick.
 
 
-
+As the actual content of the diagram does not draw one mark per data-point , only one data entry is used at a time. The time scale is used to determine which is the current date and applicable data. This allows the diagram to reuses only use one circle and one text label in its representation. Therefor the second data-join also looks a bit different. Instead of linking actual data, an array with an arbitrary single entry is linked to the selection. The identifier function also always returns the same value, no matter what data was linked. The circle and text are both created and using the data which was found for the current date.
 
 
 \subsubsection{Area graph}
 %\textcolor{red}{
 %How does it work? Which d3 features does it use? how do they work?}
+
+The area graph makes use of the same time scale as the circle graph. Additionally it uses a linear scale for the y-axis and a scale band for the x-axis. The y-axis represents the number of refugees, while the x-axis shows the days. Both axes are added to the diagram in the same way as is done in the bar-chart. As showing all days on the x-axis would be too dense, the values are filtered. As a result only 15 equidistant days are shown.
+
+The main content of the area-graph consists of two parts. One part shows the area, while the other one is the date-line showing the current date. The area and the line atop the area are two separate path elements. Their definition can be seen in lsting \ref{lst:line-area}. Because the area and line both cover the whole range of data at once, the data-join, which creates and updates them, uses the same single element dummy data as the circle-graph. When creating or updating the line and are, the whole dataset is passed to the respective functions.
+
+\begin{minipage}{\linewidth}
+    \begin{lstlisting}[style=htmlcssjs, captionpos=b, caption={The first constant defines the function for creating the top-line of the area graph. Therefore the functions for x and y values are defined. When the function is called and a data-set is provided, by calling \texttt{line(data)}, the line is constructed by calculating the according x and y positions for every data-point. Defining and creating the area works in similar fashion. Yet there are two y-positions for each x-position. This allows for a huge variety of shapes. Yet it is not possible to create concave ends on the right or left side of the diagram, assuming left and rigth are aligned with the orientation of the x-axis.}, label={lst:line-area}]
+const line = d3.line()
+    .x(d => xScaleWithOffset(d.date))
+    .y(d => yScale(d.refugees));
+
+const area = d3.area()
+    .x(d => xScaleWithOffset(d.date))
+    .y1(ourHeight)
+    .y0(d => yScale(d.refugees));
+    \end{lstlisting}
+\end{minipage}
+
+The date-line is made up of three elements. A circle element rides on the top line of the area, a vertical line to indicate the current day on the x-axis and a text label to show the days refugee value. All three parts are simply created and updated in the second data-join. This data-join makes use of the same kind of dummy data as seen in the previous data-join and the circle-graph.
 
 
 \section{Showcase}
