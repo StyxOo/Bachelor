@@ -18,14 +18,11 @@ const diagramGroup = svg.append('g')
 const contentParentGroup = diagramGroup.append('g')
     .attr('id', 'content')
 
-const nodesParentGroup = contentParentGroup.append('g')
-    .attr('id', 'nodes')
+const countriesParentGroup = contentParentGroup.append('g')
+    .attr('id', 'countries')
 
 const linksParentGroup = contentParentGroup.append('g')
     .attr('id', 'links')
-
-const labelsParentGroup = contentParentGroup.append('g')
-    .attr('id', 'labels')
 
 
 const colors = d3.scaleOrdinal(d3.schemeDark2)
@@ -70,10 +67,13 @@ const render = data => {
     /**
      * This is where the actual content of the diagram is drawn.
      */
-    nodesParentGroup.selectAll('rect').data(nodes, d => {return d.name})
+    countriesParentGroup.selectAll('g .country').data(nodes, d => {return d.name})
         .join(
             enter => {
-                enter.append('rect')
+                const country = enter.append('g')
+                    .attr('class', 'country')
+
+                country.append('rect')
                     .attr('x', 0)
                     .attr('y', d => d.y0)
                     .attr('width', 0)
@@ -88,18 +88,8 @@ const render = data => {
                     .call(enter => enter.transition(t)
                         .attr('x', d => d.x0)
                         .attr('width', d => d.x1 - d.x0))
-            },
-            update => {
-                update.call(update => update.transition(t)
-                    .attr('height', d => d.y1 - d.y0)
-                    .attr('y', d => d.y0))
-            }
-        )
-
-    labelsParentGroup.selectAll('text').data(nodes, d => {return d.name})
-        .join(
-            enter => {
-                enter.append('text')
+                
+                country.append('text')
                     .text(d => `${d.name}: ${d.value}`)
                     .attr('x', 0)
                     .attr('y', d => (d.y0 + d.y1)/2 + 5)
@@ -111,7 +101,11 @@ const render = data => {
                         .attr('opacity', '100%'))
             },
             update => {
-                update.call(update => update.transition(t)
+                update.select('rect').call(update => update.transition(t)
+                    .attr('height', d => d.y1 - d.y0)
+                    .attr('y', d => d.y0))
+
+                update.select('text').call(update => update.transition(t)
                     .attr('y', d => (d.y0 + d.y1)/2 + 5))
                     .text(d => `${d.name}: ${d.value}`)
             }
