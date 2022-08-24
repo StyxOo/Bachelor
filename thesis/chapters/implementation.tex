@@ -74,7 +74,7 @@ Following there are a few group elements which are added to the svg tag. Adding 
 
 The group elements added here provide a general hierarchy for different aspects of the diagram. Having a proper structure in place makes working with selections easier as well as helping with human readability of the SVGs content. This general hierarchy is only created to a level which is independent of the provided data and differs depending on the type of diagram. For example the bar chart has separate groups for the axes and the content, see listing \ref{lst:hierarchy_result}, while the circle diagram has groups for the background legend and the content.
 
-\begin{minipage}{\linewidth}
+\begin{minipage}{0.9\linewidth}
 \begin{lstlisting}[style=htmlcssjs, captionpos=b, caption={JavaScript code to create the hierarchy as used in the bar-chart. The first line adds a new group element to themain SVG container using the \texttt{append} command. The newly added group element is saved in a constant for later references. Furthermore in line two an attribute is added to the new group element using the \texttt{attr} command and method chaining. It moves the group element from the left and top to allign with the margin definition. In each of the lines four, seven and ten, another group element is added. They are added to the previously created group element. They are all stored in constants for later reference and are provided with id's for easier identification and debugging.}, label={lst:hierarchy_creation}]
 const diagramGroup = svg.append('g')
     .attr('transform', `translate(${margin.left},${margin.top})`);
@@ -104,10 +104,10 @@ If there are data independent scales, they are defined here. A common example he
 
 Any general helper functions are also defined here. Both diagrams about the cumulative refugees per day make use of a date conversion function, which produces a nicely formatted date string from a JavaScript date object. The resulting strings are in the form of mmm-DD. For example Mar-19 or Jun-21.
 
-\begin{minipage}{\linewidth}
-\begin{lstlisting}[style=htmlcssjs, caption={Definition of the data independent color scale. \texttt{d3.schemeDarkv2} is a predefined list of color values which is to be used by the scale.}, label={color_scale}]
+\begin{minipage}{0.9\linewidth}
+    \begin{lstlisting}[style=htmlcssjs, captionpos=b, caption={Definition of the data independent color scale. \texttt{d3.schemeDarkv2} is a predefined list of color values which is to be used by the scale.}, label={color_scale}]
 const colors = d3.scaleOrdinal(d3.schemeDark2);
-\end{lstlisting}
+    \end{lstlisting}
 \end{minipage}
 
 Finally if there are any static elements, they are also defined in the initialization. For example the tooltip used by the tree-map or the center text fields in the donut-chart. Even though the data which these fields are supposed to show is not yet known, these fields are persistent and can therefore already be created here.
@@ -158,7 +158,7 @@ The bar-charts first defines two scales, the \texttt{xScale} as well as the \tex
 
 The bar-chart also makes use of axes. The y-axis shows the countries, while the x-axis shows the amount of refugees. D3 has predefined functions to create axes from scales. An axis in D3 consists of many ticks. By default each tick has a label and a small line indicating its position. Furthermore there is a start and end line to indicate the whole domain. The bar-chart removes all the domain lines for styling reasons. The tick lines for the y-axis are also removed, as they are unnecessary here. The x-axis tick lines therefor are extended to cover the whole diagrams height. This is done to have a proper reference to read out the bars length.
 
-\begin{minipage}{\linewidth}
+\begin{minipage}{0.9\linewidth}
     \begin{lstlisting}[style=htmlcssjs, captionpos=b, caption={The x axis implementation of the bar chart. The first constant defines the tick format. For each number there should be two significant digits. As the zero value is represented as "0.0" to match the previous rule of two significant digits, it is simply replaced by "0". The second constant defines the function creating the axis. The previous tick format is passed here. Furthermore the \texttt{tickSize} is set to the hight of the diagram. This way the initially small tick lines now cover the whole height of the diagram and allow for easier and more accurate readouts. Finally the \texttt{xAxisParentGroup} element, which is part of ther permantent hierarchical structure of the bar-chart, calls the \texttt{xAxis} function. This adds the Axis to the diagram. As a last step the domain lines are selected and removed for styling reasons.}, label={lst:bar-chart-axes}]
 const xAxisTickFormat = number =>
     d3.format('.2s')(number)
@@ -195,7 +195,7 @@ Lastly the path elements are registered to two callbacks, \texttt{mouseover} and
 
 As the update behavior of the donut-chart consists only of updating the paths, it is fully described in listing \ref{lst:donut-chart}. The exit behavior removes appropriate sections.
 
-\begin{minipage}{\linewidth}
+\begin{minipage}{0.9\linewidth}
     \begin{lstlisting}[style=htmlcssjs, captionpos=b, caption={The implementation of the arc update animations. There are two interpolate functions defined in the beginning. They are called \texttt{i} and \texttt{j}. Next the new values for start and end angle are stored on the node itself. This needs to be done to be able to reference these values again for the next update, as the previous angles will not be accessible through the pie object after regenerating it for an update. Finally the function which is called for each frame of the animation is defined and returned. This function first interpolates the start and end angle values using the previously defined functions and the time of time which has already pased in the animation. This time value is in the range of zero to one, depending on how far along the animation is. These newly interpolated angles define the start and end angle of the pie piece, which is then turned into a path element by calling the \texttt{arc} function for this pie piece.}, label={lst:donut-chart}]
 .call(enter => enter.transition(t)
     .attrTween('d', (d, index, nodes) => {
@@ -252,7 +252,7 @@ The area graph makes use of the same time scale as the circle graph. Additionall
 
 The main content of the area-graph consists of two parts. One part shows the area, while the other one is the date-line showing the current date. The area and the line atop the area are two separate path elements. Their definition can be seen in lsting \ref{lst:line-area}. Because the area and line both cover the whole range of data at once, the data-join, which creates and updates them, uses the same single element dummy data as the circle-graph. When creating or updating the line and are, the whole dataset is passed to the respective functions.
 
-\begin{minipage}{\linewidth}
+\begin{minipage}{0.9\linewidth}
     \begin{lstlisting}[style=htmlcssjs, captionpos=b, caption={The first constant defines the function for creating the top-line of the area graph. Therefore the functions for x and y values are defined. When the function is called and a data-set is provided, by calling \texttt{line(data)}, the line is constructed by calculating the according x and y positions for every data-point. Defining and creating the area works in similar fashion. Yet there are two y-positions for each x-position. This allows for a huge variety of shapes. Yet it is not possible to create concave ends on the right or left side of the diagram, assuming left and rigth are aligned with the orientation of the x-axis.}, label={lst:line-area}]
 const line = d3.line()
     .x(d => xScaleWithOffset(d.date))
@@ -284,4 +284,4 @@ Each diagram is implemented to work on its own and without the showcase. Each di
 %\textcolor{red}{
 %How can you simulate data changes? Why is this useful?}
 
-Each section of the showcase has a table which allows for data manipulation. Rows of data can be modified, added or removed here. The data changes here are not persistent and therefore do not get written in the original data csv files. When data is changed, the diagrams are provided with the updated data and adapt accordingly. For this thesis it is important to be able to modify the data, as one of the core features of D3 tested in this thesis is reacting to changes in data. This manual style of changing data is probably not so common in real world applications. Yet it is easy to replace these manual data changes to regular API calls or other automatically updating data-sources. As the source of the data changes does not matter for the functionality of D3, the manual approach chosen here is sufficient in demonstrating the possibilities of D3.
+Each section of the showcase has a table which allows for data manipulation. Rows of data can be modified, added or removed here. The data changes here are not persistent and therefore do not get saved in the original data files. When data is changed, the diagrams are provided with the updated data and adapt accordingly. For this thesis it is important to be able to modify the data, as one of the core features of D3 tested in this thesis is reacting to changes in data. This manual style of changing data is probably not so common in real world applications. Yet it is easy to replace these manual data changes to regular API calls or other automatically updating data-sources. As the source of the data changes does not matter for the functionality of D3, the manual approach chosen here is sufficient in demonstrating the possibilities of D3.

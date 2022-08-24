@@ -16,6 +16,7 @@ The vast amounts of data gathered in databases are often hard to comprehend and 
 
 \begin{figure}
     \includegraphics[width=\linewidth]{data-visualization3.png}
+    \captionsetup{width=0.9\textwidth}
     \caption[data-visualization]{Data visualization describes the process of turning raw data into visual representations. There can be a multitude or possible representations for a data-set.}
     \label{fig:data-visualization}
 \end{figure}
@@ -63,12 +64,14 @@ All marks can be used with all channels. But not all data types should be repres
 
 \begin{figure}
     \includegraphics[width=\linewidth]{bar-chart-channels.png}
+    \captionsetup{width=0.9\textwidth}
     \caption[bar-chart]{This bar-chart uses lines as marks. Each bar is a single line mark. The thickness has no relevance other than making the line visible. The three channels each mark encodes are marked. The y-position and the hue are used to encode the country. The size of the line, aka the length, corresponds to the number of refugees.}
     \label{fig:bar-chart}
 \end{figure}
 
 \begin{figure}
     \includegraphics[width=\linewidth]{donut-chart.png}
+    \captionsetup{width=0.9\textwidth}
     \caption[donut-chart]{This is a donut-chart (TODO: which needs a frame..? Also draw in marks and channels)}
     \label{fig:donut-chart}
 \end{figure}
@@ -99,6 +102,7 @@ It is possible to directly access DOM elements through the selections. The respe
 
 \begin{figure}
     \includegraphics[width=\linewidth]{data-joins_general.png}
+    \captionsetup{width=0.9\textwidth}
     \caption[data-joins]{A representation of how data-joins are created. A selection, consisting of DOM-elements, as well as the data need to be present first. The data-join then combines the two. The identifier function is needed if the diagram is supposed to be able to update and can be specified when creating the data-join. As a result the data and id are matched to the DOM-elements.}
     \label{fig:data-joins}
 \end{figure}
@@ -121,6 +125,7 @@ As seen in fig \ref{fig:general-update-pattern}, it can be that the number of da
 
 \begin{figure}
     \includegraphics[width=\linewidth]{data-joins.png}
+    \captionsetup{width=0.9\textwidth}
     \caption[general-update-pattern]{A representation of possible data joins. In the top left, the data join was able to match all data points to an element of the provided selection. In the top right, there are data points but no elements in the provided selection. In the bottom left, the provided selection already was filled with elements, but their corresponding data points have been removed. The bottom right shows that all three previous cases can exist in a single data-join. For each of the three resulting sub-selections, the general update pattern can have different behavior specified.}
     \label{fig:general-update-pattern}
 \end{figure}
