@@ -5,6 +5,18 @@
 
 In the following sections the process of creating the showcase and the diagrams are described. There are several parts to this. At first the data-sets, which should be represented, are chosen. In most real world usages, this is already given. Afterwards the possible diagrams are considered and chosen. Their implementation and usages of D3 are described. Finally the showcase bringing all the diagrams together is described.
 
+The implementation uses the currently latest version of D3, version 7.6.1. The JavaScript code uses exclusively arrow functions which have been introduced in ECMAScript6, the specification which JavaScript is build upon. The implementation has been tested using the following operating systems, browsers and versions:
+\begin{enumerate}
+    \item Windows 10:
+    \begin{enumerate}
+        \item Opera - version xxxxx
+    \end{enumerate}
+    \item Pop!\_OS 22.04 LTS:
+    \begin{enumerate}
+        \item Firefox - version 103.0 (64-bit)
+    \end{enumerate}
+\end{enumerate}
+
 \section{Datasets}
 %\textcolor{red}{
 %What are our datasets about? Where do they come from?}
@@ -41,7 +53,15 @@ Together both resulting data-sets contain most of the data types. The number of 
 %\textcolor{red}{
 %describe all the diagrams and why they are special and what makes them tick. Why have they been chosen?}
 
-The following section is about the selection and implementation of each diagram. As there are countless ways to show the selected data-sets, a selection of diagrams was made first. There are two mayor aspects taken into the account for selecting the diagrams. Primarily they should be realistically usable, as there is no point in creating unnecessarily complex visualizations. Secondly they should all require different aspects of the D3 library. This ensures that this thesis actually tests the possibilities of D3. To achieve this, four diagrams have been chosen to show the refugees per country data-set. A bar-chart, a donut-chart, a tree-map and a sankey-graph. For the data-set showing the total amount of refugees over time, a circle-graph and an area-graph have been chosen.
+The following section is about the selection and implementation of each diagram. As there are countless ways to show the selected data-sets, a selection of diagrams was made first. There are two mayor aspects taken into the account for selecting the diagrams. Primarily they should be realistically usable, as there is no point in creating unnecessarily complex visualizations. Secondly they should all require different aspects of the D3 library. This ensures that this thesis actually tests the possibilities of D3. To achieve this, four diagrams have been chosen to show the refugees per country data-set. A bar-chart, a donut-chart, a tree-map and a sankey-diagram. For the data-set showing the total amount of refugees over time, a circle-graph and an area-graph have been chosen.
+
+The bar-chart was chosen for implementation due to its simplicity and minimal amount of D3 functions needed. It provides a good starting point for learning D3, as well as being fairly common as a diagram. It was chosen over a column-chart, as the horizontal orientation of the bar-chart allows the viewer to read the country name and the number of refugees in one line.
+The main reason for choosing the donut-chart was its use of the specific D3 functions for creating pie and donut-charts. The donut was chosen for it's compact form while still allowing some additional information to be shown in the center. It is also used to present custom tweens for animations.
+The usage of specific D3 functions was also the main reason for choosing the tree-map. Additionally it offers a good example for including CSS styling tricks, a tooltip and event-handling.
+Both the tree-map and sankey-diagram also provide an insight into working with other data-structures. The sankey-graph was additionally chosen to present the usage of D3 packages.
+The circle-chart was chosen to show more d3 scales, as well as the possibilities of using scales to create and animate custom legends.
+Lastly, the area-chart uses more basic D3 functions for rendering lines and areas. These have not been used before, but can prove quite powerful when creating diagrams showing trends over time.
+
 
 Whilst all diagrams are presented in one showcase, each diagrams is implemented to work standalone. This makes the comparison between diagrams, as well as evaluating the effort needed to create them easier. It also allows for easier adaptation if one is to use one of the diagrams as a template. Therefore all diagrams follow the same pattern. As each diagram is independent, they all consist of three parts. A HTML, a CSS and a JavaScript file. The HTML loads the D3 library in the header. The body of the HTML consists of a svg tag where the diagram will be drawn, and a script tag which loads the JavaScript file. The CSS defines the general styling of the diagram which is not dependent on the input data. The main part of the implementation is done in the Javascript section. Additionally each diagram requires access to its respective data-service.
 
@@ -133,9 +153,10 @@ Instead of using the default behaviors for numbers, string and colors or when tr
 \subsubsection{Bar Chart}
 %\textcolor{red}{
 %How does it work? Which d3 features does it use? how do they work?}
+
 The bar-charts first defines two scales, the \texttt{xScale} as well as the \texttt{yScale}. The \texttt{xScale} is a linear scale to convert from a domain of the refugees [0, HighestNumberOfRefugeesInACountry] to a range of the available space [0, ourWidth]. This allows to find the appropriate x-coordinate for any number of refugees. It is used to draw each bar to its appropriate length. The \texttt{yScale} converts from any given country to a y position is done using a scale band. Therefor the domain is defined by providing an array of all possible countries and the range is [0, ourHeight]. This allows the proper height positioning of each bar using the resulting y-coordinate.
 
-The bar-chart also makes use of axes. D3 has predefined functions to create axes from scales. An axis in D3 consists of many ticks. By default each tick has a label and a small line indicating its position. Furthermore there is a start and end line to indicate the whole domain. The bar-chart removes all the domain lines for styling reasons. The tick lines for the y-axis are also removed, as they are unnecessary here. The x-axis tick lines therefor are extended to cover the whole diagrams height. This is done to have a proper reference to read out the bars length.
+The bar-chart also makes use of axes. The y-axis shows the countries, while the x-axis shows the amount of refugees. D3 has predefined functions to create axes from scales. An axis in D3 consists of many ticks. By default each tick has a label and a small line indicating its position. Furthermore there is a start and end line to indicate the whole domain. The bar-chart removes all the domain lines for styling reasons. The tick lines for the y-axis are also removed, as they are unnecessary here. The x-axis tick lines therefor are extended to cover the whole diagrams height. This is done to have a proper reference to read out the bars length.
 
 \begin{minipage}{\linewidth}
     \begin{lstlisting}[style=htmlcssjs, captionpos=b, caption={The x axis implementation of the bar chart. The first constant defines the tick format. For each number there should be two significant digits. As the zero value is represented as "0.0" to match the previous rule of two significant digits, it is simply replaced by "0". The second constant defines the function creating the axis. The previous tick format is passed here. Furthermore the \texttt{tickSize} is set to the hight of the diagram. This way the initially small tick lines now cover the whole height of the diagram and allow for easier and more accurate readouts. Finally the \texttt{xAxisParentGroup} element, which is part of ther permantent hierarchical structure of the bar-chart, calls the \texttt{xAxis} function. This adds the Axis to the diagram. As a last step the domain lines are selected and removed for styling reasons.}, label={lst:bar-chart-axes}]
@@ -161,6 +182,7 @@ Elements in the update sub-selection are are resized in the width and text value
 \subsubsection{Donut chart}
 %\textcolor{red}{
 %How does it work? Which d3 features does it use? how do they work?}
+
 As the donut-chart shows the total amount of refugees in the center, this value is computed first. This is achieved using the \texttt{d3.sum(data, d => d.refugees)} function. It creates the sum of all entries in the data, using the \texttt{refugees} field for each entry. After calculating this value, the appropriate text field is updated to contain the new number.
 
 As each section of the donut-chart is made up of a path element, d3 provides two functions to generate pie and donut charts. The \texttt{d3.pie()} function calculates the appropriate start and end angle of each data-point. A padding angle has also been specified for some spacing between the sections of the diagram. The pie function returns a new object which holds a reference to our original data, additionally to the new sections information. 
@@ -202,12 +224,13 @@ As the tree-map is intended to work with hierarchical data, it requires all data
 The general update pattern adds a \texttt{rect} for each leaf of the tree object before styling it appropriately and animating its size and position. The \texttt{mouseover}, \texttt{mousemove} and \texttt{mouseout} events are registered for showing, updating and hiding the tooltips content and position, as the mouse hovers above a \texttt{rect} in the tree-map. the update selection smoothly moves and resizes the rects, while the exit selection removes them.
 
 
-\subsubsection{Sankey graph}
+\subsubsection{Sankey diagram}
 %\textcolor{red}{
 %How does it work? Which d3 features does it use? how do they work?}
-The sankey-graph consists of nodes and links. Therefor these two arrays are constructed first. Each node represents one country. The links describe the flow of values, in this case refugees, between nodes. This is achieved by providing a source, a target and the value. To be able to show a flow from the Ukraine to the other countries, the Ukraine is added as a node. All countries from our data are added as nodes, as well as a link to the Ukraine node is created. The resulting arrays are provided to the \texttt{d3.sankey()} function. This function adds additional information to the nodes and links allowing for appropriate placement of the according elements. It also adds all the links values to create a source value for the Ukraine node.
 
-The sankey-graph makes use of two data-joins. The first one links the nodes to appropriate group elements. During the enter behavior, each group elements is filled with a \texttt{rect} and a \texttt{text} element. The \texttt{rect} represents an entry in the sankey-graph and is sized according to the number of refugees and styled according to the country using the color scale. To make the color scale consistent with the other diagrams, the Ukraine node is provided with a fixed color. this prevents the Ukraine node to start querying the color scale and creating inconsistency with the other diagrams which do not contain a representation for the Ukraine. The \texttt{text} label contains the name and amount of refugees per country. It is placed next to the appropriate \texttt{rect}s. This can be on the left or rights side, depending on the x position of the rects. If the rect is in the left half of the diagram the label is right, if the rect is in the right half the label is left. Both rect and text make use of transitions to smoothly build up the diagram. The text also makes use of a small delay to the transition by using the \texttt{.delay(100)} function.
+The sankey-diagram consists of nodes and links. Therefor these two arrays are constructed first. Each node represents one country. The links describe the flow of values, in this case refugees, between nodes. This is achieved by providing a source, a target and the value. To be able to show a flow from the Ukraine to the other countries, the Ukraine is added as a node. All countries from our data are added as nodes, as well as a link to the Ukraine node is created. The resulting arrays are provided to the \texttt{d3.sankey()} function. This function is not part of the default d3 namespace. Instead it is added by additionally importing the sankey package in the sankeys HTML page. The \texttt{d3.sankey()} function adds additional information to the nodes and links allowing for appropriate placement of the according elements. It also adds all the links values to create a source value for the Ukraine node.
+
+The sankey-diagram makes use of two data-joins. The first one links the nodes to appropriate group elements. During the enter behavior, each group elements is filled with a \texttt{rect} and a \texttt{text} element. The \texttt{rect} represents an entry in the sankey-diagram and is sized according to the number of refugees and styled according to the country using the color scale. To make the color scale consistent with the other diagrams, the Ukraine node is provided with a fixed color. this prevents the Ukraine node to start querying the color scale and creating inconsistency with the other diagrams which do not contain a representation for the Ukraine. The \texttt{text} label contains the name and amount of refugees per country. It is placed next to the appropriate \texttt{rect}s. This can be on the left or rights side, depending on the x position of the rects. If the rect is in the left half of the diagram the label is right, if the rect is in the right half the label is left. Both rect and text make use of transitions to smoothly build up the diagram. The text also makes use of a small delay to the transition by using the \texttt{.delay(100)} function.
 
 The second data-join takes care of the links. They are matched to path elements. Each path is styled to match with the country it leads to. The required SVG path is created using the \texttt{d3.sankeyLinkHorizontal()} command. As the resulting path is only a single line, the stroke-width attribute corresponds to the size of the link. The links are also animated using the transition. When initially appearing, the links are provided with a delay before fading into existence after the nodes have settled in their positions.
 

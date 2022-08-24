@@ -12,15 +12,15 @@ In this chapter, all concepts, technologies and required backgrounds for underst
 Since ancient times, humans have recorded data. Recording the ins and outs of available resources and other administrative record-keeping were one of the driving factors behind the conceptualization of writing\cite{senner1991origins}.
 With the introduction of computers the amounts of gathered data have grown drastically. Nowadays vast amounts of data are gathered across all aspects of life. The total amount of data created, consumed and stored by 2020 was already at 64.2 zettabytes and is projected to reach about 180 zettabytes by 2025\cite{statista_2022}.
 
+The vast amounts of data gathered in databases are often hard to comprehend and evaluate with the human mind. They are also unwieldy to present them in the often limited space of articles, dashboards or other informative purposes. Therefore data visualization (Figure \ref{fig:data-visualization}) is used to turn these datasets, collections of data-points, into diagrams.
+
 \begin{figure}
-    \includegraphics[width=\linewidth]{data-visualization2.png}
-    \caption[data-visualization]{Where data visualization comes into play.}
+    \includegraphics[width=\linewidth]{data-visualization3.png}
+    \caption[data-visualization]{Data visualization describes the process of turning raw data into visual representations. There can be a multitude or possible representations for a data-set.}
     \label{fig:data-visualization}
 \end{figure}
 
-The vast amounts of data gathered in databases are often hard to comprehend and evaluate with the human mind. They are also unwieldy to present them in the often limited space of articles, dashboards or other informative purposes. Therefore data visualization (Figure \ref{fig:data-visualization}) is used to turn these datasets, collections of data-points, into diagrams.
-
-Data is commonly preprocessed before turning it into diagrams. Depending on the dataset and the desired result, this can mean different things. One might want to remove excessive information from the dataset, which is not necessary for the representation. On the other hand, additional data can be added by evaluating the existing data-points. These could for example be the median of values or grouping of certain value ranges\cite{garcia2015data}. It is important to note, that this preprocessing can happen with specific intentions in mind. While it is only supposed to make the representations easier and more concrete, it can be abused to make data align with the desired results or to create a certain emphasis. This thesis is not too concerned with this, as the possibilities of D3 have nothing to do with the correctness of the chosen data.
+Data is commonly preprocessed before turning it into diagrams. Depending on the dataset and the desired result, this can mean different things. One might want to remove excessive information from the dataset, which is not necessary for the representation. On the other hand, additional data can be added by evaluating the existing data-points. These could for example be the median of values or grouping of certain value ranges\cite{garcia2015data}. It is important to note, that this preprocessing can happen with specific intentions in mind. While it is only supposed to make the representations easier and more concrete, it can be abused to make data align with the desired results or to create a certain emphasis. This thesis is not too concerned with this, as the possibilities of D3 are independent of the correctness and completeness of the chosen data.
 
 Even though data comes from a huge variety of sources and can express a plethora of things, there are only four different types of data\cite{henze_2021}. They are split into two categories. Categorical and numerical data. Each category has two subtypes. In the following each of the types of data will be explained.
 
@@ -98,15 +98,15 @@ It is possible to directly access DOM elements through the selections. The respe
 %What are they and why are they important?}
 
 \begin{figure}
-    \includegraphics[width=\linewidth]{data-joins.png}
-    \caption[data-joins]{A representation of possible data joins. In the top left, the data join was able to match all data points to an element of the provided selection. In the top right, there are data points but no elements in the provided selection. In the bottom left, the provided selection already was filled with elements, but their corresponding data points have been removed. The bottom right shows that all three previous cases can exist in a single data-join.}
+    \includegraphics[width=\linewidth]{data-joins_general.png}
+    \caption[data-joins]{A representation of how data-joins are created. A selection, consisting of DOM-elements, as well as the data need to be present first. The data-join then combines the two. The identifier function is needed if the diagram is supposed to be able to update and can be specified when creating the data-join. As a result the data and id are matched to the DOM-elements.}
     \label{fig:data-joins}
 \end{figure}
 
 
-Data joins are a key feature of D3. They bind a specific data-point to a specific DOM element. To create a data-join, one has to first create a selection of elements. These are the elements one wants to match to specific data points. The data join is then created by calling the \verb|.data(dataset)| function on the selection. It takes a dataset, an array of objects where each object represents a single data-point, as parameter. This will bind the data-points to the elements in the selection. This is achieved by using an identifier function. The default identifier function returns the index of the data-point in the dataset. When we want to create diagrams which can respond to data changes over time, this is not a reliable identification. When data-points are removed or added in arbitrary locations, the index will not match the elements it previously did. Therefore we can specific a custom identifier function. This can be passed as the second parameter of the data function, will be called for each data-point and has to return some value which will be used as the id. When data changes one should recreate the underlying selection, before calling the data-join again.
+Data joins are a key feature of D3. They bind a specific data-point to a specific DOM element. To create a data-join, one has to first create a selection of elements. These are the elements one wants to match to specific data points. The data join is then created by calling the \verb|.data(dataset)| function on the selection. It takes a dataset, an array of objects where each object represents a single data-point, as parameter. This will bind the data-points to the elements in the selection. This is achieved by using an identifier function. The default identifier function returns the index of the data-point in the dataset. When we want to create diagrams which can respond to data changes over time, this is not a reliable identification. When data-points are removed or added in arbitrary locations, the index will not match the elements it previously did. Therefore we can specific a custom identifier function, as seen in figure \ref{fig:data-joins}. This can be passed as the second parameter of the data function, will be called for each data-point and has to return some value which will be used as the id. When data changes one should recreate the underlying selection, before calling the data-join again.
 
-As seen in fig \ref{fig:data-joins}, it can be that the number of data-points does not match up with the number of elements to represent them. when there is no element matched to a certain data-point, d3 will create an empty placeholder node for this data-point. What happens to the placeholders is defined in the general update pattern.
+As seen in fig \ref{fig:general-update-pattern}, it can be that the number of data-points does not match up with the number of elements to represent them. when there is no element matched to a certain data-point, d3 will create an empty placeholder node for this data-point. What happens to the placeholders is defined in the general update pattern.
 
 \subsection{General Update Pattern}
 %\textcolor{red}{
@@ -118,9 +118,10 @@ As seen in fig \ref{fig:data-joins}, it can be that the number of data-points do
 %    \caption[general-update-pattern]{A visual representation of the make up of the general update pattern\cite{bostock_2012}}
 %\end{figure}
 
+
 \begin{figure}
-    \includegraphics[width=\linewidth]{general-update-pattern_own.png}
-    \caption[general-update-pattern]{A possible data-join. It contains all three of the cases of the general update pattern. The cases marked blue make up the update selection, the pink cases the enter selection and the orange ones make up the exit selection. All these three cases of the general update pattern can have different behavior specified.}
+    \includegraphics[width=\linewidth]{data-joins.png}
+    \caption[general-update-pattern]{A representation of possible data joins. In the top left, the data join was able to match all data points to an element of the provided selection. In the top right, there are data points but no elements in the provided selection. In the bottom left, the provided selection already was filled with elements, but their corresponding data points have been removed. The bottom right shows that all three previous cases can exist in a single data-join. For each of the three resulting sub-selections, the general update pattern can have different behavior specified.}
     \label{fig:general-update-pattern}
 \end{figure}
 

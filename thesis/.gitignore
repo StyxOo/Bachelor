@@ -6,6 +6,7 @@ out/*
 !out/*.pdf
 
 
-# Krita
+# Others
 *autosave*
 *~
+*.xopp
