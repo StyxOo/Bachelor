@@ -1,4 +1,4 @@
-- [ ] Literature for data-types
+- [x] Literature for data-types
 - [ ] Marks and Channels -> new graphic
 	- [x] hand-drawn
 	- [ ] final
@@ -10,8 +10,8 @@
 	- [ ] final
 - [x] Describe modules
 - [ ] show datasets preview
-- [ ] Implementation specific examples aka the things used in the diagrams -> describe
-- [ ] Show and explain examples in discussion
+- [x] Implementation specific examples aka the things used in the diagrams -> describe
+- [x] Show and explain examples in discussion
 - [ ] Write conclusion
 - [ ] Make appendix contain referenced files
 - [ ] Comment code
