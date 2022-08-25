@@ -9,12 +9,13 @@
 	- [x] hand-drawn
 	- [ ] final
 - [x] Describe modules
-- [ ] show datasets preview
+- [x] show datasets preview
 - [x] Implementation specific examples aka the things used in the diagrams -> describe
 - [x] Show and explain examples in discussion
 - [ ] Write conclusion
-- [ ] Make appendix contain referenced files
+- [x] Make appendix contain referenced files
 - [ ] Comment code
+	- [x] JavaScript
 - [x] Maybe add percentage switch for first data-set
 	- no
 - [x] Update data
