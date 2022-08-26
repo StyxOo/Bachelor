@@ -4,3 +4,12 @@
 
 # Xournay++ autosave files
 *.autosave.xopp
+
+# Meeting notes
+Meetings/
+
+# Personal
+Personal/
+
+# Also the whole vault
+*
