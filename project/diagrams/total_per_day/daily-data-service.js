@@ -1,6 +1,3 @@
-const DailyDataPath = './total_per_day/total_refugees_daily_condensed.csv';
-const dailyDataPath = './total_per_day/2022-07-23_crossings_daily.json';
-
 const dailyTBody = document.getElementById('tBody-daily')
 const sliderStartLabel = document.getElementById('startDate')
 const sliderCurrentLabel = document.getElementById('currentDate')
@@ -185,7 +182,7 @@ const timeValue = () => {
  */
 const dailyDiagramRenderCallbacks = []
 
-window.registerDiagramRenderCallback = (callback) =>
+window.registerDailyDiagramRenderCallback = (callback) =>
 {
     dailyDiagramRenderCallbacks.push(callback)
 
@@ -220,23 +217,13 @@ const renderDailyDiagrams = () => {
  * The following loads the data from the csv and prefills the data table
  */
 
-d3.json(dailyDataPath).then(data => {
-    console.log("Read daily data JSON:");
-    console.log(data);
-    let newData = [];
-    newData.columns = ['date', 'refugees'];
+const loadDailyDataCallback = data => {
+    fillTable(data);
 
-    data.data.timeseries.forEach(entry => {
-        newData.push({'date': new Date(entry.data_date), 'refugees': entry.individuals})
-    })
-
-    console.log('Loaded daily data:')
-    console.log(newData)
-
-    fillTable(newData);
-
-    latestDailyData = newData;
-    updateSliderLimits()
+    latestDailyData = data;
+    updateSliderLimits();
     renderDailyDiagrams();
-})
+}
+
+loadDailyData(loadDailyDataCallback);
 

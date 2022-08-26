@@ -255,11 +255,11 @@ const render = (data, time01 = 0) => {
  * The diagram will not work without the daily-data-service.
  */
 try {
-    parent.registerDiagramRenderCallback(render);
+    parent.registerDailyDiagramRenderCallback(render);
     console.log('Could successfully subscribe to the daily-data-service for data updates.');
 } catch (e) {
-    console.log('The daily-data-service was not found and could not be subscribed to. ' +
-        'The diagram does not work without this. ' +
-        'If you are trying to make this diagram standalone, just copy the daily-data-service functionality ;)');
-    throw e;
+    console.log('Could not subscribe to the daily-data-service for data updates. ' +
+        'Data is loaded directly.');
+
+    loadDailyData(render)
 }

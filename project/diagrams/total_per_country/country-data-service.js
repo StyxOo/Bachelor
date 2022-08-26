@@ -1,8 +1,3 @@
-const countryDataPath = './total_per_country/total_refugees_per_country_condensed.csv';
-
-const featuredCountriesPath = './total_per_country/2022-08-18_featured-in-refugee-response-plan.csv'
-const otherNeighboursPath = './total_per_country/2022-08-18_other-neighbouring-countries.csv'
-
 const countryTBody = document.getElementById('tBody_per_country')
 
 /**
@@ -26,7 +21,7 @@ const addCountryRow = (country = "Country name", refugees= 0) => {
             updateCountryData()
         }
     }
-    refugeesInput.value = refugees
+    refugeesInput.value = `${refugees}`;
 
     const removeButton = document.createElement('button')
     removeButton.textContent = "Remove Row"
@@ -135,47 +130,12 @@ const renderCountryDiagrams = () => {
  * The following loads the data from the csv and prefills the data table
  */
 
-let loadedParts = 0;
-let data = [];
-data.columns = ['country', 'refugees'];
+const loadCountryDataCallback = data => {
+    fillCountryTable(data);
 
-const addDataPart = dataPart =>
-{
-    dataPart.forEach(entry => {
-        data.push(entry)
-    });
-
-    loadedParts ++;
-    if (loadedParts >= 2) {
-        // employees.sort((a, b) => b.age - a.age);
-        data.sort((a, b) => b.refugees - a.refugees)
-
-        console.log("All data-parts loaded. Full data is:")
-        console.log(data);
-
-        fillCountryTable(data);
-
-        latestCountryData = data;
-        renderCountryDiagrams();
-    }
+    latestCountryData = data;
+    renderCountryDiagrams();
 }
 
-const loadDataPart = data => {
-    console.log(data)
-    let strippedData = [];
-    for (let i = 0; i < data.length; i++) {
-        strippedData.push({'country': data[i]["Country"],'refugees': +data[i]["Border crossings from Ukraine*"]})
-    }
-    console.log(strippedData)
-    addDataPart(strippedData)
-}
+loadCountryData(loadCountryDataCallback);
 
-d3.csv(featuredCountriesPath).then(data => {
-    console.log('Loaded featured countries data:')
-    loadDataPart(data)
-})
-
-d3.csv(otherNeighboursPath).then(data => {
-    console.log('Loaded neighbour countries data:')
-    loadDataPart(data)
-})

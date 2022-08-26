@@ -203,8 +203,8 @@ try {
     parent.registerCountryDiagramRenderCallback(render);
     console.log('Could successfully subscribe to the country-data-service for data updates.');
 } catch (e) {
-    console.log('The country-data-service was not found and could not be subscribed to. ' +
-        'The diagram does not work without this. ' +
-        'If you are trying to make this diagram standalone, just copy the country-data-service functionality ;)');
-    throw e;
+    console.log('Could not subscribe to the country-data-service for data updates. ' +
+        'Data is loaded directly.');
+
+    loadCountryData(render)
 }
