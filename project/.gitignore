@@ -3,3 +3,6 @@
 
 # Lock files
 .~lock.*
+
+# Examples
+examples/
