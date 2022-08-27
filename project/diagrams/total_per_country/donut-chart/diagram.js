@@ -161,11 +161,11 @@ const render = data => {
                     .attr('fill', d => colors(d.data))
                     .call(enter => enter.transition(t)
                         // The initial animation for the donut pieces is specified here.
-                        .attrTween('d', (d, index, nodes) => {
-                            const i = d3.interpolate(0, d.startAngle);
-                            const j = d3.interpolate(0, d.endAngle);
+                        .attrTween('d', (section, index, nodes) => {
+                            const interpolateStartAngle = d3.interpolate(0, section.startAngle);
+                            const interpolateEndAngle = d3.interpolate(0, section.endAngle);
 
-                            return animate(nodes, index, d, i, j);
+                            return animate(nodes, index, section, interpolateStartAngle, interpolateEndAngle);
                         }))
                     // The behaviour on the mouseover event is specified to update the center text accordingly.
                     .on('mouseover', (e, d) => {
@@ -185,11 +185,11 @@ const render = data => {
                 update.select('path')
                     .call(update => update.transition(t)
                         // The update animation for the donut pieces is specified here.
-                        .attrTween('d', (d, index, nodes) => {
-                            const i = d3.interpolate(nodes[index].previousStartAngle, d.startAngle);
-                            const j = d3.interpolate(nodes[index].previousEndAngle, d.endAngle);
+                        .attrTween('d', (section, index, nodes) => {
+                            const interpolateStartAngle = d3.interpolate(nodes[index].previousStartAngle, section.startAngle);
+                            const interpolateEndAngle = d3.interpolate(nodes[index].previousEndAngle, section.endAngle);
 
-                            return animate(nodes, index, d, i, j);
+                            return animate(nodes, index, section, interpolateStartAngle, interpolateEndAngle);
                         }));
             }
         );

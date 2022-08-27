@@ -56,7 +56,7 @@ const removeCountryRow = (event) => {
     }
 }
 
-let autoUpdateCountry = false
+let autoUpdateCountry = true
 
 const autoUpdateCountryData = checkbox => {
     autoUpdateCountry = checkbox.checked

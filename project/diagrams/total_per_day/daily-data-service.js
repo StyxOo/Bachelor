@@ -71,7 +71,7 @@ const displayToDate = display => {
     return new Date(+values[2], +values[1] - 1, +values[0])
 }
 
-let autoUpdateDaily = false
+let autoUpdateDaily = true
 
 const autoUpdateDailyData = checkbox => {
     autoUpdateDaily = checkbox.checked

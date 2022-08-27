@@ -221,21 +221,28 @@ As the update behavior of the donut-chart consists only of updating the paths, i
 
 \begin{minipage}{0.9\linewidth}
     \begin{lstlisting}[style=htmlCSSjs, captionpos=b, caption={The implementation of the arc update animations. There are two interpolate functions defined in the beginning. They are called \texttt{i} and \texttt{j}. Next the new values for start and end angle are stored on the node itself. This needs to be done to be able to reference these values again for the next update, as the previous angles will not be accessible through the pie object after regenerating it for an update. Finally the function which is called for each frame of the animation is defined and returned. This function first interpolates the start and end angle values using the previously defined functions and the time of time which has already pased in the animation. This time value is in the range of zero to one, depending on how far along the animation is. These newly interpolated angles define the start and end angle of the pie piece, which is then turned into a path element by calling the \texttt{arc} function for this pie piece. (Section from \ref{app:donut-chart} lines 136ff)}, label={lst:donut-chart}]
-.call(enter => enter.transition(t)
+
+// The core of the donut animation is defined here.
+const animate = (nodes, index, d, i, j) => {
+    nodes[index].previousStartAngle = d.startAngle;
+    nodes[index].previousEndAngle = d.endAngle;
+    
+    return time => {
+        d.startAngle = i(time);
+        d.endAngle = j(time);
+        return arc(d);
+    };
+};
+
+
+[...].call(update => update.transition(t)
+    // The update animation for the donut pieces is specified here.
     .attrTween('d', (section, index, nodes) => {
         const interpolateStartAngle = d3.interpolate(nodes[index].previousStartAngle, section.startAngle);
         const interpolateEndAngle = d3.interpolate(nodes[index].previousEndAngle, section.endAngle);
 
-        nodes[index].previousStartAngle = section.startAngle;
-        nodes[index].previousEndAngle = section.endAngle;
-
-        return time => {
-            section.startAngle = interpolateStartAngle(time);
-            section.endAngle = interpolateEndAngle(time);
-            return arc(section);
-        }
-    })
-)
+        return animate(nodes, index, section, interpolateStartAngle, interpolateEndAngle);
+    }));
     \end{lstlisting}
 \end{minipage}
 

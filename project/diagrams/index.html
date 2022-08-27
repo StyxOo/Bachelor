@@ -9,159 +9,172 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
-    <div class="main-grid">
-        <div class="main-headline">
-            This is the Showcase
-        </div>
-        <div class="topic">
-            <div class="topic-headline">Refugees per Country</div>
-            <div class="content">
-                <div class="diagrams">
-                    <iframe class="diagram" src="./total_per_country/bar-chart/diagram.html" frameborder="01" height="100%" width="100%"></iframe>
-                    <iframe class="diagram" src="./total_per_country/pie-chart/diagram.html" frameborder="01" height="100%" width="100%"></iframe>
-                    <!--<iframe class="diagram" src="./stacked-bar-chart/diagram.html" frameborder="01" height="360" width="720"></iframe>-->
-                    <iframe class="diagram" src="./total_per_country/tree-map/diagram.html" frameborder="01" height="100%" width="100%"></iframe>
-                    <iframe class="diagram" src="./total_per_country/sankey/diagram.html" frameborder="01" height="100%" width="100%"></iframe>
-                </div>
-            </div>
-            <div class="info-space">
-                <div class="info">
-                    <div class="legend-container">Legend
-                        <div>
-                            <iframe class="legend" src="./total_per_country/legend/diagram.html" frameborder="0" height="100%" width="100%"></iframe>
-                        </div>
-                    </div>
-                    <div class="data">Data
-                        <div class="showData">
-                            <label for="showCountryData">Show Data</label>
-                            <input type="checkbox" id="showCountryData" onclick="triggerCountryData(this)">
-                        </div>
-                        <table id="countryDataTable" hidden>
-                            <thead>
-                            <tr>
-                                <th>Country</th>
-                                <th>Refugees</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody id="tBody_per_country"></tbody>
-                            <tfoot>
-                            <tr>
-                                <td>
-                                    <div class="autUpdateData">
-                                        <label for="autoUpdateCountry">Auto Update</label>
-                                        <input type="checkbox" id="autoUpdateCountry" onclick="autoUpdateCountryData(this)">
-                                    </div>
-                                </td>
-                                <td>
-                                    <input class="button" type="button" value="Update data" onclick="updateCountryData()">
-                                </td>
-                                <td>
-                                    <input type="button" value="Add New Row" onclick="addCountryRow()">
-                                </td>
-                            </tr>
-                            </tfoot>
-                            <script src="./total_per_country/country-data-loader.js" id="country-data-loader"></script>
-                            <script src="./total_per_country/country-data-service.js"></script>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="topic">
-            <div class="topic-headline">Total Refugees per Day</div>
-            <div class="content">
-                <div class="diagrams">
-                    <iframe class="diagram" src="./total_per_day/circle/diagram.html" frameborder="01" width="100%"></iframe>
-                    <iframe class="diagram" src="./total_per_day/area/diagram.html" frameborder="01" width="100%"></iframe>
-<!--                    <iframe class="diagram" src="./total_per_country/bar-chart/diagram.html" frameborder="01" width="100%"></iframe>-->
-<!--                    <iframe class="diagram" src="./total_per_country/pie-chart/diagram.html" frameborder="01" width="100%"></iframe>-->
-<!--                    &lt;!&ndash;<iframe class="diagram" src="./stacked-bar-chart/diagram.html" frameborder="01" height="360" width="720"></iframe>&ndash;&gt;-->
-<!--                    <iframe class="diagram" src="./total_per_country/tree-map/diagram.html" frameborder="01" width="100%"></iframe>-->
-<!--                    <iframe class="diagram" src="./total_per_country/sankey/diagram.html" frameborder="01" width="100%"></iframe>-->
-                </div>
-            </div>
-            <div class="info-space">
-                <div class="info">
-                    <div class="slider-container">
-                        Current Time Selector
-                        <br>
-                        <table width="100%">
-                            <tbody>
-                                <tr>
-                                    <td colspan="3">
-                                        <input type="range" min="0" max="100" value="0" class="slider" id="timeSlider">
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td>Start Date</td>
-                                    <td align="center">Current Date</td>
-                                    <td align="right">End Date</td>
-                                </tr>
-                                <tr>
-                                    <td id="startDate">DD-MM-YYYY</td>
-                                    <td id="currentDate" align="center">DD-MM-YYYY</td>
-                                    <td id="endDate" align="right">DD-MM-YYYY</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                    <div class="data">Data
-                        <div class="showData">
-                            <label for="showDailyData">Show Data</label>
-                            <input type="checkbox" id="showDailyData" onclick="triggerDailyData(this)">
-                        </div>
-                        <table id="dailyDataTable" hidden>
-                            <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Refugees</th>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <input class="button" type="button" value="Add day before" onclick="addDayBefore()">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <input class="button" type="button" value="Remove first day" onclick="removeFirstDay()">
-                                </td>
-                            </tr>
-                            </thead>
-                            <tbody id="tBody-daily"></tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="2">
-                                    <input class="button" type="button" value="Remove last day" onclick="removeLastDay()">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <input class="button" type="button" value="Add day after" onclick="addDayAfter()">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="autUpdateData">
-                                        <label for="autoUpdateDaily">Auto Update</label>
-                                        <input type="checkbox" id="autoUpdateDaily" onclick="autoUpdateDailyData(this)">
-                                    </div>
-                                </td>
-                                <td>
-                                    <input class="button" type="button" value="Update data" onclick="updateDailyData()">
-                                </td>
-                            </tr>
-                            </tfoot>
-                            <script src="./total_per_day/daily-data-loader.js" id="daily-data-loader"></script>
-                            <script src="./total_per_day/daily-data-service.js"></script>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <script src="index.js"></script>
+<div class="main-grid">
+    <div class="main-headline">
+        This is the Showcase
     </div>
+    <div class="topic">
+        <div class="topic-headline">Refugees per Country</div>
+        <div class="content">
+            <div class="diagrams">
+                <div class="diagram-label">Bar chart
+                    <iframe class="diagram" src="./total_per_country/bar-chart/diagram.html" frameborder="01"
+                            height="100%" width="100%"></iframe>
+                </div>
+                <div class="diagram-label">Donut chart
+                    <iframe class="diagram" src="total_per_country/donut-chart/diagram.html" frameborder="01"
+                            height="100%" width="100%"></iframe>
+                </div>
+                <div class="diagram-label">Tree map
+                    <iframe class="diagram" src="./total_per_country/tree-map/diagram.html" frameborder="01"
+                            height="100%" width="100%"></iframe>
+                </div>
+                <div class="diagram-label">Sankey graph
+                    <iframe class="diagram" src="./total_per_country/sankey/diagram.html" frameborder="01" height="100%"
+                            width="100%"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="info-space">
+            <div class="info">
+                <div class="legend-container">Legend
+                    <div>
+                        <iframe class="legend" src="./total_per_country/legend/diagram.html" frameborder="0"
+                                height="100%" width="100%"></iframe>
+                    </div>
+                </div>
+                <div class="data">Data
+                    <div class="showData">
+                        <label for="showCountryData">Show Data</label>
+                        <input type="checkbox" id="showCountryData" onclick="triggerCountryData(this)">
+                    </div>
+                    <table id="countryDataTable" hidden>
+                        <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th>Refugees</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody id="tBody_per_country"></tbody>
+                        <tfoot>
+                        <tr>
+                            <td>
+                                <div class="autUpdateData">
+                                    <label for="autoUpdateCountry">Auto Update</label>
+                                    <input type="checkbox" id="autoUpdateCountry" onclick="autoUpdateCountryData(this)" checked>
+                                </div>
+                            </td>
+                            <td>
+                                <input class="button" type="button" value="Update data" onclick="updateCountryData()">
+                            </td>
+                            <td>
+                                <input type="button" value="Add New Row" onclick="addCountryRow()">
+                            </td>
+                        </tr>
+                        </tfoot>
+                        <script src="./total_per_country/country-data-loader.js" id="country-data-loader"></script>
+                        <script src="./total_per_country/country-data-service.js"></script>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="topic">
+        <div class="topic-headline">Total Refugees per Day</div>
+        <div class="content">
+            <div class="diagrams">
+                <div class="diagram-label">Circle graph
+                    <iframe class="diagram" src="./total_per_day/circle/diagram.html" frameborder="01"
+                            width="100%"></iframe>
+                </div>
+                <div class="diagram-label">Area graph
+                    <iframe class="diagram" src="./total_per_day/area/diagram.html" frameborder="01"
+                            width="100%"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="info-space">
+            <div class="info">
+                <div class="slider-container">
+                    Current Time Selector
+                    <br>
+                    <table width="100%">
+                        <tbody>
+                        <tr>
+                            <td colspan="3">
+                                <input type="range" min="0" max="100" value="0" class="slider" id="timeSlider">
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td>Start Date</td>
+                            <td align="center">Current Date</td>
+                            <td align="right">End Date</td>
+                        </tr>
+                        <tr>
+                            <td id="startDate">DD-MM-YYYY</td>
+                            <td id="currentDate" align="center">DD-MM-YYYY</td>
+                            <td id="endDate" align="right">DD-MM-YYYY</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="data">Data
+                    <div class="showData">
+                        <label for="showDailyData">Show Data</label>
+                        <input type="checkbox" id="showDailyData" onclick="triggerDailyData(this)">
+                    </div>
+                    <table id="dailyDataTable" hidden>
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Refugees</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input class="button" type="button" value="Add day before" onclick="addDayBefore()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input class="button" type="button" value="Remove first day" onclick="removeFirstDay()">
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody id="tBody-daily"></tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="2">
+                                <input class="button" type="button" value="Remove last day" onclick="removeLastDay()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input class="button" type="button" value="Add day after" onclick="addDayAfter()">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="autUpdateData">
+                                    <label for="autoUpdateDaily">Auto Update</label>
+                                    <input type="checkbox" id="autoUpdateDaily" onclick="autoUpdateDailyData(this)" checked>
+                                </div>
+                            </td>
+                            <td>
+                                <input class="button" type="button" value="Update data" onclick="updateDailyData()">
+                            </td>
+                        </tr>
+                        </tfoot>
+                        <script src="./total_per_day/daily-data-loader.js" id="daily-data-loader"></script>
+                        <script src="./total_per_day/daily-data-service.js"></script>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</div>
 </body>
 </html>
