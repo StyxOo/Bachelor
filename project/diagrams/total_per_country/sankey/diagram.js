@@ -23,9 +23,9 @@ const margin = {
     left: 20
 };
 
-// ourWidth and ourHeight store the available coordinate space for the content of the diagram.
-const ourWidth = innerWidth - margin.left - margin.right;
-const ourHeight = innerHeight - margin.top - margin.bottom;
+// contentWidth and contentHeight store the available coordinate space for the content of the diagram.
+const contentWidth = innerWidth - margin.left - margin.right;
+const contentHeight = innerHeight - margin.top - margin.bottom;
 
 /**
  * This section defines the hierarchy of the diagram.
@@ -73,7 +73,7 @@ const render = data => {
     d3.sankey()
         .nodeId(d => d.name)
         .nodeAlign(d3.sankeyJustify)
-        .size([ourWidth, ourHeight])({nodes, links});
+        .size([contentWidth, contentHeight])({nodes, links});
 
     /**
      * The following defines the transition which is used for all animations.
@@ -117,10 +117,10 @@ const render = data => {
                     .text(d => `${d.name}: ${d.value}`)
                     .attr('x', 0)
                     .attr('y', d => (d.y0 + d.y1)/2 + 5)
-                    .attr('text-anchor', d => d.x0 < ourWidth/2? 'start' : 'end')
+                    .attr('text-anchor', d => d.x0 < contentWidth/2? 'start' : 'end')
                     .attr('opacity', '0%')
                     .call(enter => enter.transition(t)
-                        .attr('x', d => d.x0 < ourWidth/2? d.x1+10 : d.x0-10))
+                        .attr('x', d => d.x0 < contentWidth/2? d.x1+10 : d.x0-10))
                     .call(enter => enter.transition(t).delay(100)
                         .attr('opacity', '100%'));
             },

@@ -113,17 +113,6 @@ const renderCountryDiagrams = () => {
     for (const diagramRenderCallback of countryDiagramRenderCallbacks) {
         diagramRenderCallback(latestCountryData)
     }
-
-    /**
-     * Use the short section below to automatically change the data after 2 seconds
-     */
-    // setTimeout(()=>{
-    //     latestData.pop()
-    //
-    //     for (const diagramRenderCallback of diagramRenderCallbacks) {
-    //         diagramRenderCallback(latestData)
-    //     }
-    // }, 2000)
 }
 
 /**

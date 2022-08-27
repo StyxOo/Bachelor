@@ -24,12 +24,12 @@ const margin = {
     left: 20
 };
 
-// ourWidth and ourHeight store the available coordinate space for the content of the diagram.
-const ourWidth = innerWidth - margin.left - margin.right;
-const ourHeight = innerHeight - margin.top - margin.bottom;
+// contentWidth and contentHeight store the available coordinate space for the content of the diagram.
+const contentWidth = innerWidth - margin.left - margin.right;
+const contentHeight = innerHeight - margin.top - margin.bottom;
 
 // The radius of the donut is set to use as much space as available.
-const radius = d3.min([ourHeight/2, ourWidth/2]);
+const radius = d3.min([contentHeight/2, contentWidth/2]);
 
 /**
  * This section defines the hierarchy of the diagram.
@@ -40,7 +40,7 @@ const diagramGroup = svg.append('g')
 
 const contentParentGroup = diagramGroup.append('g')
     .attr('id', 'content')
-    .attr('transform', `translate(${ourWidth/2},${ourHeight/2})`);
+    .attr('transform', `translate(${contentWidth/2},${contentHeight/2})`);
 
 const diagramParentGroup = contentParentGroup.append('g')
     .attr('id', 'diagram');

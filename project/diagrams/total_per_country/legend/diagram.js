@@ -8,15 +8,15 @@ const margin = {
     bottom: -10,
     left: 20
 }
-const ourWidth = innerWidth - margin.left - margin.right
-const ourHeight = innerHeight - margin.top - margin.bottom
+
+const contentHeight = innerHeight - margin.top - margin.bottom
 
 const diagramGroup = svg.append('g')
     .attr('transform', `translate(${margin.left},${margin.top})`);
 
 const legendParentGroup = diagramGroup.append('g')
     .attr('id', 'legend')
-    // .attr('transform', `translate(${2 * radius + 60}, ${ourHeight/2 + 20})`)
+    // .attr('transform', `translate(${2 * radius + 60}, ${contentHeight/2 + 20})`)
 
 const colors = d3.scaleOrdinal(d3.schemeDark2);
 
@@ -31,7 +31,7 @@ const render = data => {
 
     const legendScale = d3.scaleBand()
         .domain(data.map(d => d.country))
-        .range([0, ourHeight])
+        .range([0, contentHeight])
         .padding(0.3);
 
 
@@ -41,7 +41,7 @@ const render = data => {
             enter => {
                 const entry = enter.append('g')
                     .attr('class', 'entry')
-                    .attr('transform', `translate(0, ${ourHeight})`)
+                    .attr('transform', `translate(0, ${contentHeight})`)
                     .call(enter => enter.transition(t)
                         .attr('transform', d => {
                             return `translate(0, ${legendScale(d.country)})`

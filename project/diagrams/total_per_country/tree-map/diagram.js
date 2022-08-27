@@ -23,9 +23,9 @@ const margin = {
     left: 20
 };
 
-// ourWidth and ourHeight store the available coordinate space for the content of the diagram.
-const ourWidth = innerWidth - margin.left - margin.right;
-const ourHeight = innerHeight - margin.top - margin.bottom;
+// contentWidth and contentHeight store the available coordinate space for the content of the diagram.
+const contentWidth = innerWidth - margin.left - margin.right;
+const contentHeight = innerHeight - margin.top - margin.bottom;
 
 /**
  * This section defines the hierarchy of the diagram.
@@ -47,8 +47,8 @@ contentParentGroup.append('rect')
     .attr('id', 'contentBackground')
     .attr('x', 0)
     .attr('y', 0)
-    .attr('width', ourWidth)
-    .attr('height', ourHeight)
+    .attr('width', contentWidth)
+    .attr('height', contentHeight)
     .attr('fill', 'none');
 
 /**
@@ -122,7 +122,7 @@ const render = data => {
 
     // The data is converted into leaves used to draw the tree-map.
     d3.treemap()
-        .size([ourWidth, ourHeight])
+        .size([contentWidth, contentHeight])
         .padding(4)(root);
 
     /**
@@ -142,7 +142,7 @@ const render = data => {
                 // A rect is added for a leaf of the tree-map. It is positioned, styled and animated.
                 enter.append('rect')
                     .attr('x', 0)
-                    .attr('y', `${ourHeight}`)
+                    .attr('y', `${contentHeight}`)
                     .attr('width', 0)
                     .attr('height', 0)
                     .attr('fill', d => colors(d.data))
@@ -162,7 +162,7 @@ const render = data => {
                     .on('mousemove', e => {
                         const position = d3.pointer(e)
                         tooltip.style("top", (position[1]+0)+"px");
-                        if (position[0] > ourWidth/2) {
+                        if (position[0] > contentWidth/2) {
                             const rect = tooltip.select('rect')
                             const width = rect.attr('width')
                             tooltip.style("left", (position[0] - width + 10) + "px");

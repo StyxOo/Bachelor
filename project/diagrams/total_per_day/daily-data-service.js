@@ -171,8 +171,7 @@ timeSlider.addEventListener('change', (e) => {
 })
 
 const timeValue = () => {
-    const value01 = timeSlider.value/100
-    return value01
+    return timeSlider.value / 100
 }
 
 /**
@@ -200,17 +199,6 @@ const renderDailyDiagrams = () => {
     for (const diagramRenderCallback of dailyDiagramRenderCallbacks) {
         diagramRenderCallback(latestDailyData, timeValue())
     }
-
-    /**
-     * Use the short section below to automatically change the data after 2 seconds
-     */
-    // setTimeout(()=>{
-    //     latestData.pop()
-    //
-    //     for (const diagramRenderCallback of diagramRenderCallbacks) {
-    //         diagramRenderCallback(latestData)
-    //     }
-    // }, 2000)
 }
 
 /**

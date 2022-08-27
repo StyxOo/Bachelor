@@ -23,9 +23,9 @@ const margin = {
     left: 70
 }
 
-// ourWidth and ourHeight store the available coordinate space for the content of the diagram.
-const ourWidth = innerWidth - margin.left - margin.right
-const ourHeight = innerHeight - margin.top - margin.bottom
+// contentWidth and contentHeight store the available coordinate space for the content of the diagram.
+const contentWidth = innerWidth - margin.left - margin.right
+const contentHeight = innerHeight - margin.top - margin.bottom
 
 /**
  * This section defines the hierarchy of the diagram.
@@ -47,26 +47,26 @@ contentParentGroup.append('g')
     .attr('id', 'dateLine')
 
 /**
+ * This section defines a helper functions necessary for creating the diagram.
+ */
+// This function converts a JavaScript date object into a string of the style Feb-07 or Jun-15.
+const dateToDisplay = date => {
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'short' });
+
+    let dayString = day;
+    if (day < 10) {
+        dayString = '0' + dayString;
+    }
+    return [month, dayString].join('-');
+}
+
+/**
  * The render function is defined here.
  * It is called to initially draw the diagram, as well every time the data changes and the diagram should update.
  */
 const render = (data, time01 = 0) => {
     console.log('Rendering circle chart')
-
-    /**
-     * This section defines a helper functions necessary for creating the diagram.
-     */
-    // This function converts a JavaScript date object into a string of the style Feb-07 or Jun-15.
-    const dateToDisplay = date => {
-        const day = date.getDate();
-        const month = date.toLocaleString('default', { month: 'short' });
-
-        let dayString = day;
-        if (day < 10) {
-            dayString = '0' + dayString;
-        }
-        return [month, dayString].join('-');
-    }
 
     /**
      * The following defines the transition which is used for all animations.
@@ -85,13 +85,13 @@ const render = (data, time01 = 0) => {
     // The y scale is used to calculate a y coordinate from a given refugee number.
     const yScale = d3.scaleLinear()
         .domain([0, d3.max(data, d => d.refugees)])
-        .range([ourHeight, 0])
+        .range([contentHeight, 0])
         .nice();
 
     // The x scale is used to calculate a x coordinate from a given date.
     const xScale = d3.scaleBand()
         .domain(data.map(d => d.date))
-        .range([0, ourWidth])
+        .range([0, contentWidth])
         .padding(0.2);
 
     // this is used to offset the calculated x positions, so they align to the center of a date-line.
@@ -105,7 +105,7 @@ const render = (data, time01 = 0) => {
      */
     // The y-axis is created from the scale. Additionally, the tick size is specified to cover the whole background.
     const yAxis = d3.axisLeft(yScale)
-        .tickSize(-ourWidth)
+        .tickSize(-contentWidth)
 
     // The y-axis is added to the diagram, but the domain lines are removed.
     yAxisParentGroup.call(yAxis)
@@ -122,12 +122,12 @@ const render = (data, time01 = 0) => {
     // This creates the x-axis. The values are filtered so only 15 values appear.
     const xAxis = d3.axisBottom(xScale)
         .tickFormat(xAxisTickFormat)
-        .tickSize(-ourHeight)
+        .tickSize(-contentHeight)
         .tickValues(xScale.domain().filter((d, i) => { return !(i % tickModulo) }))
 
     // The x-axis is added to the diagram, positioned to the bottom and has its domain line removed.
     xAxisParentGroup.call(xAxis)
-        .attr('transform', `translate(0,${ourHeight})`)
+        .attr('transform', `translate(0,${contentHeight})`)
         .select('.domain')
         .remove();
 
@@ -149,8 +149,8 @@ const render = (data, time01 = 0) => {
     // Each x, as well as the higher and lower y positions values are calculated as defined.
     const area = d3.area()
         .x(d => xScaleWithOffset(d.date))
-        .y1(ourHeight)
-        .y0(d => yScale(d.refugees));
+        .y0(contentHeight)
+        .y1(d => yScale(d.refugees));
 
     /**
      * This is where the actual content of the diagram is drawn. This consists of an area and a line atop.
@@ -219,7 +219,7 @@ const render = (data, time01 = 0) => {
                     .attr('x1', xScale(datum.date))
                     .attr('x2', xScale(datum.date))
                     .attr('y1', yScale(datum.refugees))
-                    .attr('y2', ourHeight)
+                    .attr('y2', contentHeight)
 
                 // The text showing the current refugee number is added above the date-line.
                 dateLine.append('text')

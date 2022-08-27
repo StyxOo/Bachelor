@@ -23,9 +23,9 @@ const margin = {
     left: 118
 };
 
-// ourWidth and ourHeight store the available coordinate space for the content of the diagram.
-const ourWidth = innerWidth - margin.left - margin.right;
-const ourHeight = innerHeight - margin.top - margin.bottom;
+// contentWidth and contentHeight store the available coordinate space for the content of the diagram.
+const contentWidth = innerWidth - margin.left - margin.right;
+const contentHeight = innerHeight - margin.top - margin.bottom;
 
 /**
  * This section defines the hierarchy of the diagram.
@@ -69,14 +69,14 @@ const render = data => {
     // It is also used while creating the x-axis legend.
     const xScale = d3.scaleLinear()
         .domain([0, d3.max(data, d => d.refugees)])
-        .range([0, ourWidth])
+        .range([0, contentWidth])
         .nice();
 
     // The yScale is used to convert country to the applicable y coordinate.
     // It is also used while creating the y-axis legend.
     const yScale = d3.scaleBand()
         .domain(data.map(d => d.country))
-        .range([0, ourHeight])
+        .range([0, contentHeight])
         .padding(0.2);
 
     /**
@@ -95,11 +95,11 @@ const render = data => {
     // This creates the x-axis taking the formatting into account. Also tick lines will be drawn over the whole diagram.
     const xAxis = d3.axisBottom(xScale)
         .tickFormat(xAxisTickFormat)
-        .tickSize(-ourHeight);
+        .tickSize(-contentHeight);
 
     // This adds the x-Axis to the diagram, positions it accordingly and removes the domain lines.
     xAxisParentGroup.call(xAxis)
-        .attr('transform', `translate(0,${ourHeight})`)
+        .attr('transform', `translate(0,${contentHeight})`)
         .select('.domain')
             .remove();
 

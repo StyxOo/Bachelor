@@ -23,9 +23,9 @@ const margin = {
     left: 20
 };
 
-// ourWidth and ourHeight store the available coordinate space for the content of the diagram.
-const ourWidth = innerWidth - margin.left - margin.right;
-const ourHeight = innerHeight - margin.top - margin.bottom;
+// contentWidth and contentHeight store the available coordinate space for the content of the diagram.
+const contentWidth = innerWidth - margin.left - margin.right;
+const contentHeight = innerHeight - margin.top - margin.bottom;
 
 // The factor by which the legend values should be divided for easier readability
 const legendScaleFactor = 100000;
@@ -47,8 +47,23 @@ const contentParentGroup = diagramGroup.append('g')
 legendParentGroup.append('text')
     .text('* scale in 100,000 refugees')
     .attr('class', 'description')
-    .attr('x', ourWidth)
-    .attr('y', ourHeight);
+    .attr('x', contentWidth)
+    .attr('y', contentHeight);
+
+/**
+ * This section defines a helper functions necessary for creating the diagram.
+ */
+// This function converts a JavaScript date object into a string of the style Feb-07 or Jun-15.
+const dateToDisplay = date => {
+    const day = date.getDate();
+    const month = date.toLocaleString('default', { month: 'short' });
+
+    let dayString = day;
+    if (day < 10) {
+        dayString = '0' + dayString;
+    }
+    return [month, dayString].join('-');
+}
 
 /**
  * The render function is defined here.
@@ -56,22 +71,6 @@ legendParentGroup.append('text')
  */
 const render = (data, time01 = 0) => {
     console.log('Rendering circle chart');
-
-    /**
-     * This section defines all helper functions necessary for creating the diagram.
-     */
-    // This function converts a JavaScript date object into a string of the style Feb-07 or Jun-15.
-    const dateToDisplay = date => {
-        const day = date.getDate();
-        const month = date.toLocaleString('default', { month: 'short' });
-
-        let dayString = day;
-        if (day < 10) {
-            dayString = '0' + dayString;
-        }
-
-        return [month, dayString].join('-');
-    }
 
     /**
      * The following defines the transition which is used for all animations.
@@ -90,7 +89,7 @@ const render = (data, time01 = 0) => {
     // The radius scale provides the appropriate radius for a given number of refugees.
     const radiusScale = d3.scaleSqrt()
         .domain([0, d3.max(data, d => d.refugees)])
-        .range([0, ourHeight / 2]);
+        .range([0, contentHeight / 2]);
 
 
     /**
@@ -116,8 +115,8 @@ const render = (data, time01 = 0) => {
 
                 // Each tick is provided a circle, which is positioned and sized appropriately
                 tick.append('circle')
-                    .attr('cx', ourWidth / 2)
-                    .attr('cy', d => ourHeight - radiusScale(d.value))
+                    .attr('cx', contentWidth / 2)
+                    .attr('cy', d => contentHeight - radiusScale(d.value))
                     .attr('r', d => radiusScale(d.value))
                     .attr('class', 'legend');
 
@@ -131,14 +130,14 @@ const render = (data, time01 = 0) => {
                         return value;
                     })
                     .attr('dy', '-0.1em')
-                    .attr('x', ourWidth / 2)
-                    .attr('y', d => ourHeight - 2 * radiusScale(d.value));
+                    .attr('x', contentWidth / 2)
+                    .attr('y', d => contentHeight - 2 * radiusScale(d.value));
             },
             // This describes the behavior of the update sub-selection of the general update pattern.
             update => {
                 // The circle for each tick is animated to change position and size accordingly.
                 update.select('circle').call(update => update.transition(t)
-                    .attr('cy', d => ourHeight - radiusScale(d.value))
+                    .attr('cy', d => contentHeight - radiusScale(d.value))
                     .attr('r', d => radiusScale(d.value)));
 
                 // The text label value is updated and its position change animated.
@@ -151,7 +150,7 @@ const render = (data, time01 = 0) => {
                         return value;
                     })
                     .call(update => update.transition(t)
-                        .attr('y', d => ourHeight - 2 * radiusScale(d.value)));
+                        .attr('y', d => contentHeight - 2 * radiusScale(d.value)));
             }
             ,
             // This describes the behavior of the exit sub-selection of the general update pattern.
@@ -182,19 +181,19 @@ const render = (data, time01 = 0) => {
 
                 // A circle is added, positioned, sized, styled and animated accordingly.
                 content.append('circle')
-                    .attr('cx', ourWidth / 2)
-                    .attr('cy', ourHeight)
+                    .attr('cx', contentWidth / 2)
+                    .attr('cy', contentHeight)
                     .attr('r', 0)
                     .attr('fill', 'red')
                     .attr('opacity', '50%')
                     .call(enter => enter.transition(t)
-                        .attr('cy', () => ourHeight - radiusScale(datum.refugees))
+                        .attr('cy', () => contentHeight - radiusScale(datum.refugees))
                         .attr('r', () => radiusScale(datum.refugees)))
 
                 // A text is added to the bottom and provided with the correct value of refugees.
                 content.append('text')
-                    .attr('x', ourWidth / 2)
-                    .attr('y', ourHeight + 17)
+                    .attr('x', contentWidth / 2)
+                    .attr('y', contentHeight + 17)
                     .text(datum.refugees + ' refugees by ' + dateToDisplay(datum.date));
 
             },
@@ -203,7 +202,7 @@ const render = (data, time01 = 0) => {
                 // The circle is animated to update in position and size.
                 update.select('circle')
                     .call(update => update.transition(t)
-                        .attr('cy', () => ourHeight - radiusScale(datum.refugees))
+                        .attr('cy', () => contentHeight - radiusScale(datum.refugees))
                         .attr('r', () => radiusScale(datum.refugees)));
 
                 // The text value is updated
