@@ -155,7 +155,11 @@ When the goal is to create only static diagrams, which are only initially create
 %\textcolor{red}{
 %What are scales? What do they do? Why and when are they used? How do they look like?}
 
-Scales are a way to convert between two data ranges, like the scale factor of maps and model-kits, which uses only numerical data. Scales converting between numerical values also allow to be used in reverse. Some scales can also convert between two data types. For example converting percentages of correct answers in a test, continuous data, to the appropriate grade, ordinal data.
+Scales are a way to convert between two data ranges, like the scale factor of maps and model-kits.
+There are three types of scales: scales with continuous domain and range, like the example above, scales with categorical or discrete domain and range and scales with a continuous domain and a categorical or discrete range. The reason why categorical or discrete are always mentioned together, is due to the implementation of scales. As the domain and range in discrete or categorical cases can always be represented in an array filled with a set number of entries, there is no difference in the array consisting of strings or integers.
+
+An example for scales with continuous domain and categorical range is converting percentages of correct answers in a test, continuous data, to the appropriate grade, categorical, more specifically ordinal data. An example for a scale with a categorical domain and range is sorting mail. Depending on the destination town of a letter, it will be sorted into a specific box.
+It is noteworthy that scales with continuous domain and range can be used in reverse as well.
 
 As most diagrams created with D3 are created as SVG, the scales provided by D3 are, in this thesis, mostly used to convert from the range of available data to the coordinate space in which elements should be drawn. All scales require a domain and a range. The domain describe the input values, the range where they should map to. Some scales can dynamically create their domain. Each new value used for querying the scale is added to the domain if it is not included yet.
 
