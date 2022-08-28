@@ -99,14 +99,14 @@ The JavaScript file follows a general pattern. At first there is a initializatio
 Each diagram has two possible ways to acquire data. This is due to the fact that they are implemented to be shown in the showcase, but also work standalone. Each diagram will first check if there is a data service available. If a data service is available, the diagram will register itself with the data service for data and data updates (Figure \ref{fig:showcase-flowchart}). Otherwise the diagram will access the data loader directly (Figure \ref{fig:diagram-flowchart}). This will only provide data once, as the diagram is loaded.
 
 \begin{figure}[ht]
-    \includegraphics[width=\linewidth]{showcase-flowchart.png}
+    \includegraphics[width=\linewidth]{showcase-flow.png}
     \captionsetup{width=0.9\textwidth}
     \caption[showcase-flowchart]{This flowchart describes the behavior when loading the showcase and when data is updated. As registering with the data service and loading the data happens simultaneously, the data service returns the latest available data to the diagram when it registers for data-updates. This prevents issues which might occur due to timing.}
     \label{fig:showcase-flowchart}
 \end{figure}
 
 \begin{figure}[ht]
-    \includegraphics[width=\linewidth]{diagram-flowchart.png}
+    \includegraphics[width=\linewidth]{diagram-flow.png}
     \captionsetup{width=0.9\textwidth}
     \caption[diagram-flowchart]{This flowchart describes the behavior when loading a diagram directly. As the diagram is unable to register with a data service, it will request the data directly from the data loader.}
     \label{fig:diagram-flowchart}
