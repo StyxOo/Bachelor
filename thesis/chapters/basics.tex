@@ -63,14 +63,14 @@ Whilst there are countless types of diagrams, all diagrams use a combination of 
 \begin{figure}[ht]
     \includegraphics[width=\linewidth]{marks-bar-chart.png}
     \captionsetup{width=0.9\textwidth}
-    \caption[bar-chart]{This bar chart uses lines as marks. The first line is shown in cyan. Each bar is a single line mark. The thickness has no relevance other than making the line visible. The three channels, marked in red, each mark encodes are marked. The y-position and the hue are used to encode the country. The size of the line, aka the length, corresponds to the number of refugees.}
+    \caption[bar-chart]{This bar chart uses lines as marks. Each bar is a single line mark. The first line mark is highlighted in cyan. The thickness has no relevance other than making the line visible. Each mark uses three channels to encode data. They are highlighted in red. The y-position and the hue are used to encode the country. The size of the line, aka the length, corresponds to the number of refugees.}
     \label{fig:bar-chart}
 \end{figure}
 
 \begin{figure}[ht]
     \includegraphics[width=\linewidth]{marks-area.png}
     \captionsetup{width=0.9\textwidth}
-    \caption[marks-area]{This tree map uses areas as marks. A representative area has been marked in cyan. The area uses the size and hue channels to encode data. The size corresponds to the number of refugees, while the hue corresponds to the country.}
+    \caption[marks-area]{This tree map uses areas as marks. A representative mark has been highlighted in cyan. The areas use the size and hue channels to encode data. The size corresponds to the number of refugees, while the hue corresponds to the country.}
     \label{fig:marks-area}
 \end{figure}
 
@@ -89,7 +89,7 @@ While data can already be skewed during collection and preprocessing, diagrams c
 
 While there are many ways to turn data into diagrams, this thesis makes use of D3 to achieve this. Therefore this chapter introduces D3 by elaborating what it is and how it works.
 
-"D3.js is a JavaScript library for manipulating documents based on data. D3 helps you bring data to life using HTML, SVG, and CSS."\cite{d3js}. The name D3 is short for data-driven documents. The D3 library was originally created by Mike Bostock and is published under the BSD-3-Clause open-source license. It is about 500kb in size. As it is fully implemented in JavaScript, it does not require a specific framework and can therefore be easily integrated into all kinds of web-based projects. Whilst D3 is not limited to using SVG, the visualization created using D3 mostly rely on SVG elements for their implementation.
+"D3.js is a JavaScript library for manipulating documents based on data. D3 helps you bring data to life using HTML, SVG, and CSS."\cite{d3js}. The name D3 is short for data-driven documents. The D3 library was originally created by Mike Bostock and is published under the BSD-3-Clause open-source license. It is about 350kB in size. As it is fully implemented in JavaScript, it does not require a specific framework and can therefore be easily integrated into all kinds of web-based projects. Whilst D3 is not limited to using SVG, the visualization created using D3 mostly rely on SVG elements for their implementation.
 
 D3 is not a high-level API for creating out-of-the-box visualizations. Instead, "[it] allows you to bind arbitrary data to a Document Object Model, and then apply data-driven transformations to the document."\cite{d3js}, therefore making Document-Object-Model(DOM) manipulation easier and less tedious. The DOM represents the structure of an HTML in memory and offers scripts the possibility of accessing and modifying the represented HTML. D3 also provides helper functions like scales, to decrease the amount of mathematical equations needed to convert from the data range to the necessary coordinates in the desired visualization.
 
