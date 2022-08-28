@@ -2,12 +2,13 @@
 %\textcolor{red}{
 %Everything necessary to understand the implementation as well as anything which is done beforehand, will come up here}
 
-In this chapter, all concepts, technologies and required backgrounds for understanding this thesis, as well as the showcase implementation, are explained. First, data and data types are described. Second, diagrams and how they are structured are described. Last, D3 as the tool to create diagrams is described and its core concepts explained.
+In this chapter, all concepts, technologies and required backgrounds for understanding this thesis, as well as the showcase implementation, are explained. First, data and data types are described in section \ref{sec:data}. Second, diagrams, their use and how they are structured are described in section \ref{sec:diagrams}. Last, in section \ref{sec:d3}, D3 as the tool to create diagrams is described and its core concepts explained.
 
 
-\section{Data}
+\section{Data}\label{sec:data}
 %\textcolor{red}{
 %Well talk about data a bit. Where does it come from? How is it structured? What kind of attributes? What even are attributes?}
+As data is the main content of each data visualization effort, this section gives an introduction to data and data types. While this section only provides a general introduction to data, the data used in this thesis is evaluated in section \ref{sec:data-sets}.
 
 Since ancient times, humans have recorded data. Recording the ins and outs of available resources and other administrative record-keeping were one of the driving factors behind the conceptualization of writing \cite{senner1991origins}.
 With the introduction of computers the amounts of gathered data have grown drastically. Nowadays vast amounts of data are gathered across all aspects of life. According to Statista, the total amount of data created, consumed and stored by 2020 was already at 64.2 zettabytes and is projected to reach about 180 zettabytes by 2025 \cite{statista_2022}.
@@ -52,22 +53,30 @@ data can only take certain defined values. This usually means whole numbers to r
 data can be measured. It can have any real number as value. Therefore fractions are possible as well. For example when measuring the temperature, or the length or weight of an object.
 
 
-\section{Diagrams}
+\section{Diagrams}\label{sec:diagrams}
 %\textcolor{red}{
 %What diagrams exists? Which are the most common? What possibilities do they offer for encoding data? Which considerations for readability? Why do some diagrams not make as much sense? Which considerations where made for fulfilling the showcase requirements?}
+This section first provides a brief introduction to diagrams, containing an overview of the history of diagrams, where they can be found and what their potential is. How diagrams are constructed using marks and channels, as well as what needs to be considered while doing so, is described afterwards.
 
-One constantly comes across diagrams as the results of data visualization in everyday life. They can be commonly found across all kinds of reports, information campaigns or as part of user-interfaces in machinery or control systems. Yet the selection of which diagram should be used to visualize which data set is not trivial. Mostly there are several possible diagram choices for any given data. Furthermore there are a plethora of diagrams already in use and anyone can create totally new diagrams to suit their needs. Yet the vast majority of use cases can be accomplished by one of the more commonly known diagram types, like bar and column charts, pie and donut charts, line and area charts, scatter plots and heat maps. Due to their popularity, tools like Excel provide support for these diagrams out-of-the-box \cite{office_chart_types}. More specialized diagrams might use combinations or variations of the aforementioned diagram types. 
+\subsection{Introduction}
+Using graphical representations to convey data has been done by humans since the earliest cave paintings. In the 18th century William Playfair bar and column, as well as pie and donut charts \cite{dur2012analysis}. Since then, diagrams have only become more common. Nowadays one constantly comes across diagrams as the results of data visualization in everyday life. They can be commonly found across all kinds of reports, information campaigns or as part of user-interfaces in machinery or control systems. This is not only due to the fact that diagrams not only allow the representation of a lot of data in limited space. They can also represent the data in a more attractive ways. Additionally, data seen in diagrams is easier to remember, as "The human brain is more able to identify and comprehend relationships and patterns if data is encoded into visual forms."\cite{cleveland1985elements}. This is one of the main reasons that diagrams are used so frequently in newspapers \cite{utt2000update}.
 
-Whilst there are countless types of diagrams, all diagrams use a combination of marks and channels to present data. Marks are used for entries in the diagram. The three possible marks are points, lines and areas. Channels describe the way specific marks encode data. While there is no definitive list of channels, the most commonly used channels are position, size, color and texture. The position in 2D can be split into the x and y positions. The color can be split into hue and luminescence. Each mark should use at least one channel to encode data. Otherwise it does not convey any information. For example in fig. \ref{fig:bar-chart} lines are being used as marks for each of the seven entries. It might seem like areas are used. Yet the thickness of the line, and therefore the bar, only serves visual understanding and holds no relevant information. The lines use three channels to encode data. The y-position is used to represent the categorical data of which country. The hue of the bar encodes the same data. This is a bit redundant, as the country is already encoded. Yet the hue makes it easy to follow along when data is changing and bars are shifting positions. The size, in this case length, of the bar encodes the discrete data of how many refugees have crossed into the country. In fig. \ref{fig:marks-area} areas are used as marks. Just like in the previous example the hue encodes the country and the size encodes the refugee count. 
+With the frequency of diagrams in use every day, some diagrams are, intentionally or not, inaccurately representing information. Due to the huge potential diagrams offer for the perception of data, this should be carefully considered. Edward Tufte introduced the lie factor for evaluating how accurately data is shown \cite{tufte}. It is defined as the effect size in the diagram over the effect size in the data. Most sources of skewed representations of data can be prevented by using zero baselines, equidistant axes, accurate scaling when using areas and value adjustments for monetary values to contradict inflation influences.
 
-\begin{figure}[ht]
+Yet the selection of which diagram should be used to visualize which data set is not trivial. Mostly there are several possible diagram choices for any given data. Furthermore there are a plethora of diagrams already in use and anyone can create totally new diagrams to suit their needs. Yet the vast majority of use cases can be accomplished by one of the more commonly known diagram types, like bar and column charts, pie and donut charts and line charts \cite{lankow2012infographics}. Due to their popularity, tools like Excel provide support for these diagrams out-of-the-box \cite{office_chart_types}. More specialized diagrams might use combinations or variations of other diagram types. Other diagrams are specifically created for only a visualization.
+
+
+\subsection{Marks and Channels}
+Whilst there are countless types of diagrams, most diagrams use a combination of marks and channels to present data. Marks are used for entries in the diagram. The three possible marks are points, lines and areas. Channels describe the way specific marks encode data. While there is no definitive list of channels, the most commonly used channels are position, size, color and texture. The position in 2D can be split into the x and y positions. The color can be split into hue and luminescence. Each mark should use at least one channel to encode data. Otherwise it does not convey any information. For example in fig. \ref{fig:bar-chart} lines are being used as marks for each of the seven entries. It might seem like areas are used. Yet the thickness of the line, and therefore the bar, only serves visual understanding and holds no relevant information. The lines use three channels to encode data. The y-position is used to represent the categorical data of which country. The hue of the bar encodes the same data. This is a bit redundant, as the country is already encoded. Yet the hue makes it easy to follow along when data is changing and bars are shifting positions. The size, in this case length, of the bar encodes the discrete data of how many refugees have crossed into the country. In fig. \ref{fig:marks-area} areas are used as marks. Just like in the previous example the hue encodes the country and the size encodes the refugee count. 
+
+\begin{figure}[ht!]
     \includegraphics[width=\linewidth]{marks-bar-chart.png}
     \captionsetup{width=0.9\textwidth}
     \caption[bar-chart]{This bar chart uses lines as marks. Each bar is a single line mark. The first line mark is highlighted in cyan. The thickness has no relevance other than making the line visible. Each mark uses three channels to encode data. They are highlighted in red. The y-position and the hue are used to encode the country. The size of the line, aka the length, corresponds to the number of refugees.}
     \label{fig:bar-chart}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}[ht!]
     \includegraphics[width=\linewidth]{marks-area.png}
     \captionsetup{width=0.9\textwidth}
     \caption[marks-area]{This tree map uses areas as marks. A representative mark has been highlighted in cyan. The areas use the size and hue channels to encode data. The size corresponds to the number of refugees, while the hue corresponds to the country.}
@@ -76,14 +85,12 @@ Whilst there are countless types of diagrams, all diagrams use a combination of 
 
 All marks can be used with all channels. But not all data types should be represented by all channels. For example nominal data should not be encoded using the size channel. The different sizes would lead to a perceived order, which does not exist in nominal data. As the channels all differ in their appearance they are also not equally good in adequately representing the data types. Therefore it is important to consider which channels are chosen to represent the given data types. According to a study by Jock Mackinlay from 1986, the position channels can always be considered the strongest channels, no matter which marks are combined with them \cite{mackinlay1986automating}. Therefore the selection of marks and channels should be considered carefully. If chosen poorly it can lead to undermine the purpose of the diagram of easily presenting data to a viewer.
 
-Another factor which plays a role here, is the data-ink ratio described by Edward Tufte \cite{tufte}. It describes the ratio of ink necessary for representing data over the total ink necessary for the diagram. The idea is to draw only what is necessary for showing the data, as this is the main purpose of a diagram. Whilst a lot of diagrams are digital nowadays and therefore do not require ink, diagrams should still try to get as close as possible to a data-ink ratio of one. The lower the data-ink ratio drops, the harder it gets for a viewer to see and comprehend the relevant data.
+Another factor which plays a role here, is the data-ink ratio described by Tufte \cite{tufte}. It describes the ratio of ink necessary for representing data over the total ink necessary for the diagram. The idea is to draw only what is necessary for showing the data, as this is the main purpose of a diagram. Whilst a lot of diagrams are digital nowadays and therefore do not require ink, diagrams should still try to get as close as possible to a data-ink ratio of one. The lower the data-ink ratio drops, the harder it gets for a viewer to see and comprehend the relevant data.
 
 As some viewers might not be able to perceive the whole range of colors, choosing a color scale should also be carefully considered. Besides using colors which retain a high contrast even with color blindness, they should also be perceptually uniform. This means having similar hues for values close together, and more distinctively different hues for values further apart, but also having a consistent rate of change in the hue. This is especially important when trying to encode quantitative data using the hue channel.
 
-While data can already be skewed during collection and preprocessing, diagrams can also skew perception. Tufte introduced the lie factor for evaluating how accurately data is shown \cite{tuftevisual}. It is defined as the effect size in the diagram over the effect size in the data. Most sources of skewed representations of data can be prevented by using zero baselines, equidistant axes, accurate scaling when using areas and value adjustments for monetary values to contradict inflation influences.
 
-
-\section{D3.js}
+\section{D3.js}\label{sec:d3}
 %\textcolor{red}{
 %This is all about d3. What is it? Where does it come from? What is it used for? Who uses it? Why should it be used? How does it work? Enter, update and exit pattern. Something about the modular structure of D3 as well. Might be worth mentioning "observables" as well.}
 

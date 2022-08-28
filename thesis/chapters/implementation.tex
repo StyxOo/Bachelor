@@ -3,25 +3,34 @@
 
 %How are the chosen diagrams implemented? Which D3 modules have been used? How was the implementation done?}
 
-In the following sections the process of creating the diagrams and the showcase are described. There are several parts to this process. At first the data sets to be represented are selected. In most real world usages, this is already given when having to create data visualizations. Afterwards, section \ref{sec:diagram-selection}lists not only the implemented diagrams, but also why they have been selected. In section \ref{sec:data-acquisition} and following, their implementation and usage of D3 is described. Finally, in section \ref{sec:showcase}, the showcase, as well as how data updates are realized, are described.
+In the following sections the process of creating the diagrams and the showcase are described. Understanding the implementations of the diagrams is important to be able to evaluate the possibilities, as well as the advantages and disadvantages of working with D3.
+There are several parts to the process of creating the diagrams and the showcase. At first the data sets to be represented are selected. In most real world usages, this is already given when having to create data visualizations. Afterwards, section \ref{sec:diagram-selection}lists not only the implemented diagrams, but also why they have been selected. In section \ref{sec:data-acquisition} and following, their implementation and usage of D3 is described. Finally, in section \ref{sec:showcase}, the showcase, as well as how data updates are realized, are described.
 
-The implementation uses the currently latest version of D3, version 7.6.1. The JavaScript code uses exclusively arrow functions which have been introduced in ECMAScript6, the specification which JavaScript is build upon\cite{ecmascript}. The implementation has been tested using the following operating systems, browsers and versions:
+The implementation uses the currently latest version of D3, version 7.6.1. The JavaScript code uses exclusively arrow functions which have been introduced in ECMAScript6, the specification which JavaScript is build upon\cite{ecmascript}. The implementations live version at "\url{https://styxoo.github.io/}" has been successfully tested using the following operating systems, browsers and versions:
 \begin{enumerate}
     \item Windows 10:
     \begin{enumerate}
-        \item Opera - version xxxxx
+        \item Opera - version 90.0.4480.54
+        \item Microsoft Edge - version 104.0.1293.70
     \end{enumerate}
     \item Pop!\_OS 22.04 LTS:
     \begin{enumerate}
-        \item Firefox - version 103.0 (64-bit)
+        \item Firefox - version 103.0
+        \item Chromium - version 104.0.5112.101
+    \end{enumerate}
+    \item MacOS 12.4:
+    \begin{enumerate}
+        \item Safari - version 15.5
     \end{enumerate}
 \end{enumerate}
 
 Besides the usual code comments, all the code files created for this thesis are commented to highlight and show the working and functionality of D3 and how it is used. As not every section of code is described in this chapter, the comments provide additional help to readers trying to understand the implementations of the diagrams. Furthermore it helps developers interested in adapting the diagrams implementations for their own use.
 
-\section{Data sets}
+\section{Data sets}\label{sec:data-sets}
 %\textcolor{red}{
 %What are our datasets about? Where do they come from?}
+This section introduces the data sets used in the creation of the diagrams of this thesis. Not only does this section provide an explanation why the specific data sets have been chosen, but also explains preprocessing goals and how it was achieved.
+
 As different data-types allow for different representations and require varying parts of D3, the data used in this thesis has been specifically chosen to contain both types of categorical as well as numeric data. As there are no differences in the implementation of discrete and continuous data, only discrete data is used.
 
 All data used for the creation of the diagrams in this thesis originates from the UNHCR Ukraine refugee situation page \cite{unhcr}. "UNHCR stands for United Nations High Commissioner for Refugees, also known as the UN Refugee Agency. It was created in 1950 to help millions of Europeans who had fled or lost their homes during the Second World War. Today, UNHCR protects and assists millions of displaced and stateless people around the world."\cite{unhcr_what}
@@ -80,7 +89,7 @@ Together both resulting data sets contain most of the data types. The number of 
 %\textcolor{red}{
 %describe all the diagrams and why they are special and what makes them tick. Why have they been chosen?}
 
-The following sub-sections are about selecting and implementing each diagram. As there are countless ways to show the selected data sets, a selection of diagrams was made first.
+The following sub-sections are about selecting and implementing each diagram. As there are countless ways to show the selected data sets, a selection of diagrams was made first. Afterwards the implementations common features are explained, before providing more details of the specific implementations of ech diagram.
 
 \subsection{Diagram selection} \label{sec:diagram-selection}
 Two major aspects are taken into the account for selecting the diagrams. Primarily, they should all require different functionalities of the D3 library. This ensures that this thesis actually tests the broad possibilities of D3. To achieve this, four diagrams have been chosen to show the refugees per country data set. A bar chart, a donut chart, a tree map and a Sankey diagram. For the data set showing the total amount of refugees over time, a circle graph and an area graph have been chosen.
@@ -133,6 +142,9 @@ const yAxisParentGroup = diagramGroup.append('g')
 const contentParentGroup = diagramGroup.append('g')
     .attr('id', 'content')
 \end{lstlisting}
+\end{minipage}
+
+\begin{minipage}{0.9\linewidth}
 \begin{lstlisting}[style=htmlCSSjs, captionpos=b, caption={The HTML structure which results from the JavaScript code in listing \ref{lst:hierarchy_creation}. The resulting tree structure clearly separates the different aspects of the diagram. Using a hierarchical approach makes not only later selections easier, but also increases human readability and simplifies debugging.}, label={lst:hierarchy_result}]
 <SVG>
     <g transform=translate(118,20)>
@@ -336,4 +348,4 @@ The showcase loads each of the diagrams into a separate \texttt{iframe} tag with
 
 Each section of the showcase has a table which allows for data manipulation. These tables are hidden when the showcase is loaded. They can be shown by ticking the appropriate 'Show Data' checkbox. Rows of data can be modified, added or removed here. The data changes here are not persistent and are therefore not saved in the original data files. While the correctness of the initial data is not guaranteed, arbitrarily changing the data entries obviously falsifies the shown data. Changes in the data are registered by the respective data service when a data update is triggered. Data updates are triggered automatically as soon as any data is changed or rows are added or removed while the 'Auto Update' checkbox is ticked. This is the default case. If one wants to change more data points before a update is triggered, the auto update option can be deselected and the manual 'Update Data' button used instead. When a update is triggered, the data service then creates a new data set from the data in the table and passes it along to the applicable diagrams when calling their render function to update.
 
-For this thesis it is important to be able to modify the data, as one of the core features of D3 tested in this thesis is reacting to changes in data. This manual style of modifying data is probably not so common in real world applications. Yet it is easy to replace these manual data changes to regular API calls or other automatically updating data sources. As the source of the data changes does not matter for the functionality of D3, the manual approach chosen here is sufficient in demonstrating the possibilities of D3.
+For this thesis it is important to be able to modify the data, as one of the core features of D3 tested in this thesis is reacting to changes in data. This manual style of modifying data is probably not so common in real world applications. Yet it is easy to replace these manual data changes to regular API calls or other automatically updating data sources. As the source of the data changes does not matter for the functionality of D3, the manual approach chosen here is sufficient in demonstrating the possibilities of D3 in reacting to changing data.
