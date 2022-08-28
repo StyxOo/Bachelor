@@ -83,7 +83,7 @@ const render = (data, time01 = 0) => {
      */
     // The time scale is used to convert between the time value of [0, 1], to the actual date.
     const timeScale = d3.scaleQuantize()
-        .domain([0, 1])  // Original range of values
+        .domain([0, 1])
         .range(data.map(d => d.date));
 
     // The radius scale provides the appropriate radius for a given number of refugees.
