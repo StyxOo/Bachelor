@@ -1,6 +1,6 @@
 /**
  * This script was created as part of a bachelor thesis.
- * The results can be found here: https://github.com/StyxOo/styxoo.github.io
+ * For more information, visit: https://github.com/StyxOo/styxoo.github.io
  * Author: Luis Rothenhäusler
  * Last edit: 25th August 2022
  *
